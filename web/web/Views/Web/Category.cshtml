@@ -1,10 +1,10 @@
-﻿@model web.Models.TopLevelCategoryViewModel
+﻿@model web.Models.CategoryViewModel
 <div>
     <div class="main-feature">
         <h2>@Model.FeaturedItem.Name</h2>
-        <img src="@Model.FeaturedItem.Image" alt="@Model.FeaturedItem.Name" />
-        <div>@Html.Raw(Model.FeaturedItem.Description)</div>
-        <a class="download" href="/item/@Model.FeaturedItem.Id.ToString()">Download</a>
+        <img src="@Model.FeaturedItem.ImageUrl" alt="@Model.FeaturedItem.Name" />
+        <div>@Html.Raw(Model.FeaturedItem.DescriptionHtml)</div>
+        <a class="download" href="@Model.FeaturedItem.DetailedUrl">Download</a>
     </div>
     <div class="category-list">
         <h2>Categories</h2>

@@ -5,20 +5,31 @@ using System.Web;
 using System.Web.Mvc;
 using MarkdownSharp;
 using web.Models;
+using web.Service.Model;
+using System.Data.Entity;
 
 namespace web.Controllers
 {
     public class WebController : Controller
     {
-        public ActionResult Maps()
+        public ActionResult Category(string name)
         {
-            Markdown md = new Markdown();
-            var viewModel = new TopLevelCategoryViewModel();
-            viewModel.FeaturedItem = new FeaturedItemViewModel();
-            viewModel.FeaturedItem.Name = "Team Fortress 2: 2fort";
-            viewModel.FeaturedItem.Id = new Guid("55043B53-0E60-4394-9821-E33D3D4AC4B9");
-            viewModel.FeaturedItem.Description = md.Transform("SethBling and Hypixel's latest multiplayer collaboration.\n\n[YouTube](http://youtu.be/NmlqBKGfQ9I)");
-            viewModel.FeaturedItem.Image = "/Data/Maps/Images/testFeature.png";
+            var viewModel = new CategoryViewModel();
+            using (var database = new DataEntities())
+            {
+                var category = (from c in database.Categories
+                                where c.Name.ToLower() == name.ToLower()
+                                select c).FirstOrDefault();
+                if (category == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                viewModel.Name = category.Name;
+                viewModel.FeaturedItem = new ItemViewModel((from i in database.Items
+                                          where i.Id == category.Featured
+                                          select i).FirstOrDefault());
+            }
             return View(viewModel);
         }
     }

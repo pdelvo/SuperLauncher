@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using web.Service.Model;
 
 namespace web
 {
@@ -24,14 +25,14 @@ namespace web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Maps", // Route name
-                "maps", // URL with parameters
-                new { controller = "Web", action = "Maps" }
+                "Categories", // Route name
+                "category/{*name}", // URL with parameters
+                new { controller = "Web", action = "Category" }
             );
 
             routes.MapRoute(
                 "Item", // Route name
-                "item/{id}", // URL with parameters
+                "{action}/{id}", // URL with parameters
                 new { controller = "Item", action = "Index" }
             );
         }
@@ -40,11 +41,61 @@ namespace web
         {
             AreaRegistration.RegisterAllAreas();
 
-            // Use LocalDB for Entity Framework by default
-            Database.DefaultConnectionFactory = new SqlConnectionFactory(@"Data Source=(localdb)\v11.0; Integrated Security=True; MultipleActiveResultSets=True");
+            UpdateDatabase();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+        }
+
+        private void UpdateDatabase()
+        {
+            // Builds out default categories if missing
+            using (var database = new DataEntities())
+            {
+                Category maps;
+                if (!database.Categories.Any())
+                {
+                    maps = new Category
+                    {
+                        Name = "Maps"
+                    };
+                    database.Categories.AddObject(maps);
+                    database.Categories.AddObject(new Category
+                    {
+                        Name = "Servers"
+                    });
+                    database.Categories.AddObject(new Category
+                    {
+                        Name = "Texture Packs"
+                    });
+                    database.Categories.AddObject(new Category
+                    {
+                        Name = "Mods"
+                    });
+                    database.Categories.AddObject(new Category
+                    {
+                        Name = "Skins"
+                    });
+                }
+                else
+                    maps = database.Categories.FirstOrDefault(c => c.Name == "Maps");
+#if DEBUG
+                // Add some test items
+                if (!maps.Items.Any())
+                {
+                    maps.Items.Add(new Item
+                    {
+                        Name = "Team Fortress 2: 2fort",
+                        Description =
+                            "SethBling and Hypixel's latest multiplayer collaboration.\n\n[YouTube](http://youtu.be/NmlqBKGfQ9I)",
+                        ImageUrl = "/Data/Maps/Images/testFeature.png",
+                        Type = "map:multiplayer"
+                    });
+                    maps.Featured = maps.Items.FirstOrDefault().Id;
+                }
+#endif
+                database.SaveChanges();
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace SuperLauncher
             InitializeComponent();
             // Set up browsers
             newsWebBrowser.Navigate("http://mcupdate.tumblr.com");
-            mapsWebBrowser.Navigate("http://www.slreposervice.com/maps");
+            mapsWebBrowser.Navigate("http://www.slreposervice.com/category/maps");
             mapsWebBrowser.Navigating += repoWebBrowser_Navigating;
             UpdateVersion = false;
             // Populate username/password
@@ -56,7 +56,8 @@ namespace SuperLauncher
             }
             else if (e.Url.Scheme == "install")
             {
-                
+                var installer = new PackageInstaller(int.Parse(e.Url.Host));
+                installer.ShowDialog();
             }
         }
 

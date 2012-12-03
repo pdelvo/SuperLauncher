@@ -5,35 +5,63 @@ using System.Web;
 using System.Web.Mvc;
 using MarkdownSharp;
 using web.Models;
+using web.Service.Model;
 
 namespace web.Controllers
 {
     public class ItemController : Controller
     {
-        //
-        // GET: /Item/id
-        public ActionResult Index(Guid id)
+        public ActionResult Item(int id)
         {
-            var md = new Markdown();
-            var viewModel = new ItemDetailsViewModel();
-            viewModel.ItemName = "Team Fortress 2: 2fort";
-            viewModel.Id = new Guid("55043B53-0E60-4394-9821-E33D3D4AC4B9");
-            viewModel.Description = md.Transform("SethBling and Hypixel's latest multiplayer collaboration.\n\n[YouTube](http://youtu.be/NmlqBKGfQ9I)");
-            viewModel.Image = "/Data/Maps/Images/testFeature.png";
+            ItemViewModel viewModel;
+            using (var database = new DataEntities())
+            {
+                var items = from i in database.Items
+                           where i.Id == id
+                           select i;
+                if (!items.Any())
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                viewModel = new ItemViewModel(items.First());
+            }
             return View(viewModel);
         }
 
-        public JsonResult Details(Guid id)
+        public JsonResult Details(int id)
         {
-            var md = new Markdown();
-            return Json(new
+            var downloads = new DownloadCollection();
+            using (var database = new DataEntities())
             {
-                id = id,
-                name = "Team Fortress 2: 2fort",
-                description = md.Transform("SethBling and Hypixel's latest multiplayer collaboration.\n\n[YouTube](http://youtu.be/NmlqBKGfQ9I)"),
-                download = "/data/maps/download/" + id.ToString() + ".zip",
-                type = "map"
-            });
+                var items = from i in database.Items
+                            where i.Id == id
+                            select i;
+                if (!items.Any())
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                var root = items.First();
+                downloads.PrimaryItem = new ItemViewModel(root);
+                AddDependencies(downloads, root);
+            }
+            return Json(downloads, JsonRequestBehavior.AllowGet);
+        }
+
+        private void AddDependencies(DownloadCollection collection, Item item)
+        {
+            collection.Items.Add(new ItemViewModel(item));
+            foreach (var blob in item.Blobs)
+            {
+                collection.Downloads.Add(new Download
+                {
+                    DestinationPath = blob.DestinationPath,
+                    DownloadUrl = blob.DownloadUrl
+                });
+            }
+            foreach (var dependency in item.Dependencies)
+                AddDependencies(collection, dependency.Item);
         }
     }
 }
