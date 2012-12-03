@@ -1,0 +1,18 @@
+﻿@model web.Models.TopLevelCategoryViewModel
+<div>
+    <div class="main-feature">
+        <h2>@Model.FeaturedItem.Name</h2>
+        <img src="@Model.FeaturedItem.Image" alt="@Model.FeaturedItem.Name" />
+        <div>@Html.Raw(Model.FeaturedItem.Description)</div>
+        <a class="download" href="/item/@Model.FeaturedItem.Id.ToString()">Download</a>
+    </div>
+    <div class="category-list">
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="#">Cool Builds</a></li>
+            <li><a href="#">Challenge Maps</a></li>
+            <li><a href="#">Redstone</a></li>
+            <li><a href="#">Multiplayer</a></li>
+        </ul>
+    </div>
+</div>

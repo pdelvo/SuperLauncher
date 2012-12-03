@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
             this.logInGroupBox = new System.Windows.Forms.GroupBox();
+            this.downloadingProgressBar = new System.Windows.Forms.ProgressBar();
+            this.downloadingLabel = new System.Windows.Forms.Label();
+            this.rememberPasswordCheckBox = new System.Windows.Forms.CheckBox();
+            this.jarSelectorDropDown = new System.Windows.Forms.ComboBox();
             this.loginFailedLabel = new System.Windows.Forms.Label();
             this.logInButton = new System.Windows.Forms.Button();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
@@ -40,24 +44,24 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.newsWebBrowser = new System.Windows.Forms.WebBrowser();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.jarSelectorDropDown = new System.Windows.Forms.ComboBox();
-            this.rememberPasswordCheckBox = new System.Windows.Forms.CheckBox();
-            this.downloadingLabel = new System.Windows.Forms.Label();
-            this.downloadingProgressBar = new System.Windows.Forms.ProgressBar();
+            this.newsTab = new System.Windows.Forms.TabPage();
+            this.newsWebBrowser = new WebKit.WebKitBrowser();
+            this.mapsTab = new System.Windows.Forms.TabPage();
+            this.mapsWebBrowser = new WebKit.WebKitBrowser();
+            this.serversTab = new System.Windows.Forms.TabPage();
+            this.texturePacksTab = new System.Windows.Forms.TabPage();
+            this.modsTab = new System.Windows.Forms.TabPage();
+            this.skinsTab = new System.Windows.Forms.TabPage();
+            this.settingsTab = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.logInGroupBox.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.newsTab.SuspendLayout();
+            this.mapsTab.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // logInGroupBox
@@ -79,6 +83,44 @@
             this.logInGroupBox.TabIndex = 0;
             this.logInGroupBox.TabStop = false;
             this.logInGroupBox.Text = "Log In";
+            // 
+            // downloadingProgressBar
+            // 
+            this.downloadingProgressBar.Location = new System.Drawing.Point(177, 96);
+            this.downloadingProgressBar.Name = "downloadingProgressBar";
+            this.downloadingProgressBar.Size = new System.Drawing.Size(201, 23);
+            this.downloadingProgressBar.TabIndex = 7;
+            this.downloadingProgressBar.Visible = false;
+            // 
+            // downloadingLabel
+            // 
+            this.downloadingLabel.AutoSize = true;
+            this.downloadingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadingLabel.Location = new System.Drawing.Point(6, 100);
+            this.downloadingLabel.Name = "downloadingLabel";
+            this.downloadingLabel.Size = new System.Drawing.Size(86, 20);
+            this.downloadingLabel.TabIndex = 6;
+            this.downloadingLabel.Text = "Updating...";
+            this.downloadingLabel.Visible = false;
+            // 
+            // rememberPasswordCheckBox
+            // 
+            this.rememberPasswordCheckBox.AutoSize = true;
+            this.rememberPasswordCheckBox.Location = new System.Drawing.Point(6, 71);
+            this.rememberPasswordCheckBox.Name = "rememberPasswordCheckBox";
+            this.rememberPasswordCheckBox.Size = new System.Drawing.Size(126, 17);
+            this.rememberPasswordCheckBox.TabIndex = 5;
+            this.rememberPasswordCheckBox.Text = "Remember Password";
+            this.rememberPasswordCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // jarSelectorDropDown
+            // 
+            this.jarSelectorDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.jarSelectorDropDown.FormattingEnabled = true;
+            this.jarSelectorDropDown.Location = new System.Drawing.Point(177, 70);
+            this.jarSelectorDropDown.Name = "jarSelectorDropDown";
+            this.jarSelectorDropDown.Size = new System.Drawing.Size(201, 21);
+            this.jarSelectorDropDown.TabIndex = 4;
             // 
             // loginFailedLabel
             // 
@@ -124,8 +166,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.statusIcon);
-            this.panel1.Controls.Add(this.serviceStatusLabel);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.tabControl1);
@@ -139,7 +180,7 @@
             // 
             this.statusIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.statusIcon.Image = global::SuperLauncher.Properties.Resources.red;
-            this.statusIcon.Location = new System.Drawing.Point(3, 460);
+            this.statusIcon.Location = new System.Drawing.Point(3, 5);
             this.statusIcon.Name = "statusIcon";
             this.statusIcon.Size = new System.Drawing.Size(16, 17);
             this.statusIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -151,7 +192,7 @@
             this.serviceStatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.serviceStatusLabel.AutoSize = true;
             this.serviceStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serviceStatusLabel.Location = new System.Drawing.Point(16, 458);
+            this.serviceStatusLabel.Location = new System.Drawing.Point(16, 3);
             this.serviceStatusLabel.Name = "serviceStatusLabel";
             this.serviceStatusLabel.Size = new System.Drawing.Size(148, 20);
             this.serviceStatusLabel.TabIndex = 6;
@@ -184,144 +225,129 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.newsTab);
+            this.tabControl1.Controls.Add(this.mapsTab);
+            this.tabControl1.Controls.Add(this.serversTab);
+            this.tabControl1.Controls.Add(this.texturePacksTab);
+            this.tabControl1.Controls.Add(this.modsTab);
+            this.tabControl1.Controls.Add(this.skinsTab);
+            this.tabControl1.Controls.Add(this.settingsTab);
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(826, 342);
             this.tabControl1.TabIndex = 3;
             // 
-            // tabPage1
+            // newsTab
             // 
-            this.tabPage1.Controls.Add(this.newsWebBrowser);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(818, 316);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Minecraft News";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.newsTab.Controls.Add(this.newsWebBrowser);
+            this.newsTab.Location = new System.Drawing.Point(4, 22);
+            this.newsTab.Name = "newsTab";
+            this.newsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.newsTab.Size = new System.Drawing.Size(818, 316);
+            this.newsTab.TabIndex = 0;
+            this.newsTab.Text = "Minecraft News";
+            this.newsTab.UseVisualStyleBackColor = true;
             // 
             // newsWebBrowser
             // 
+            this.newsWebBrowser.AllowNewWindows = false;
+            this.newsWebBrowser.BackColor = System.Drawing.Color.White;
             this.newsWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.newsWebBrowser.IsWebBrowserContextMenuEnabled = false;
             this.newsWebBrowser.Location = new System.Drawing.Point(3, 3);
-            this.newsWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.newsWebBrowser.Name = "newsWebBrowser";
-            this.newsWebBrowser.ScriptErrorsSuppressed = true;
             this.newsWebBrowser.Size = new System.Drawing.Size(812, 310);
             this.newsWebBrowser.TabIndex = 0;
-            this.newsWebBrowser.WebBrowserShortcutsEnabled = false;
+            this.newsWebBrowser.Url = null;
             // 
-            // tabPage2
+            // mapsTab
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(746, 293);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Maps";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.mapsTab.Controls.Add(this.mapsWebBrowser);
+            this.mapsTab.Location = new System.Drawing.Point(4, 22);
+            this.mapsTab.Name = "mapsTab";
+            this.mapsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.mapsTab.Size = new System.Drawing.Size(818, 316);
+            this.mapsTab.TabIndex = 1;
+            this.mapsTab.Text = "Maps";
+            this.mapsTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // mapsWebBrowser
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(746, 293);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Servers";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.mapsWebBrowser.AllowDownloads = false;
+            this.mapsWebBrowser.AllowNewWindows = false;
+            this.mapsWebBrowser.BackColor = System.Drawing.Color.White;
+            this.mapsWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapsWebBrowser.Location = new System.Drawing.Point(3, 3);
+            this.mapsWebBrowser.Name = "mapsWebBrowser";
+            this.mapsWebBrowser.Size = new System.Drawing.Size(812, 310);
+            this.mapsWebBrowser.TabIndex = 0;
+            this.mapsWebBrowser.Url = null;
             // 
-            // tabPage4
+            // serversTab
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(746, 293);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Texture Packs";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.serversTab.Location = new System.Drawing.Point(4, 22);
+            this.serversTab.Name = "serversTab";
+            this.serversTab.Size = new System.Drawing.Size(818, 316);
+            this.serversTab.TabIndex = 2;
+            this.serversTab.Text = "Servers";
+            this.serversTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // texturePacksTab
             // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(746, 293);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Mods";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.texturePacksTab.Location = new System.Drawing.Point(4, 22);
+            this.texturePacksTab.Name = "texturePacksTab";
+            this.texturePacksTab.Size = new System.Drawing.Size(818, 316);
+            this.texturePacksTab.TabIndex = 3;
+            this.texturePacksTab.Text = "Texture Packs";
+            this.texturePacksTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage6
+            // modsTab
             // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(746, 293);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Settings";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.modsTab.Location = new System.Drawing.Point(4, 22);
+            this.modsTab.Name = "modsTab";
+            this.modsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.modsTab.Size = new System.Drawing.Size(818, 316);
+            this.modsTab.TabIndex = 4;
+            this.modsTab.Text = "Mods";
+            this.modsTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage7
+            // skinsTab
             // 
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(746, 293);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Skins";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.skinsTab.Location = new System.Drawing.Point(4, 22);
+            this.skinsTab.Name = "skinsTab";
+            this.skinsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.skinsTab.Size = new System.Drawing.Size(818, 316);
+            this.skinsTab.TabIndex = 6;
+            this.skinsTab.Text = "Skins";
+            this.skinsTab.UseVisualStyleBackColor = true;
             // 
-            // jarSelectorDropDown
+            // settingsTab
             // 
-            this.jarSelectorDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.jarSelectorDropDown.FormattingEnabled = true;
-            this.jarSelectorDropDown.Location = new System.Drawing.Point(177, 70);
-            this.jarSelectorDropDown.Name = "jarSelectorDropDown";
-            this.jarSelectorDropDown.Size = new System.Drawing.Size(201, 21);
-            this.jarSelectorDropDown.TabIndex = 4;
+            this.settingsTab.Location = new System.Drawing.Point(4, 22);
+            this.settingsTab.Name = "settingsTab";
+            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.settingsTab.Size = new System.Drawing.Size(818, 316);
+            this.settingsTab.TabIndex = 5;
+            this.settingsTab.Text = "Settings";
+            this.settingsTab.UseVisualStyleBackColor = true;
             // 
-            // rememberPasswordCheckBox
+            // panel2
             // 
-            this.rememberPasswordCheckBox.AutoSize = true;
-            this.rememberPasswordCheckBox.Location = new System.Drawing.Point(6, 71);
-            this.rememberPasswordCheckBox.Name = "rememberPasswordCheckBox";
-            this.rememberPasswordCheckBox.Size = new System.Drawing.Size(126, 17);
-            this.rememberPasswordCheckBox.TabIndex = 5;
-            this.rememberPasswordCheckBox.Text = "Remember Password";
-            this.rememberPasswordCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // downloadingLabel
-            // 
-            this.downloadingLabel.AutoSize = true;
-            this.downloadingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadingLabel.Location = new System.Drawing.Point(6, 100);
-            this.downloadingLabel.Name = "downloadingLabel";
-            this.downloadingLabel.Size = new System.Drawing.Size(86, 20);
-            this.downloadingLabel.TabIndex = 6;
-            this.downloadingLabel.Text = "Updating...";
-            this.downloadingLabel.Visible = false;
-            // 
-            // downloadingProgressBar
-            // 
-            this.downloadingProgressBar.Location = new System.Drawing.Point(177, 96);
-            this.downloadingProgressBar.Name = "downloadingProgressBar";
-            this.downloadingProgressBar.Size = new System.Drawing.Size(201, 23);
-            this.downloadingProgressBar.TabIndex = 7;
-            this.downloadingProgressBar.Visible = false;
+            this.panel2.BackgroundImage = global::SuperLauncher.Properties.Resources.snow;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.statusIcon);
+            this.panel2.Controls.Add(this.serviceStatusLabel);
+            this.panel2.Location = new System.Drawing.Point(7, 447);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(431, 30);
+            this.panel2.TabIndex = 8;
             // 
             // Launcher
             // 
             this.AcceptButton = this.logInButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SuperLauncher.Properties.Resources.snow;
             this.ClientSize = new System.Drawing.Size(856, 504);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
@@ -336,7 +362,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.statusIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.newsTab.ResumeLayout(false);
+            this.mapsTab.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -350,22 +379,24 @@
         private System.Windows.Forms.Label loginFailedLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.WebBrowser newsWebBrowser;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage newsTab;
+        private System.Windows.Forms.TabPage mapsTab;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabPage serversTab;
+        private System.Windows.Forms.TabPage texturePacksTab;
+        private System.Windows.Forms.TabPage modsTab;
+        private System.Windows.Forms.TabPage settingsTab;
         private System.Windows.Forms.Label serviceStatusLabel;
         private System.Windows.Forms.PictureBox statusIcon;
-        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage skinsTab;
         private System.Windows.Forms.CheckBox rememberPasswordCheckBox;
         private System.Windows.Forms.ComboBox jarSelectorDropDown;
         private System.Windows.Forms.Label downloadingLabel;
         private System.Windows.Forms.ProgressBar downloadingProgressBar;
+        private WebKit.WebKitBrowser mapsWebBrowser;
+        private WebKit.WebKitBrowser newsWebBrowser;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

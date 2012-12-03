@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
@@ -25,7 +26,12 @@ namespace SuperLauncher
 
         public Launcher()
         {
+            CheckStructure();
             InitializeComponent();
+            // Set up browsers
+            newsWebBrowser.Navigate("http://mcupdate.tumblr.com");
+            mapsWebBrowser.Navigate("http://www.slreposervice.com/maps");
+            mapsWebBrowser.Navigating += repoWebBrowser_Navigating;
             UpdateVersion = false;
             // Populate username/password
             var login = Minecraft.GetLastLogin();
@@ -35,11 +41,19 @@ namespace SuperLauncher
                 passwordTextBox.Text = login.Password;
                 rememberPasswordCheckBox.Checked = true;
             }
-            newsWebBrowser.Navigate("http://mcupdate.tumblr.com");
             WebClient client = new WebClient();
             client.OpenReadCompleted += client_OpenReadCompleted;
             client.OpenReadAsync(new Uri("http://status.mojang.com/check"));
             GetJars();
+        }
+
+        void repoWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            if (e.Url.Scheme == "external")
+            {
+                Process.Start("http://" + e.Url.Host + e.Url.PathAndQuery);
+                e.Cancel = true;
+            }
         }
 
         private class MinecraftJar
@@ -71,7 +85,10 @@ namespace SuperLauncher
                 var jars = Directory.GetFiles(Path.Combine(Minecraft.DotMinecraft, "bin"), "minecraft*.jar")
                     .OrderByDescending(f => File.GetCreationTime(f));
                 if (jars.Count() == 0)
+                {
                     DoInitialUpdate();
+                    return;
+                }
                 jarSelectorDropDown.Items.Clear();
                 foreach (var item in jars)
                     jarSelectorDropDown.Items.Add(new MinecraftJar(item));
@@ -87,7 +104,7 @@ namespace SuperLauncher
             new Thread(DownloadMinecraft).Start();
         }
 
-        private void DownloadMinecraft()
+        private void CheckStructure()
         {
             Directory.CreateDirectory(Path.Combine(Minecraft.DotMinecraft, "bin", "natives"));
             Directory.CreateDirectory(Path.Combine(Minecraft.DotMinecraft, "resources"));
@@ -96,6 +113,11 @@ namespace SuperLauncher
             Directory.CreateDirectory(Path.Combine(Minecraft.DotMinecraft, "stats"));
             Directory.CreateDirectory(Path.Combine(Minecraft.DotMinecraft, "mods"));
             Directory.CreateDirectory(Path.Combine(Minecraft.DotMinecraft, "server"));
+            Directory.CreateDirectory(Path.Combine(Minecraft.DotMinecraft, "repository"));
+        }
+
+        private void DownloadMinecraft()
+        {
             var downloads = Minecraft.GetDownloadLinks();
             WebClient client = new WebClient();
             SetProgressBoundsAsync(0, downloads.Count);

@@ -104,7 +104,8 @@ namespace SuperLauncher
                     new FileDownload(new Uri(DownloadUrl + "lwjgl.jar"), "bin/lwjgl.jar"),
                     new FileDownload(new Uri(DownloadUrl + "jinput.jar"), "bin/jinput.jar"),
                     new FileDownload(new Uri(DownloadUrl + "lwjgl_util.jar"), "bin/lwjgl_util.jar"),
-                    new FileDownload(new Uri(DownloadUrl + "minecraft.jar"), "bin/minecraft.jar")
+                    new FileDownload(new Uri(DownloadUrl + "minecraft.jar"), "bin/minecraft.jar"),
+                    new FileDownload(new Uri("https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar"), "server/minecraft_server.jar")
                 });
             string natives = GetNativeArchiveFile();
             files.Add(new FileDownload(new Uri(DownloadUrl + natives), "bin/" + natives));

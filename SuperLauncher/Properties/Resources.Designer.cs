@@ -63,6 +63,16 @@ namespace SuperLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap birchwood {
+            get {
+                object obj = ResourceManager.GetObject("birchwood", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap commandBlock {
             get {
                 object obj = ResourceManager.GetObject("commandBlock", resourceCulture);
