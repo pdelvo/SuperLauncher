@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using SuperLauncher.Packages;
+using System.Diagnostics;
 
 namespace SuperLauncher
 {
@@ -18,7 +19,15 @@ namespace SuperLauncher
         public PackageInstaller(int package)
         {
             InitializeComponent();
+            webKitBrowser.Navigating += new WebBrowserNavigatingEventHandler(webKitBrowser_Navigating);
             new Thread(() => UpdatePackageAsync(Repository.GetPackageInstall(package))).Start();
+        }
+
+        void webKitBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            e.Cancel = true;
+            if (e.Url.Scheme == "http" && e.Url.Host != "www.slreposervice.com")
+                Process.Start(e.Url.ToString());
         }
 
         private void UpdatePackageAsync(PackageInstall package)

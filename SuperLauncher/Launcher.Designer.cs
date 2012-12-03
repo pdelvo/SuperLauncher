@@ -39,6 +39,7 @@
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.statusIcon = new System.Windows.Forms.PictureBox();
             this.serviceStatusLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,15 +54,22 @@
             this.modsTab = new System.Windows.Forms.TabPage();
             this.skinsTab = new System.Windows.Forms.TabPage();
             this.settingsTab = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.serverWebBrowser = new WebKit.WebKitBrowser();
+            this.texturePackWebBrowser = new WebKit.WebKitBrowser();
+            this.modWebBrowser = new WebKit.WebKitBrowser();
+            this.skinWebBrowser = new WebKit.WebKitBrowser();
             this.logInGroupBox.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.newsTab.SuspendLayout();
             this.mapsTab.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.serversTab.SuspendLayout();
+            this.texturePacksTab.SuspendLayout();
+            this.modsTab.SuspendLayout();
+            this.skinsTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // logInGroupBox
@@ -176,6 +184,17 @@
             this.panel1.Size = new System.Drawing.Size(832, 480);
             this.panel1.TabIndex = 1;
             // 
+            // panel2
+            // 
+            this.panel2.BackgroundImage = global::SuperLauncher.Properties.Resources.snow;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.statusIcon);
+            this.panel2.Controls.Add(this.serviceStatusLabel);
+            this.panel2.Location = new System.Drawing.Point(7, 447);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(431, 30);
+            this.panel2.TabIndex = 8;
+            // 
             // statusIcon
             // 
             this.statusIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -286,6 +305,7 @@
             // 
             // serversTab
             // 
+            this.serversTab.Controls.Add(this.serverWebBrowser);
             this.serversTab.Location = new System.Drawing.Point(4, 22);
             this.serversTab.Name = "serversTab";
             this.serversTab.Size = new System.Drawing.Size(818, 316);
@@ -295,6 +315,7 @@
             // 
             // texturePacksTab
             // 
+            this.texturePacksTab.Controls.Add(this.texturePackWebBrowser);
             this.texturePacksTab.Location = new System.Drawing.Point(4, 22);
             this.texturePacksTab.Name = "texturePacksTab";
             this.texturePacksTab.Size = new System.Drawing.Size(818, 316);
@@ -304,6 +325,7 @@
             // 
             // modsTab
             // 
+            this.modsTab.Controls.Add(this.modWebBrowser);
             this.modsTab.Location = new System.Drawing.Point(4, 22);
             this.modsTab.Name = "modsTab";
             this.modsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -314,6 +336,7 @@
             // 
             // skinsTab
             // 
+            this.skinsTab.Controls.Add(this.skinWebBrowser);
             this.skinsTab.Location = new System.Drawing.Point(4, 22);
             this.skinsTab.Name = "skinsTab";
             this.skinsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -332,16 +355,57 @@
             this.settingsTab.Text = "Settings";
             this.settingsTab.UseVisualStyleBackColor = true;
             // 
-            // panel2
+            // serverWebBrowser
             // 
-            this.panel2.BackgroundImage = global::SuperLauncher.Properties.Resources.snow;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.statusIcon);
-            this.panel2.Controls.Add(this.serviceStatusLabel);
-            this.panel2.Location = new System.Drawing.Point(7, 447);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(431, 30);
-            this.panel2.TabIndex = 8;
+            this.serverWebBrowser.AllowDownloads = false;
+            this.serverWebBrowser.AllowNewWindows = false;
+            this.serverWebBrowser.BackColor = System.Drawing.Color.White;
+            this.serverWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.serverWebBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.serverWebBrowser.Location = new System.Drawing.Point(0, 0);
+            this.serverWebBrowser.Name = "serverWebBrowser";
+            this.serverWebBrowser.Size = new System.Drawing.Size(818, 316);
+            this.serverWebBrowser.TabIndex = 0;
+            this.serverWebBrowser.Url = null;
+            // 
+            // texturePackWebBrowser
+            // 
+            this.texturePackWebBrowser.AllowDownloads = false;
+            this.texturePackWebBrowser.AllowNewWindows = false;
+            this.texturePackWebBrowser.BackColor = System.Drawing.Color.White;
+            this.texturePackWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.texturePackWebBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.texturePackWebBrowser.Location = new System.Drawing.Point(0, 0);
+            this.texturePackWebBrowser.Name = "texturePackWebBrowser";
+            this.texturePackWebBrowser.Size = new System.Drawing.Size(818, 316);
+            this.texturePackWebBrowser.TabIndex = 0;
+            this.texturePackWebBrowser.Url = null;
+            // 
+            // modWebBrowser
+            // 
+            this.modWebBrowser.AllowDownloads = false;
+            this.modWebBrowser.AllowNewWindows = false;
+            this.modWebBrowser.BackColor = System.Drawing.Color.White;
+            this.modWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modWebBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.modWebBrowser.Location = new System.Drawing.Point(3, 3);
+            this.modWebBrowser.Name = "modWebBrowser";
+            this.modWebBrowser.Size = new System.Drawing.Size(812, 310);
+            this.modWebBrowser.TabIndex = 0;
+            this.modWebBrowser.Url = null;
+            // 
+            // skinWebBrowser
+            // 
+            this.skinWebBrowser.AllowDownloads = false;
+            this.skinWebBrowser.AllowNewWindows = false;
+            this.skinWebBrowser.BackColor = System.Drawing.Color.White;
+            this.skinWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.skinWebBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.skinWebBrowser.Location = new System.Drawing.Point(3, 3);
+            this.skinWebBrowser.Name = "skinWebBrowser";
+            this.skinWebBrowser.Size = new System.Drawing.Size(812, 310);
+            this.skinWebBrowser.TabIndex = 0;
+            this.skinWebBrowser.Url = null;
             // 
             // Launcher
             // 
@@ -359,13 +423,17 @@
             this.logInGroupBox.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.newsTab.ResumeLayout(false);
             this.mapsTab.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.serversTab.ResumeLayout(false);
+            this.texturePacksTab.ResumeLayout(false);
+            this.modsTab.ResumeLayout(false);
+            this.skinsTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -397,6 +465,10 @@
         private WebKit.WebKitBrowser mapsWebBrowser;
         private WebKit.WebKitBrowser newsWebBrowser;
         private System.Windows.Forms.Panel panel2;
+        private WebKit.WebKitBrowser serverWebBrowser;
+        private WebKit.WebKitBrowser texturePackWebBrowser;
+        private WebKit.WebKitBrowser modWebBrowser;
+        private WebKit.WebKitBrowser skinWebBrowser;
     }
 }
 

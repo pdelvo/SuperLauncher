@@ -76,7 +76,10 @@
             // 
             // webKitBrowser
             // 
+            this.webKitBrowser.AllowNewWindows = false;
             this.webKitBrowser.BackColor = System.Drawing.Color.White;
+            this.webKitBrowser.IsScriptingEnabled = false;
+            this.webKitBrowser.IsWebBrowserContextMenuEnabled = false;
             this.webKitBrowser.Location = new System.Drawing.Point(12, 82);
             this.webKitBrowser.Name = "webKitBrowser";
             this.webKitBrowser.Size = new System.Drawing.Size(617, 81);
