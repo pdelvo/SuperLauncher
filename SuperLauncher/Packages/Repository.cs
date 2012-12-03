@@ -19,7 +19,12 @@ namespace SuperLauncher.Packages
 
         public static void InstallPackage(PackageInstall package)
         {
-            
+            var client = new WebClient();
+            foreach (var download in package.Downloads)
+            {
+                client.DownloadFile(download.DownloadUrl,
+                    Path.Combine(Minecraft.DotMinecraft, download.DestinationPath));
+            }
         }
     }
 }
