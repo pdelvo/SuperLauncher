@@ -49,7 +49,7 @@ namespace SuperLauncher
 
         void repoWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
-            if (e.Url.Host != "www.slreposervice.com")
+            if (e.Url.Scheme == "http" && e.Url.Host != "www.slreposervice.com")
             {
                 Process.Start(e.Url.ToString());
                 e.Cancel = true;
