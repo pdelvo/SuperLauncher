@@ -49,10 +49,14 @@ namespace SuperLauncher
 
         void repoWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
-            if (e.Url.Scheme == "external")
+            if (e.Url.Host != "www.slreposervice.com")
             {
-                Process.Start("http://" + e.Url.Host + e.Url.PathAndQuery);
+                Process.Start(e.Url.ToString());
                 e.Cancel = true;
+            }
+            else if (e.Url.Scheme == "install")
+            {
+                
             }
         }
 

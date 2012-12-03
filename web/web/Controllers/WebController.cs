@@ -16,8 +16,8 @@ namespace web.Controllers
             var viewModel = new TopLevelCategoryViewModel();
             viewModel.FeaturedItem = new FeaturedItemViewModel();
             viewModel.FeaturedItem.Name = "Team Fortress 2: 2fort";
-            viewModel.FeaturedItem.Id = Guid.NewGuid();
-            viewModel.FeaturedItem.Description = md.Transform("SethBling and Hypixel's latest multiplayer collaboration.\n\n[YouTube](external://youtu.be/NmlqBKGfQ9I)");
+            viewModel.FeaturedItem.Id = new Guid("55043B53-0E60-4394-9821-E33D3D4AC4B9");
+            viewModel.FeaturedItem.Description = md.Transform("SethBling and Hypixel's latest multiplayer collaboration.\n\n[YouTube](http://youtu.be/NmlqBKGfQ9I)");
             viewModel.FeaturedItem.Image = "/Data/Maps/Images/testFeature.png";
             return View(viewModel);
         }
