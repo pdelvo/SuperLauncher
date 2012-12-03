@@ -16,5 +16,10 @@ namespace SuperLauncher.Packages
             stream.Close();
             return package;
         }
+
+        public static void InstallPackage(PackageInstall package)
+        {
+            
+        }
     }
 }

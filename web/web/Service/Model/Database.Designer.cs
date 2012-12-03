@@ -23,6 +23,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Service.Model", "FK_Items_0", "Categories", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(web.Service.Model.Category), "Items", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Item), true)]
 [assembly: EdmRelationshipAttribute("Service.Model", "FK_Dependencies_0", "Items", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(web.Service.Model.Item), "Dependencies", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Dependency), true)]
 [assembly: EdmRelationshipAttribute("Service.Model", "FK_Dependencies_1", "Items", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(web.Service.Model.Item), "Dependencies", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Dependency), true)]
+[assembly: EdmRelationshipAttribute("Service.Model", "FK_Categories_01", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(web.Service.Model.Category), "Category1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Category), true)]
 
 #endregion
 
@@ -455,6 +456,30 @@ namespace web.Service.Model
         private Nullable<global::System.Int64> _Featured;
         partial void OnFeaturedChanging(Nullable<global::System.Int64> value);
         partial void OnFeaturedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Parent
+        {
+            get
+            {
+                return _Parent;
+            }
+            set
+            {
+                OnParentChanging(value);
+                ReportPropertyChanging("Parent");
+                _Parent = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Parent");
+                OnParentChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Parent;
+        partial void OnParentChanging(Nullable<global::System.Int64> value);
+        partial void OnParentChanged();
 
         #endregion
     
@@ -516,6 +541,66 @@ namespace web.Service.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Item>("Service.Model.FK_Items_0", "Items", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK_Categories_01", "Category1")]
+        public EntityCollection<Category> Categories1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Category>("Service.Model.FK_Categories_01", "Category1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Category>("Service.Model.FK_Categories_01", "Category1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK_Categories_01", "Category")]
+        public Category Category1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Service.Model.FK_Categories_01", "Category").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Service.Model.FK_Categories_01", "Category").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Category> Category1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("Service.Model.FK_Categories_01", "Category");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("Service.Model.FK_Categories_01", "Category", value);
                 }
             }
         }
@@ -923,6 +1008,30 @@ namespace web.Service.Model
         private global::System.String _FriendlyVersion;
         partial void OnFriendlyVersionChanging(global::System.String value);
         partial void OnFriendlyVersionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Creator
+        {
+            get
+            {
+                return _Creator;
+            }
+            set
+            {
+                OnCreatorChanging(value);
+                ReportPropertyChanging("Creator");
+                _Creator = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Creator");
+                OnCreatorChanged();
+            }
+        }
+        private global::System.String _Creator;
+        partial void OnCreatorChanging(global::System.String value);
+        partial void OnCreatorChanged();
 
         #endregion
     
