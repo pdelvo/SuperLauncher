@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\LauncherController.cs" />
+    <Compile Include="Controllers\WebController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,6 +143,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\global.css" />
     <Content Include="Content\images\commandBlock.png" />
     <Content Include="Content\images\background.png" />
     <Content Include="Content\images\featured.png" />
@@ -150,7 +152,7 @@
     <Content Include="Content\images\stone.png" />
     <Content Include="Content\images\water.png" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\launcher.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -163,9 +165,10 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\LauncherLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="data\maps\download\" />
     <Folder Include="data\maps\images\" />
     <Folder Include="Images\" />
@@ -175,10 +178,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Item\Item.cshtml" />
+    <Content Include="Views\Launcher\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Category.cshtml" />
+    <Content Include="Views\Launcher\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Search.cshtml" />
@@ -206,6 +209,12 @@
       <DependentUpon>DatabaseEntities.edmx</DependentUpon>
       <LastGenOutput>DatabaseEntities.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

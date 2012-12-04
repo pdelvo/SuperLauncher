@@ -11,8 +11,6 @@ CREATE TABLE [User]
 	Id int PRIMARY KEY IDENTITY(1, 1),
 	Email nchar(256) NULL,
 	Username nchar(256) NOT NULL,
-    -- We hash minecraft.net passwords on the client so that they aren't stored in our database.
-    -- We hash them again on the server.
     PasswordHash nchar(40) NOT NULL,
     Administrator bit DEFAULT 0 NOT NULL
 )
@@ -45,5 +43,8 @@ CREATE TABLE Dependency
 	DependentItem int NOT NULL FOREIGN KEY REFERENCES Item(Id),
 	DependencyItem int NOT NULL FOREIGN KEY REFERENCES Item(Id)
 )
-
 GO
+
+--Uncomment and fill this out if you want an admin account.
+--Use a SHA-1 hash.
+--INSERT INTO [User] (Email, Username, PasswordHash, Administrator) VALUES ('', '', '', 1);

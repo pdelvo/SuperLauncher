@@ -25,15 +25,14 @@ namespace web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "Web Routes",
+                "{controller}/{action}/{*id}",
+                new { controller = "Web", action="Index" });
+
+            routes.MapRoute(
                 "Launcher Routes", // Route name
                 "{action}/{*id}", // URL with parameters
                 new { controller = "Launcher", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                "Item", // Route name
-                "{action}/{id}", // URL with parameters
-                new { controller = "Launcher", action = "Index" }
             );
         }
 
