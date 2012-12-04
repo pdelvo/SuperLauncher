@@ -18,6 +18,21 @@ h1, h2, h3, h4, h5 {
     margin: 0;
 }
 
+a {
+    color: #ddd;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a.logout {
+    float: right;
+}
+a.logout:after {
+    clear: both;
+}
+
 .main-content {
     min-height: 100%;
     background: url('images/stone.png');
@@ -55,6 +70,11 @@ fieldset input[type="text"], fieldset input[type="password"] {
 
 fieldset input[type="text"]:focus, fieldset input[type="password"]:focus {
     box-shadow: 0 0 2px 2px #333;
+}
+
+fieldset input[type="checkbox"] {
+    float: left;
+    margin-right: 5px;
 }
 
 a.download, input.download {

@@ -110,9 +110,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\LauncherController.cs" />
     <Compile Include="Controllers\WebController.cs" />
-    <Compile Include="DatabaseAuthentication.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -121,6 +121,7 @@
     <Compile Include="Models\Download.cs" />
     <Compile Include="Models\DownloadCollection.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
+    <Compile Include="Models\LogInViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Model\Blob.cs">
       <DependentUpon>DatabaseEntities.tt</DependentUpon>
@@ -152,6 +153,7 @@
     <Compile Include="Service\Model\User.cs">
       <DependentUpon>DatabaseEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Shared\EmailValidation.cs" />
     <Compile Include="Shared\UsernameValidation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +205,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\LauncherLayout.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -253,7 +256,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Web\CreateAdministrator.cshtml" />
+    <Content Include="Views\Account\CreateAdministrator.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

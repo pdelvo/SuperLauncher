@@ -445,6 +445,47 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram Name="DatabaseEntities">
+        <EntityTypeShape EntityType="Service.Model.Blob" Width="1.5" PointX="5.25" PointY="1.25" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.Category" Width="1.5" PointX="5.25" PointY="4" Height="2.5571907552083322" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.Dependency" Width="1.5" PointX="5.25" PointY="7.25" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.Item" Width="1.5" PointX="3" PointY="3.125" Height="4.0956022135416656" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.User" Width="1.5" PointX="0.75" PointY="4.125" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="Service.Model.FK__Blob__ItemId__15502E78" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="3.125" />
+          <ConnectorPoint PointX="3.75" PointY="2.1874995" />
+          <ConnectorPoint PointX="5.25" PointY="2.1874995" />
+        </AssociationConnector>
+        <AssociationConnector Association="Service.Model.FK__Category__Featur__286302EC" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.2785953776041659" />
+          <ConnectorPoint PointX="5.25" PointY="5.2785953776041659" />
+        </AssociationConnector>
+        <AssociationConnector Association="Service.Model.FK__Category__Parent__29572725" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.7819230769230767" PointY="6.5571907552083317" />
+          <ConnectorPoint PointX="5.7819230769230767" PointY="6.8071907552083317" />
+          <ConnectorPoint PointX="6.2284615384615378" PointY="6.8071907552083317" />
+          <ConnectorPoint PointX="6.2284615384615378" PointY="6.5571907552083317" />
+        </AssociationConnector>
+        <AssociationConnector Association="Service.Model.FK__Item__CategoryId__2A4B4B5E" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="4.5767976888020829" />
+          <ConnectorPoint PointX="4.5" PointY="4.5767976888020829" />
+        </AssociationConnector>
+        <AssociationConnector Association="Service.Model.FK__Dependenc__Depen__1A14E395" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="7.2206022135416656" />
+          <ConnectorPoint PointX="3.75" PointY="8.2401432291666659" />
+          <ConnectorPoint PointX="5.25" PointY="8.2401432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="Service.Model.FK__Dependenc__Depen__1B0907CE" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.1562525" PointY="7.2206022135416656" />
+          <ConnectorPoint PointX="4.1562525" PointY="7.7138191145833321" />
+          <ConnectorPoint PointX="5.25" PointY="7.7138191145833321" />
+        </AssociationConnector>
+        <AssociationConnector Association="Service.Model.FK__Item__UserId__0F975522" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.2112939453125" />
+          <ConnectorPoint PointX="3" PointY="5.2112939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>

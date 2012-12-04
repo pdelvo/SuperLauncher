@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Foolproof;
+using web.Shared;
 
 namespace web.Models
 {
@@ -23,5 +24,8 @@ namespace web.Models
         [Display(Name = "Confirm Password")]
         [EqualTo("Password", ErrorMessage="Passwords do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Remember Me")]
+        public bool RememberMe { get; set; }
     }
 }

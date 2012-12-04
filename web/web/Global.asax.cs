@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using web.Service.Model;
+using System.Web.Security;
+using System.Data.SqlClient;
 
 namespace web
 {
@@ -27,7 +29,7 @@ namespace web
             routes.MapRoute(
                 "Web Routes",
                 "{controller}/{action}/{*id}",
-                new { controller = "Web", action="Index" });
+                new { controller = "Web", action="Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 "Launcher Routes", // Route name

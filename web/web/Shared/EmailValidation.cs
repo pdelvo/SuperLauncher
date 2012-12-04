@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Foolproof;
 using System.Web.Security;
+using Foolproof;
 
 namespace web.Shared
 {
-    public class UsernameValidationAttribute : ModelAwareValidationAttribute
+    public class EmailValidationAttribute : ModelAwareValidationAttribute
     {
         public override bool IsValid(object value, object container)
         {
-            string username = value as string;
-            if (username == null)
+            var email = value as string;
+            if (email == null)
                 return false;
-            return Membership.GetUser(username, false) != null;
+            return Membership.GetUserNameByEmail(email) != null;
         }
     }
 }
