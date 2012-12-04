@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Service.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Service.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ServiceModelStoreContainer">
           <EntitySet Name="Blob" EntityType="Service.Model.Store.Blob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category" EntityType="Service.Model.Store.Category" store:Type="Tables" Schema="dbo" />
@@ -89,6 +89,7 @@
           <Property Name="Email" Type="nchar" MaxLength="256" />
           <Property Name="Username" Type="nchar" Nullable="false" MaxLength="256" />
           <Property Name="Administrator" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nchar" Nullable="false" MaxLength="40" />
         </EntityType>
         <Association Name="FK__Blob__ItemId__15502E78">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="1" />
@@ -174,8 +175,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Service.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -277,6 +277,7 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="true" />
           <Property Name="Administrator" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Items" Relationship="Service.Model.FK__Item__UserId__0F975522" FromRole="User" ToRole="Item" />
+          <Property Type="String" Name="PasswordHash" Nullable="false" MaxLength="40" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK__Blob__ItemId__15502E78">
           <End Role="Item" Type="Service.Model.Item" Multiplicity="1" />
@@ -416,6 +417,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Service.Model.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
