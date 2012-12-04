@@ -50,14 +50,14 @@
             this.mapsTab = new System.Windows.Forms.TabPage();
             this.mapsWebBrowser = new WebKit.WebKitBrowser();
             this.serversTab = new System.Windows.Forms.TabPage();
-            this.texturePacksTab = new System.Windows.Forms.TabPage();
-            this.modsTab = new System.Windows.Forms.TabPage();
-            this.skinsTab = new System.Windows.Forms.TabPage();
-            this.settingsTab = new System.Windows.Forms.TabPage();
             this.serverWebBrowser = new WebKit.WebKitBrowser();
+            this.texturePacksTab = new System.Windows.Forms.TabPage();
             this.texturePackWebBrowser = new WebKit.WebKitBrowser();
+            this.modsTab = new System.Windows.Forms.TabPage();
             this.modWebBrowser = new WebKit.WebKitBrowser();
+            this.skinsTab = new System.Windows.Forms.TabPage();
             this.skinWebBrowser = new WebKit.WebKitBrowser();
+            this.settingsTab = new System.Windows.Forms.TabPage();
             this.logInGroupBox.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -160,6 +160,7 @@
             this.passwordTextBox.Size = new System.Drawing.Size(372, 20);
             this.passwordTextBox.TabIndex = 1;
             this.passwordTextBox.UseSystemPasswordChar = true;
+            this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passwordTextBox_KeyDown);
             // 
             // usernameTextBox
             // 
@@ -313,48 +314,6 @@
             this.serversTab.Text = "Servers";
             this.serversTab.UseVisualStyleBackColor = true;
             // 
-            // texturePacksTab
-            // 
-            this.texturePacksTab.Controls.Add(this.texturePackWebBrowser);
-            this.texturePacksTab.Location = new System.Drawing.Point(4, 22);
-            this.texturePacksTab.Name = "texturePacksTab";
-            this.texturePacksTab.Size = new System.Drawing.Size(818, 316);
-            this.texturePacksTab.TabIndex = 3;
-            this.texturePacksTab.Text = "Texture Packs";
-            this.texturePacksTab.UseVisualStyleBackColor = true;
-            // 
-            // modsTab
-            // 
-            this.modsTab.Controls.Add(this.modWebBrowser);
-            this.modsTab.Location = new System.Drawing.Point(4, 22);
-            this.modsTab.Name = "modsTab";
-            this.modsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.modsTab.Size = new System.Drawing.Size(818, 316);
-            this.modsTab.TabIndex = 4;
-            this.modsTab.Text = "Mods";
-            this.modsTab.UseVisualStyleBackColor = true;
-            // 
-            // skinsTab
-            // 
-            this.skinsTab.Controls.Add(this.skinWebBrowser);
-            this.skinsTab.Location = new System.Drawing.Point(4, 22);
-            this.skinsTab.Name = "skinsTab";
-            this.skinsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.skinsTab.Size = new System.Drawing.Size(818, 316);
-            this.skinsTab.TabIndex = 6;
-            this.skinsTab.Text = "Skins";
-            this.skinsTab.UseVisualStyleBackColor = true;
-            // 
-            // settingsTab
-            // 
-            this.settingsTab.Location = new System.Drawing.Point(4, 22);
-            this.settingsTab.Name = "settingsTab";
-            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsTab.Size = new System.Drawing.Size(818, 316);
-            this.settingsTab.TabIndex = 5;
-            this.settingsTab.Text = "Settings";
-            this.settingsTab.UseVisualStyleBackColor = true;
-            // 
             // serverWebBrowser
             // 
             this.serverWebBrowser.AllowDownloads = false;
@@ -367,6 +326,16 @@
             this.serverWebBrowser.Size = new System.Drawing.Size(818, 316);
             this.serverWebBrowser.TabIndex = 0;
             this.serverWebBrowser.Url = null;
+            // 
+            // texturePacksTab
+            // 
+            this.texturePacksTab.Controls.Add(this.texturePackWebBrowser);
+            this.texturePacksTab.Location = new System.Drawing.Point(4, 22);
+            this.texturePacksTab.Name = "texturePacksTab";
+            this.texturePacksTab.Size = new System.Drawing.Size(818, 316);
+            this.texturePacksTab.TabIndex = 3;
+            this.texturePacksTab.Text = "Texture Packs";
+            this.texturePacksTab.UseVisualStyleBackColor = true;
             // 
             // texturePackWebBrowser
             // 
@@ -381,6 +350,17 @@
             this.texturePackWebBrowser.TabIndex = 0;
             this.texturePackWebBrowser.Url = null;
             // 
+            // modsTab
+            // 
+            this.modsTab.Controls.Add(this.modWebBrowser);
+            this.modsTab.Location = new System.Drawing.Point(4, 22);
+            this.modsTab.Name = "modsTab";
+            this.modsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.modsTab.Size = new System.Drawing.Size(818, 316);
+            this.modsTab.TabIndex = 4;
+            this.modsTab.Text = "Mods";
+            this.modsTab.UseVisualStyleBackColor = true;
+            // 
             // modWebBrowser
             // 
             this.modWebBrowser.AllowDownloads = false;
@@ -393,6 +373,17 @@
             this.modWebBrowser.Size = new System.Drawing.Size(812, 310);
             this.modWebBrowser.TabIndex = 0;
             this.modWebBrowser.Url = null;
+            // 
+            // skinsTab
+            // 
+            this.skinsTab.Controls.Add(this.skinWebBrowser);
+            this.skinsTab.Location = new System.Drawing.Point(4, 22);
+            this.skinsTab.Name = "skinsTab";
+            this.skinsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.skinsTab.Size = new System.Drawing.Size(818, 316);
+            this.skinsTab.TabIndex = 6;
+            this.skinsTab.Text = "Skins";
+            this.skinsTab.UseVisualStyleBackColor = true;
             // 
             // skinWebBrowser
             // 
@@ -407,9 +398,18 @@
             this.skinWebBrowser.TabIndex = 0;
             this.skinWebBrowser.Url = null;
             // 
+            // settingsTab
+            // 
+            this.settingsTab.Location = new System.Drawing.Point(4, 22);
+            this.settingsTab.Name = "settingsTab";
+            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.settingsTab.Size = new System.Drawing.Size(818, 316);
+            this.settingsTab.TabIndex = 5;
+            this.settingsTab.Text = "Settings";
+            this.settingsTab.UseVisualStyleBackColor = true;
+            // 
             // Launcher
             // 
-            this.AcceptButton = this.logInButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 504);

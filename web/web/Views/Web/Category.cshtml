@@ -1,18 +1,48 @@
 ﻿@model web.Models.CategoryViewModel
+@{
+    var page = 0;               
+}
 <div>
     <div class="main-feature">
-        <h2>@Model.FeaturedItem.Name</h2>
-        <img src="@Model.FeaturedItem.ImageUrl" alt="@Model.FeaturedItem.Name" />
-        <div>@Html.Raw(Model.FeaturedItem.DescriptionHtml)</div>
-        <a class="download" href="@Model.FeaturedItem.DetailedUrl">Download</a>
+        @if (Model.FeaturedItem != null)
+        {
+            <h2 class="feature">@Model.FeaturedItem.Name</h2>
+            <img src="@Model.FeaturedItem.ImageUrl" alt="@Model.FeaturedItem.Name" />
+            <div>@Html.Raw(Model.FeaturedItem.DescriptionHtml)</div>
+            <a class="download" href="@Model.FeaturedItem.DetailedUrl">Download</a>
+        }
+        else
+        {
+            <h2>@Model.Name</h2>
+        }
+        @if (Model.Items.Any())
+        {
+            <ul class="item-list">
+            @foreach (var item in @Model.Items)
+            {
+                @*TODO: Expand on this (maybe add short description to db)*@
+                <li><a href="/item/@item.Id">@item.Name</a></li>
+            }
+            </ul>
+        }
     </div>
     <div class="category-list">
-        <h2>Categories</h2>
-        <ul>
-            <li><a href="#">Cool Builds</a></li>
-            <li><a href="#">Challenge Maps</a></li>
-            <li><a href="#">Redstone</a></li>
-            <li><a href="#">Multiplayer</a></li>
-        </ul>
+        <div>
+            @{Html.RenderPartial("Search");}
+            @if (Model.ParentCategory != null)
+            {
+                <a href="/category/@Model.ParentCategory.Name">Back to @Model.ParentCategory.Name</a>
+            }
+            @if (Model.Subcategories.Any())
+            {
+                <h2>Categories</h2>
+                <ul>
+                    @foreach (var category in Model.Subcategories)
+                    {
+                        <li><a href="@Model.RootPath@category.Name">@category.Name</a></li>
+                    }
+                </ul>
+            }
+        </div>
     </div>
 </div>

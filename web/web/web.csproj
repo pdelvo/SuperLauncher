@@ -169,6 +169,7 @@
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="data\maps\download\TF2 by Hypixel and SethBling for 1.4.5.zip" />
+    <Content Include="Views\Shared\Search.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

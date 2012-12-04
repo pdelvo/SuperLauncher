@@ -8,14 +8,17 @@
         <a class="download" href="install://@Model.Id.ToString()">Install</a>
     </div>
     <div class="category-list">
-        <h2>Dependencies</h2>
-        @if (!Model.Item.Dependencies.Any())
-        {
-            <p>@Model.Name has no dependencies!</p>
-        }
-        else
-        {
-            @*TODO*@
-        }
+        <div>
+            @{ Html.RenderPartial("Search"); }
+            <h2>Dependencies</h2>
+            @if (!Model.Item.Dependencies.Any())
+            {
+                <p>@Model.Name requires no additional packages to use!</p>
+            }
+            else
+            {
+                @*TODO*@
+            }
+        </div>
     </div>
 </div>

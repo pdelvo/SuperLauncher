@@ -290,5 +290,11 @@ namespace SuperLauncher
                     statusIcon.Image = global::SuperLauncher.Properties.Resources.green;
             }
         }
+
+        private void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && logInButton.Enabled)
+                logInButton.PerformClick();
+        }
     }
 }
