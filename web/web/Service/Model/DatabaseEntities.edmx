@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SuperLauncherModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SuperLauncherModelStoreContainer">
+          <EntitySet Name="Blob" EntityType="SuperLauncherModel.Store.Blob" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Category" EntityType="SuperLauncherModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Dependency" EntityType="SuperLauncherModel.Store.Dependency" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Item" EntityType="SuperLauncherModel.Store.Item" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="SuperLauncherModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Blob__ItemId__15502E78" Association="SuperLauncherModel.Store.FK__Blob__ItemId__15502E78">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Blob" EntitySet="Blob" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Parent__060DEAE8" Association="SuperLauncherModel.Store.FK__Category__Parent__060DEAE8">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dependenc__Depen__1A14E395" Association="SuperLauncherModel.Store.FK__Dependenc__Depen__1A14E395">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Dependency" EntitySet="Dependency" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dependenc__Depen__1B0907CE" Association="SuperLauncherModel.Store.FK__Dependenc__Depen__1B0907CE">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Dependency" EntitySet="Dependency" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__CategoryId__0EA330E9" Association="SuperLauncherModel.Store.FK__Item__CategoryId__0EA330E9">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__UserId__0F975522" Association="SuperLauncherModel.Store.FK__Item__UserId__0F975522">
+            <End Role="User" EntitySet="User" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Blob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DownloadUrl" Type="nchar" Nullable="false" MaxLength="512" />
+          <Property Name="DestinationPath" Type="nchar" Nullable="false" MaxLength="512" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nchar" Nullable="false" MaxLength="128" />
+          <Property Name="FeaturedItem" Type="int" />
+          <Property Name="Parent" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dependency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DependentItem" Type="int" Nullable="false" />
+          <Property Name="DependencyItem" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" Nullable="false" MaxLength="128" />
+          <Property Name="Description" Type="nchar" MaxLength="128" />
+          <Property Name="ImageUrl" Type="nchar" MaxLength="128" />
+          <Property Name="Type" Type="nchar" Nullable="false" MaxLength="32" />
+          <Property Name="Address" Type="nchar" MaxLength="256" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="FriendlyVersion" Type="nchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="nchar" MaxLength="256" />
+          <Property Name="Username" Type="nchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <Association Name="FK__Blob__ItemId__15502E78">
+          <End Role="Item" Type="SuperLauncherModel.Store.Item" Multiplicity="1" />
+          <End Role="Blob" Type="SuperLauncherModel.Store.Blob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Blob">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Parent__060DEAE8">
+          <End Role="Category" Type="SuperLauncherModel.Store.Category" Multiplicity="1" />
+          <End Role="Category1" Type="SuperLauncherModel.Store.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dependenc__Depen__1A14E395">
+          <End Role="Item" Type="SuperLauncherModel.Store.Item" Multiplicity="1" />
+          <End Role="Dependency" Type="SuperLauncherModel.Store.Dependency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dependency">
+              <PropertyRef Name="DependentItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dependenc__Depen__1B0907CE">
+          <End Role="Item" Type="SuperLauncherModel.Store.Item" Multiplicity="1" />
+          <End Role="Dependency" Type="SuperLauncherModel.Store.Dependency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dependency">
+              <PropertyRef Name="DependencyItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__CategoryId__0EA330E9">
+          <End Role="Category" Type="SuperLauncherModel.Store.Category" Multiplicity="0..1" />
+          <End Role="Item" Type="SuperLauncherModel.Store.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__UserId__0F975522">
+          <End Role="User" Type="SuperLauncherModel.Store.User" Multiplicity="1" />
+          <End Role="Item" Type="SuperLauncherModel.Store.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SuperLauncherModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Blobs" EntityType="SuperLauncherModel.Blob" />
+          <EntitySet Name="Categories" EntityType="SuperLauncherModel.Category" />
+          <EntitySet Name="Dependencies" EntityType="SuperLauncherModel.Dependency" />
+          <EntitySet Name="Items" EntityType="SuperLauncherModel.Item" />
+          <EntitySet Name="Users" EntityType="SuperLauncherModel.User" />
+          <AssociationSet Name="FK__Blob__ItemId__15502E78" Association="SuperLauncherModel.FK__Blob__ItemId__15502E78">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Blob" EntitySet="Blobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Parent__060DEAE8" Association="SuperLauncherModel.FK__Category__Parent__060DEAE8">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__CategoryId__0EA330E9" Association="SuperLauncherModel.FK__Item__CategoryId__0EA330E9">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dependenc__Depen__1A14E395" Association="SuperLauncherModel.FK__Dependenc__Depen__1A14E395">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Dependency" EntitySet="Dependencies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dependenc__Depen__1B0907CE" Association="SuperLauncherModel.FK__Dependenc__Depen__1B0907CE">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Dependency" EntitySet="Dependencies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__UserId__0F975522" Association="SuperLauncherModel.FK__Item__UserId__0F975522">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Blob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DownloadUrl" Type="String" Nullable="false" MaxLength="512" Unicode="true" FixedLength="true" />
+          <Property Name="DestinationPath" Type="String" Nullable="false" MaxLength="512" Unicode="true" FixedLength="true" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="SuperLauncherModel.FK__Blob__ItemId__15502E78" FromRole="Blob" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="true" />
+          <Property Name="FeaturedItem" Type="Int32" />
+          <Property Name="Parent" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category1" Relationship="SuperLauncherModel.FK__Category__Parent__060DEAE8" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="SuperLauncherModel.FK__Category__Parent__060DEAE8" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Items" Relationship="SuperLauncherModel.FK__Item__CategoryId__0EA330E9" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Dependency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DependentItem" Type="Int32" Nullable="false" />
+          <Property Name="DependencyItem" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="SuperLauncherModel.FK__Dependenc__Depen__1A14E395" FromRole="Dependency" ToRole="Item" />
+          <NavigationProperty Name="Item1" Relationship="SuperLauncherModel.FK__Dependenc__Depen__1B0907CE" FromRole="Dependency" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="true" />
+          <Property Name="Description" Type="String" MaxLength="128" Unicode="true" FixedLength="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="128" Unicode="true" FixedLength="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="true" />
+          <Property Name="Address" Type="String" MaxLength="256" Unicode="true" FixedLength="true" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="FriendlyVersion" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Blobs" Relationship="SuperLauncherModel.FK__Blob__ItemId__15502E78" FromRole="Item" ToRole="Blob" />
+          <NavigationProperty Name="Category" Relationship="SuperLauncherModel.FK__Item__CategoryId__0EA330E9" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="Dependencies" Relationship="SuperLauncherModel.FK__Dependenc__Depen__1A14E395" FromRole="Item" ToRole="Dependency" />
+          <NavigationProperty Name="Dependencies1" Relationship="SuperLauncherModel.FK__Dependenc__Depen__1B0907CE" FromRole="Item" ToRole="Dependency" />
+          <NavigationProperty Name="User" Relationship="SuperLauncherModel.FK__Item__UserId__0F975522" FromRole="Item" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="256" Unicode="true" FixedLength="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Items" Relationship="SuperLauncherModel.FK__Item__UserId__0F975522" FromRole="User" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK__Blob__ItemId__15502E78">
+          <End Role="Item" Type="SuperLauncherModel.Item" Multiplicity="1" />
+          <End Role="Blob" Type="SuperLauncherModel.Blob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Blob">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Parent__060DEAE8">
+          <End Role="Category" Type="SuperLauncherModel.Category" Multiplicity="1" />
+          <End Role="Category1" Type="SuperLauncherModel.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__CategoryId__0EA330E9">
+          <End Role="Category" Type="SuperLauncherModel.Category" Multiplicity="0..1" />
+          <End Role="Item" Type="SuperLauncherModel.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dependenc__Depen__1A14E395">
+          <End Role="Item" Type="SuperLauncherModel.Item" Multiplicity="1" />
+          <End Role="Dependency" Type="SuperLauncherModel.Dependency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dependency">
+              <PropertyRef Name="DependentItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dependenc__Depen__1B0907CE">
+          <End Role="Item" Type="SuperLauncherModel.Item" Multiplicity="1" />
+          <End Role="Dependency" Type="SuperLauncherModel.Dependency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dependency">
+              <PropertyRef Name="DependencyItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__UserId__0F975522">
+          <End Role="User" Type="SuperLauncherModel.User" Multiplicity="1" />
+          <End Role="Item" Type="SuperLauncherModel.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SuperLauncherModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Blobs">
+            <EntityTypeMapping TypeName="SuperLauncherModel.Blob">
+              <MappingFragment StoreEntitySet="Blob">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DownloadUrl" ColumnName="DownloadUrl" />
+                <ScalarProperty Name="DestinationPath" ColumnName="DestinationPath" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="SuperLauncherModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FeaturedItem" ColumnName="FeaturedItem" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dependencies">
+            <EntityTypeMapping TypeName="SuperLauncherModel.Dependency">
+              <MappingFragment StoreEntitySet="Dependency">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DependentItem" ColumnName="DependentItem" />
+                <ScalarProperty Name="DependencyItem" ColumnName="DependencyItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="SuperLauncherModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="FriendlyVersion" ColumnName="FriendlyVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SuperLauncherModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

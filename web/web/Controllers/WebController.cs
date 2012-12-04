@@ -17,7 +17,7 @@ namespace web.Controllers
             var categories = name.Split('/');
             name = categories.Last();
             var viewModel = new CategoryViewModel();
-            using (var database = new DataEntities())
+            using (var database = new DatabaseEntities())
             {
                 var category = (from c in database.Categories
                                 where c.Name.ToLower() == name.ToLower()
@@ -35,7 +35,7 @@ namespace web.Controllers
                              select c).FirstOrDefault();
                 viewModel.Name = category.Name;
                 var featured = (from i in database.Items
-                                where i.Id == category.Featured
+                                where i.Id == category.FeaturedItem
                                 select i).FirstOrDefault();
                 if (featured != null)
                     viewModel.FeaturedItem = new ItemViewModel(featured);

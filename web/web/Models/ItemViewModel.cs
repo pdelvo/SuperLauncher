@@ -25,7 +25,7 @@ namespace web.Models
             Version = item.Version;
             FriendlyVersion = item.FriendlyVersion;
             Dependencies = new List<Dependency>(item.Dependencies.ToArray());
-            Creator = item.Creator;
+            User = item.User;
         }
 
         [ScriptIgnore]
@@ -39,7 +39,7 @@ namespace web.Models
         public string DetailedUrl { get; set; }
         public long Id { get; set; }
         public long Version { get; set; }
-        public string Creator { get; set; }
+        public User User { get; set; }
         public string FriendlyVersion { get; set; }
         public List<Dependency> Dependencies { get; set; }
     }

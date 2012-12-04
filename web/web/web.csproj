@@ -111,10 +111,35 @@
     <Compile Include="Models\DownloadCollection.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Model\Database.Designer.cs">
+    <Compile Include="Service\Model\Blob.cs">
+      <DependentUpon>DatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Model\Category.cs">
+      <DependentUpon>DatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Model\DatabaseEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Database.edmx</DependentUpon>
+      <DependentUpon>DatabaseEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Model\DatabaseEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Model\DatabaseEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Model\Dependency.cs">
+      <DependentUpon>DatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Model\Item.cs">
+      <DependentUpon>DatabaseEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Model\User.cs">
+      <DependentUpon>DatabaseEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -143,7 +168,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Images\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
@@ -160,16 +184,32 @@
     <Content Include="Views\Web\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\database.s3db">
-      <Link>database.s3db</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <EntityDeploy Include="Service\Model\Database.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Database.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="data\maps\download\TF2 by Hypixel and SethBling for 1.4.5.zip" />
     <Content Include="Views\Shared\Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Service\Model\DatabaseEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DatabaseEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Service\Model\DatabaseEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>DatabaseEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service\Model\DatabaseEntities.edmx.diagram">
+      <DependentUpon>DatabaseEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="Service\Model\DatabaseEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DatabaseEntities.edmx</DependentUpon>
+      <LastGenOutput>DatabaseEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a54a21be4dc0483b8da6c5415efca884" Name="Diagram1">
+        <EntityTypeShape EntityType="SuperLauncherModel.Blob" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperLauncherModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperLauncherModel.Dependency" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperLauncherModel.Item" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperLauncherModel.User" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="SuperLauncherModel.FK__Blob__ItemId__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperLauncherModel.FK__Category__Parent__060DEAE8" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperLauncherModel.FK__Item__CategoryId__0EA330E9" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperLauncherModel.FK__Dependenc__Depen__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperLauncherModel.FK__Dependenc__Depen__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperLauncherModel.FK__Item__UserId__0F975522" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

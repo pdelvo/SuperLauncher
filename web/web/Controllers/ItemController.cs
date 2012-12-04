@@ -14,7 +14,7 @@ namespace web.Controllers
         public ActionResult Item(int id)
         {
             ItemViewModel viewModel;
-            using (var database = new DataEntities())
+            using (var database = new DatabaseEntities())
             {
                 var items = from i in database.Items
                            where i.Id == id
@@ -32,7 +32,7 @@ namespace web.Controllers
         public JsonResult Details(int id)
         {
             var downloads = new DownloadCollection();
-            using (var database = new DataEntities())
+            using (var database = new DatabaseEntities())
             {
                 var items = from i in database.Items
                             where i.Id == id

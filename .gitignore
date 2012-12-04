@@ -11,3 +11,4 @@ merged/
 *.psess
 *.vsp
 web/web/data/*
+web/web/Web.config
