@@ -2,7 +2,6 @@ CREATE TABLE Category
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
 	Name nchar(128) NOT NULL,
-	FeaturedItem int NULL FOREIGN KEY REFERENCES Item(Id),
 	Parent int NULL FOREIGN KEY REFERENCES Category(Id)
 )
 
@@ -29,6 +28,8 @@ CREATE TABLE Item
 	FriendlyVersion nchar(128) NOT NULL
 )
 
+ALTER TABLE Category ADD FeaturedItem int NULL FOREIGN KEY REFERENCES Item(Id);
+
 CREATE TABLE Blob
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
@@ -44,7 +45,3 @@ CREATE TABLE Dependency
 	DependencyItem int NOT NULL FOREIGN KEY REFERENCES Item(Id)
 )
 GO
-
---Uncomment and fill this out if you want an admin account.
---Use a SHA-1 hash.
---INSERT INTO [User] (Email, Username, PasswordHash, Administrator) VALUES ('', '', '', 1);
