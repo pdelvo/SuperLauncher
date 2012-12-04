@@ -1,7 +1,7 @@
 ﻿@model web.Models.CreateAccountViewModel
 @using web.Shared
 @{
-    ViewBag.Title = "Create Administrator Account";
+    ViewBag.Title = "Create Account";
 }
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -11,9 +11,8 @@
 @using (Html.BeginForm())
 {
     <fieldset>
-        <legend>Create Administrator</legend>
-        <p>No accounts were found in the database.</p>
-        <p>Please create one here.</p>
+        <legend>Create Account</legend>
+        <p>Creating an account allows you to contribute your own content to the SuperLauncher repository.</p>
         <div>
             @Html.LabelFor(m => m.Email)
             @Html.ValidationMessageFor(m => m.Email)
@@ -34,10 +33,7 @@
             @Html.ValidationMessageFor(m => m.ConfirmPassword)
             @Html.PasswordFor(m => m.ConfirmPassword)
         </div>
-        <div>
-            @Html.ValidationMessageFor(m => m.RememberMe)
-            @Html.BootstrapCheckBoxFor(m => m.RememberMe)
-        </div>
+        @{Html.RenderPartial("Recapcha", Model.CapchaError);}
         <input type="submit" class="btn btn-primary" value="Create Account" />
     </fieldset>
 }

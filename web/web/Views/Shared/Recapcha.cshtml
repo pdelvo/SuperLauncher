@@ -1,0 +1,28 @@
+﻿@using System.Configuration
+@using System.Web.Configuration
+@model System.String
+@{
+    string publicKey = WebConfigurationManager.AppSettings["RecapchaPublicKey"];
+    bool enabled = bool.Parse(WebConfigurationManager.AppSettings["RecapchaEnabled"]);
+    string error = "";
+    if (!string.IsNullOrEmpty(Model))
+    {
+        error = "&error=" + Model;
+    }
+    if (!enabled)
+    {
+        return;
+    }
+}
+
+<script type="text/javascript"
+     src="http://www.google.com/recaptcha/api/challenge?k=@publicKey@error">
+</script>
+<noscript>
+    <iframe src="http://www.google.com/recaptcha/api/noscript?k=@publicKey@error"
+        height="300" width="500" frameborder="0"></iframe><br>
+    <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+    </textarea>
+    <input type="hidden" name="recaptcha_response_field"
+        value="manual_challenge">
+</noscript>

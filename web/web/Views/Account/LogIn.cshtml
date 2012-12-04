@@ -32,6 +32,8 @@
             @Html.ValidationMessageFor(m => m.RememberMe)
             @Html.BootstrapCheckBoxFor(m => m.RememberMe)
         </div>
-        <input type="submit" class="download" value="Log In" />
+        <input type="submit" class="btn btn-primary" value="Log In" />
+        <span>or</span>
+        @Html.ActionLink("Create Account", "CreateAccount", null, new { @class = "btn" })
     </fieldset>
 }

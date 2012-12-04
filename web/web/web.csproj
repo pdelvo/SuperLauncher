@@ -111,13 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\LauncherController.cs" />
     <Compile Include="Controllers\WebController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoryViewModel.cs" />
-    <Compile Include="Models\CreateAdministratorViewModel.cs" />
+    <Compile Include="Models\CreateAccountViewModel.cs" />
     <Compile Include="Models\Download.cs" />
     <Compile Include="Models\DownloadCollection.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
@@ -155,6 +156,7 @@
     </Compile>
     <Compile Include="Shared\EmailValidation.cs" />
     <Compile Include="Shared\Extensions.cs" />
+    <Compile Include="Shared\Recapcha.cs" />
     <Compile Include="Shared\UsernameValidation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,11 +218,12 @@
     <Content Include="Views\Shared\LauncherLayout.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
+    <Content Include="Views\Account\CreateAccount.cshtml" />
+    <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Shared\Recapcha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="data\maps\download\" />
-    <Folder Include="data\maps\images\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,10 @@
                         @if (Request.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("Log Out", "LogOut", "Account")</li>
+                            if (Roles.GetRolesForUser(Membership.GetUser().UserName).Contains("Administrator"))
+                            {
+                            <li>@Html.ActionLink("Administration", "Index", "Administration")</li>
+                            }
                         }
                     </ul>
                 </div>

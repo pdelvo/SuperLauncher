@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using web.Models;
+using web.Shared;
 
 namespace web.Controllers
 {
@@ -43,15 +44,15 @@ namespace web.Controllers
 
         public ActionResult CreateAdministrator()
         {
-            if (Membership.GetAllUsers().Count != 0)
+            if (Membership.GetAllUsers().Count != 0) // This page is only accessible with no registered users in the db
                 return new HttpUnauthorizedResult();
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateAdministrator(CreateAdministratorViewModel viewModel)
+        public ActionResult CreateAdministrator(CreateAccountViewModel viewModel)
         {
-            if (Membership.GetAllUsers().Count != 0)
+            if (Membership.GetAllUsers().Count != 0) // This page is only accessible with no registered users in the db
                 return new HttpUnauthorizedResult();
             if (!ModelState.IsValid)
                 return View(viewModel);
@@ -67,6 +68,26 @@ namespace web.Controllers
 
             FormsAuthentication.SetAuthCookie(viewModel.Username, viewModel.RememberMe);
             return RedirectToAction("Index", "Web");
+        }
+
+        public ActionResult CreateAccount()
+        {
+            return View(new CreateAccountViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccount(CreateAccountViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+            string error;
+            if (!Recapcha.ValidateCapcha(Request, Request.Form["recaptcha_challenge_field"],
+                                    Request.Form["recaptcha_response_field"], out error))
+            {
+                viewModel.CapchaError = error;
+                return View(viewModel);
+            }
+            return RedirectToAction("LogIn");
         }
     }
 }
