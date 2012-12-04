@@ -10,7 +10,8 @@ CREATE TABLE [User]
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
 	Email nchar(256) NULL,
-	Username nchar(256) NOT NULL
+	Username nchar(256) NOT NULL,
+    Administrator bit DEFAULT 0 NOT NULL
 );
 
 CREATE TABLE Item

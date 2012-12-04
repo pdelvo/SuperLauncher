@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SuperLauncherModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="SuperLauncherModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SuperLauncherModelStoreContainer">
           <EntitySet Name="Blob" EntityType="SuperLauncherModel.Store.Blob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category" EntityType="SuperLauncherModel.Store.Category" store:Type="Tables" Schema="dbo" />
@@ -84,6 +84,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="nchar" MaxLength="256" />
           <Property Name="Username" Type="nchar" Nullable="false" MaxLength="256" />
+          <Property Name="Administrator" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK__Blob__ItemId__15502E78">
           <End Role="Item" Type="SuperLauncherModel.Store.Item" Multiplicity="1" />
@@ -157,8 +158,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SuperLauncherModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -253,6 +253,7 @@
           <Property Name="Email" Type="String" MaxLength="256" Unicode="true" FixedLength="true" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="Items" Relationship="SuperLauncherModel.FK__Item__UserId__0F975522" FromRole="User" ToRole="Item" />
+          <Property Type="Boolean" Name="Administrator" Nullable="false" />
         </EntityType>
         <Association Name="FK__Blob__ItemId__15502E78">
           <End Role="Item" Type="SuperLauncherModel.Item" Multiplicity="1" />
@@ -380,6 +381,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="SuperLauncherModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
