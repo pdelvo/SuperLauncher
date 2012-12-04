@@ -1,4 +1,5 @@
 ﻿@model web.Models.LogInViewModel
+@using web.Shared
 @{
     ViewBag.Title = "Log In";
 }
@@ -28,9 +29,8 @@
             @Html.PasswordFor(m => m.Password)
         </div>
         <div>
-            @Html.LabelFor(m => m.RememberMe)
             @Html.ValidationMessageFor(m => m.RememberMe)
-            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.BootstrapCheckBoxFor(m => m.RememberMe)
         </div>
         <input type="submit" class="download" value="Log In" />
     </fieldset>
