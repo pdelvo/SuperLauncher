@@ -22,12 +22,28 @@ namespace web.Controllers
 
         public ActionResult CreateAdministrator()
         {
+            using (var database = new DatabaseEntities())
+            {
+                if (database.Users.Any())
+                {
+                    Response.StatusCode = 403;
+                    return null;
+                }
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult CreateAdministrator(CreateAdministratorViewModel viewModel)
         {
+            using (var database = new DatabaseEntities())
+            {
+                if (database.Users.Any())
+                {
+                    Response.StatusCode = 403;
+                    return null;
+                }
+            }
             if (!ModelState.IsValid)
                 return View(viewModel);
             bool success = DatabaseAuthentication.CreateUser(
