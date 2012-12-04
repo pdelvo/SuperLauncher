@@ -17,13 +17,14 @@ namespace web.Service.Model
         public Item()
         {
             this.Blobs = new HashSet<Blob>();
+            this.Categories = new HashSet<Category>();
             this.Dependencies = new HashSet<Dependency>();
             this.Dependencies1 = new HashSet<Dependency>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> CategoryId { get; set; }
         public int UserId { get; set; }
+        public Nullable<int> CategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
@@ -33,6 +34,7 @@ namespace web.Service.Model
         public string FriendlyVersion { get; set; }
     
         public virtual ICollection<Blob> Blobs { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<Dependency> Dependencies { get; set; }
         public virtual ICollection<Dependency> Dependencies1 { get; set; }

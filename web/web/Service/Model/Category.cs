@@ -23,8 +23,9 @@ namespace web.Service.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<int> FeaturedItem { get; set; }
-        public int Parent { get; set; }
+        public Nullable<int> Parent { get; set; }
     
+        public virtual Item Item { get; set; }
         public virtual ICollection<Category> Category1 { get; set; }
         public virtual Category Category2 { get; set; }
         public virtual ICollection<Item> Items { get; set; }

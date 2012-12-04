@@ -101,8 +101,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ItemController.cs" />
-    <Compile Include="Controllers\WebController.cs" />
+    <Compile Include="Controllers\LauncherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -150,7 +149,6 @@
     <Content Include="Content\images\log.png" />
     <Content Include="Content\images\stone.png" />
     <Content Include="Content\images\water.png" />
-    <Content Include="data\maps\images\testFeature.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Web.config">
@@ -168,6 +166,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="data\maps\download\" />
+    <Folder Include="data\maps\images\" />
     <Folder Include="Images\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
@@ -175,16 +175,12 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Web\Maps.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Item\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Web\Category.cshtml" />
+    <Content Include="Views\Shared\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\maps\download\TF2 by Hypixel and SethBling for 1.4.5.zip" />
     <Content Include="Views\Shared\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>

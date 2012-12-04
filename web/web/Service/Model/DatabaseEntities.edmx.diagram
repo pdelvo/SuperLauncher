@@ -4,18 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a54a21be4dc0483b8da6c5415efca884" Name="Diagram1">
-        <EntityTypeShape EntityType="SuperLauncherModel.Blob" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuperLauncherModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuperLauncherModel.Dependency" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuperLauncherModel.Item" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuperLauncherModel.User" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <AssociationConnector Association="SuperLauncherModel.FK__Blob__ItemId__15502E78" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperLauncherModel.FK__Category__Parent__060DEAE8" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperLauncherModel.FK__Item__CategoryId__0EA330E9" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperLauncherModel.FK__Dependenc__Depen__1A14E395" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperLauncherModel.FK__Dependenc__Depen__1B0907CE" ManuallyRouted="false" />
-        <AssociationConnector Association="SuperLauncherModel.FK__Item__UserId__0F975522" ManuallyRouted="false" />
+      <Diagram DiagramId="245ad75d98be48a1a43a3e1c355a102d" Name="Diagram1">
+        <EntityTypeShape EntityType="Service.Model.Blob" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.Category" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.Dependency" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.Item" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.User" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="Service.Model.FK__Blob__ItemId__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="Service.Model.FK__Category__Featur__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="Service.Model.FK__Category__Parent__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="Service.Model.FK__Item__CategoryId__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="Service.Model.FK__Dependenc__Depen__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="Service.Model.FK__Dependenc__Depen__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="Service.Model.FK__Item__UserId__0F975522" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
