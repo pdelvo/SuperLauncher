@@ -154,10 +154,12 @@
     <Compile Include="Service\Model\User.cs">
       <DependentUpon>DatabaseEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Shared\EmailValidation.cs" />
+    <Compile Include="Shared\EmailBlacklistAttribute.cs" />
+    <Compile Include="Shared\EmailValidationAttribute.cs" />
     <Compile Include="Shared\Extensions.cs" />
     <Compile Include="Shared\Recapcha.cs" />
-    <Compile Include="Shared\UsernameValidation.cs" />
+    <Compile Include="Shared\UsernameBlacklistAttribute.cs" />
+    <Compile Include="Shared\UsernameValidationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />

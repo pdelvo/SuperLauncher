@@ -33,6 +33,10 @@
             @Html.ValidationMessageFor(m => m.ConfirmPassword)
             @Html.PasswordFor(m => m.ConfirmPassword)
         </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.RememberMe)
+            @Html.BootstrapCheckBoxFor(m => m.RememberMe)
+        </div>
         @{Html.RenderPartial("Recapcha", Model.CapchaError);}
         <input type="submit" class="btn btn-primary" value="Create Account" />
     </fieldset>

@@ -87,7 +87,17 @@ namespace web.Controllers
                 viewModel.CapchaError = error;
                 return View(viewModel);
             }
-            return RedirectToAction("LogIn");
+
+            MembershipCreateStatus status;
+
+            var user = Membership.CreateUser(viewModel.Username, viewModel.Password,
+                viewModel.Email, null, null, true, null, out status);
+            if (status != MembershipCreateStatus.Success)
+                return View(viewModel);
+            user.LastActivityDate = DateTime.Now;
+
+            FormsAuthentication.SetAuthCookie(viewModel.Username, viewModel.RememberMe);
+            return RedirectToAction("Index", "Web");
         }
     }
 }

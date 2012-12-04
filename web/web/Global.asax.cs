@@ -9,6 +9,7 @@ using System.Web.Routing;
 using web.Service.Model;
 using System.Web.Security;
 using System.Data.SqlClient;
+using web.Shared;
 
 namespace web
 {
