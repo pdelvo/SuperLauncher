@@ -5,20 +5,11 @@ CREATE TABLE Category
 	Parent int NULL FOREIGN KEY REFERENCES Category(Id)
 )
 
-CREATE TABLE [User]
-(
-	Id int PRIMARY KEY IDENTITY(1, 1),
-	Email nchar(256) NULL,
-	Username nchar(256) NOT NULL,
-    PasswordHash nchar(40) NOT NULL,
-    Administrator bit DEFAULT 0 NOT NULL
-)
-
 CREATE TABLE Item
 (
 	Id int PRIMARY KEY IDENTITY(1,1),
 	CategoryId int NULL FOREIGN KEY REFERENCES Category(Id),
-	UserId int NOT NULL FOREIGN KEY REFERENCES [User](Id),
+	[User] nchar(128) NOT NULL,
 	Name nchar(128) NOT NULL,
 	[Description] nchar(128) NULL,
 	ImageUrl nchar(128) NULL,

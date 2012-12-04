@@ -1,9 +1,9 @@
 ﻿@model web.Models.CreateAdministratorViewModel
+@using web.Shared
 @{
     ViewBag.Title = "Create Administrator Account";
 }
 
-<h2>Create Administrator Account</h2>
 <p>No accounts were found in the database.</p>
 <p>Please create one here.</p>
 
@@ -36,10 +36,9 @@
             @Html.PasswordFor(m => m.ConfirmPassword)
         </div>
         <div>
-            @Html.LabelFor(m => m.RememberMe)
             @Html.ValidationMessageFor(m => m.RememberMe)
-            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.BootstrapCheckBoxFor(m => m.RememberMe)
         </div>
-        <input type="submit" class="download" value="Create Account" />
+        <input type="submit" class="btn btn-primary" value="Create Account" />
     </fieldset>
 }

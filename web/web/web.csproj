@@ -154,13 +154,20 @@
       <DependentUpon>DatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Shared\EmailValidation.cs" />
+    <Compile Include="Shared\Extensions.cs" />
     <Compile Include="Shared\UsernameValidation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\global.css" />
     <Content Include="Content\images\commandBlock.png" />
     <Content Include="Content\images\background.png" />
     <Content Include="Content\images\featured.png" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\ice.png" />
     <Content Include="Content\images\log.png" />
     <Content Include="Content\images\stone.png" />
@@ -168,6 +175,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\launcher.css" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -206,6 +215,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\LauncherLayout.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Shared\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
