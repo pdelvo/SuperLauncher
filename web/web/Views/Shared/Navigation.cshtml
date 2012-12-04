@@ -6,14 +6,18 @@
                 </a><a class="brand" href="/">Super Launcher</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li class="active"><a href="/">Home</a></li>
+                        <li class="@(Request.Url.AbsolutePath == "/" || Request.Url.AbsolutePath == "/Web/Index/" ? "active" : "")">
+                            <a href="/">Home</a>
+                        </li>
                         @if (Request.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink("Log Out", "LogOut", "Account")</li>
                             if (Roles.GetRolesForUser(Membership.GetUser().UserName).Contains("Administrator"))
                             {
-                            <li>@Html.ActionLink("Administration", "Index", "Administration")</li>
+                                <li class="@(Request.Url.AbsolutePath.StartsWith("/Administration/") ? "active" : "")">
+                                    @Html.ActionLink("Administration", "Index", "Administration")
+                                </li>
                             }
+                            <li>@Html.ActionLink("Log Out", "LogOut", "Account")</li>
                         }
                     </ul>
                 </div>
