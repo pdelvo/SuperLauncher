@@ -16,7 +16,8 @@ CREATE TABLE Item
 	[Type] nchar(32) NOT NULL,
 	[Address] nchar(256) NULL,
 	[Version] int DEFAULT 0 NOT NULL,
-	FriendlyVersion nchar(128) NOT NULL
+	FriendlyVersion nchar(128) NOT NULL,
+    Approved bit DEFAULT 0 NOT NULL
 )
 
 ALTER TABLE Category ADD FeaturedItem int NULL FOREIGN KEY REFERENCES Item(Id);
