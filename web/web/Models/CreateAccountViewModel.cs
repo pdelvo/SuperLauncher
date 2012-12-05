@@ -22,6 +22,8 @@ namespace web.Models
         public string Email { get; set; }
 
         [Required]
+        [RegularExpression("[A-Za-z0-9]*", ErrorMessage = "Letters and numbers, with no spaces.")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Must be between 3-30 characters.")]
         [UsernameValidation(ErrorMessage = "This username is not available.")]
         [UsernameBlacklist(ErrorMessage = "This is a reserved name. If you feel you have a claim to it, please send an email to sir@cmpwn.com.")]
         public string Username { get; set; }

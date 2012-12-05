@@ -6,7 +6,6 @@
     background-color: #F2DEDE;
     color: #B94A48;
     padding: 2px;
-    float: right;
     border-radius: 3px;
     border: 1px #EED3D7 solid;
     height: 23px;
@@ -15,10 +14,58 @@
     left: 250px;
 }
 
+.textarea-validation {
+    left: auto;
+    right: 0;
+}
+
 .category-list, .category-list ul {
     list-style: none;
 }
 
 .category-list li div {
     border-bottom: 1px solid #555;
+}
+
+.download-well {
+    background: #eee;
+    border: 1px solid #555;
+    border-radius: 5px;
+    height: 250px;
+    line-height: 240px;
+    padding: 20px;
+    text-align: center;
+    width: 900px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.over {
+    background: #ccc;
+}
+
+.error {
+    background: #fbb;
+}
+
+p.error-hidden {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}
+
+.error p.error-hidden {
+    display: block;
+}
+
+.download-well .progress {
+    border-radius: 0 0 5px 5px;
+    bottom: -21px;
+    left: -1px;
+    position: absolute;
+    right: -1px;
 }

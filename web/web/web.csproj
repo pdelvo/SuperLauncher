@@ -120,6 +120,7 @@
     <Compile Include="Controllers\WebController.cs" />
     <Compile Include="Models\AddItemViewModel.cs" />
     <Compile Include="Models\BacklogViewModel.cs" />
+    <Compile Include="Models\ItemInProgress.cs" />
     <Compile Include="Models\NestedCategoryDescriptor.cs" />
     <Compile Include="Models\WebIndexViewModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -138,6 +139,7 @@
       <DependentUpon>DatabaseEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Service\Model\DatabaseHelper.cs" />
+    <Compile Include="Shared\ContentNameValidationAttribute.cs" />
     <Compile Include="Shared\EmailBlacklistAttribute.cs" />
     <Compile Include="Shared\EmailValidationAttribute.cs" />
     <Compile Include="Shared\Extensions.cs" />
@@ -219,6 +221,8 @@
     <Content Include="Areas\Administration\Views\Category\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Category\Add.cshtml" />
     <Content Include="Views\Web\Contact.cshtml" />
+    <Content Include="Views\Item\AddMap.cshtml" />
+    <Content Include="Views\Item\Dependencies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

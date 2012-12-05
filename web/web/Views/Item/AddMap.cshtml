@@ -1,0 +1,111 @@
+﻿@model web.Models.ItemInProgress
+@{
+    ViewBag.Title = "Add Map";
+}
+
+<h2>@Model.Name</h2>
+<p>Please upload your world file here. Package it as a zip file, with the contents of the world directly inside.</p>
+
+<div class="download-well" id="download-area">
+    <p><i class="icon-file"></i><span id="upload-status">Drag and drop files here.</span></p>
+    <p class="error-hidden" id="error-text">Too many files!</p>
+    <div class="progress progress-striped active hidden">
+        <div class="bar" style="width: 100%;"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var dropbox = document.getElementById('download-area');
+        dropbox.addEventListener("dragenter", dragEnter, false);
+        dropbox.addEventListener("dragexit", dragExit, false);
+        dropbox.addEventListener("dragover", nopHandler, false);
+        dropbox.addEventListener("drop", drop, false);
+    });
+    function dragEnter(event) {
+        $("#download-area").addClass("over");
+        $("#download-area").removeClass("too-many-files");
+    }
+    function dragExit(event) {
+        $("#download-area").removeClass("over");
+    }
+    function nopHandler(event) {
+        event.preventDefault();
+    }
+    function drop(event) {
+        event.preventDefault();
+        var files = event.dataTransfer.files;
+        var count = files.length;
+        if (count > 1) {
+            $("#download-area").addClass("error");
+            $("#error-text").html("Too many files!");
+        } else {
+            $("#download-area").removeClass("error");
+        }
+        if (count == 1) {
+            if (!files[0].name.endsWith(".zip")) {
+                $("#download-area").addClass("error");
+                $("#error-text").html(".zip files only, please!");
+            } else {
+                var file = files[0];
+                $("#upload-status").html("Processing " + file.name + "...");
+                $(".download-well .hidden").removeClass("hidden");
+                $("#download-area").removeClass("over");
+                $("#download-area").removeClass("error");
+                var reader = new FileReader();
+                reader.onload = function (readerEvent) {
+                    var data = readerEvent.target.result;
+                    if (data.length > 128) {
+                        var base64StartIndex = data.indexOf(',') + 1;
+                        if (base64StartIndex < data.length) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/item/uploadfile',
+                                data: data.substring(base64StartIndex),
+                                processData: false,
+                                timeout: 60000,
+                                dataType: 'text',
+                                beforeSend: function onBeforeSend(xhr, settings) {
+                                    xhr.setRequestHeader('x-file-name', file.name);
+                                    xhr.setRequestHeader('x-file-size', file.size);
+                                    xhr.setRequestHeader('x-file-type', file.type);
+                                    $("#upload-status").html("Uploading " + file.name + "...");
+                                },
+                                error: function onError(XMLHttpRequest, textStatus, errorThrown) {
+                                    $("#download-area").addClass("error");
+                                    $("#error-text").html("Unable to complete upload.");
+                                },
+                                success: function onUploadComplete(response) {
+                                    response = $.parseJSON(response);
+                                    if (!response || typeof response == "undefined") {
+                                        $("#download-area").addClass("error");
+                                        $("#error-text").html("The server was unable to process the upload.");
+                                        return;
+                                    }
+                                    if (response.success) {
+                                        // Redirect
+                                        window.location.href = "/item/dependencies";
+                                    } else {
+                                        $("#download-area").addClass("error");
+                                        $("#error-text").html("An unknown error has occured.");
+                                    }
+                                }
+                            });
+                        } else {
+                            $("#download-area").addClass("error");
+                            $("#error-text").html("An unknown error has occured.");
+                        }
+                    }
+                    else {
+                        $("#download-area").addClass("error");
+                        $("#error-text").html("An unknown error has occured.");
+                    }
+                };
+                reader.readAsDataURL(files[0]);
+            }
+        }
+    }
+    String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };
+</script>
