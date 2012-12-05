@@ -27,5 +27,10 @@ namespace web.Controllers
             }
             return View(viewModel);
         }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
     }
 }

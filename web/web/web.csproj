@@ -218,6 +218,7 @@
     <Content Include="Areas\Administration\Views\Backlog\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Category\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Category\Add.cshtml" />
+    <Content Include="Views\Web\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
