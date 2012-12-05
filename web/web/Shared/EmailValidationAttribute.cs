@@ -14,7 +14,7 @@ namespace web.Shared
         {
             var email = value as string;
             if (email == null) return false;
-            return Membership.GetUserNameByEmail(email) != null;
+            return Membership.GetUserNameByEmail(email) == null;
         }
     }
 }

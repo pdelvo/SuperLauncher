@@ -1,3 +1,49 @@
-﻿@{
-    ViewBag.Title = "Administration";
+﻿@model web.Models.BacklogViewModel
+@{
+    ViewBag.Title = "Backlog";
+    Layout = "~/Views/Administration/Layout.cshtml";
+}
+<h2>Backlog</h2>
+@if (!Model.Backlog.Any())
+{
+    <p>No pending items.</p>
+}
+else
+{
+    <h3>Content pending approval:</h3>
+    <table class="table table-hover">
+        <col style="width:32px"/>
+        <col style="width:32px"/>
+        <col style="width:32px"/>
+        <col style="width:100px"/>
+        <tr>
+            <th colspan="2"></th>
+            <th><i class="icon-ok">&nbsp;</i></th>
+            <th>Type</th>
+            <th>User</th>
+            <th>Item</th>
+            <th>Category</th>
+            <th>Version</th>
+        </tr>
+        @foreach (var item in @Model.Backlog)
+        {
+            <tr>
+                <td><a href="/Item/Edit/@item.Id"><i class="icon-edit">&nbsp;</i></a></td>
+                <td><a href="/Item/Delete/@item.Id"><i class="icon-trash">&nbsp;</i></a></td>
+                <td><a href="/Item/Approve/@item.Id"><i class="icon-upload">&nbsp;</i></a></td>
+                <td>@item.Type</td>
+                <td><a href="#">@item.User</a></td>
+                <td>@Html.ActionLink(item.Name, "Edit", "Item", item.Id, null)</td>
+                @if (item.Category == null)
+                {
+                    <td><em>No category</em></td>
+                }
+                else
+                {
+                    <td>@item.Category.Name</td>
+                }
+                <td>@item.FriendlyVersion</td>
+            </tr>
+        }
+    </table>
 }

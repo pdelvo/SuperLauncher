@@ -112,8 +112,11 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\LauncherController.cs" />
     <Compile Include="Controllers\WebController.cs" />
+    <Compile Include="Models\BacklogViewModel.cs" />
+    <Compile Include="Models\WebIndexViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -124,35 +127,10 @@
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Model\Blob.cs">
-      <DependentUpon>DatabaseEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service\Model\Category.cs">
-      <DependentUpon>DatabaseEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service\Model\DatabaseEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service\Model\DatabaseEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Service\Model\DatabaseEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Service\Model\Dependency.cs">
-      <DependentUpon>DatabaseEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service\Model\Item.cs">
-      <DependentUpon>DatabaseEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service\Model\User.cs">
-      <DependentUpon>DatabaseEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Shared\EmailBlacklistAttribute.cs" />
     <Compile Include="Shared\EmailValidationAttribute.cs" />
@@ -221,8 +199,16 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
     <Content Include="Views\Account\CreateAccount.cshtml" />
-    <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Administration\Layout.cshtml" />
     <Content Include="Views\Shared\Recapcha.cshtml" />
+    <EntityDeploy Include="Service\Model\DatabaseEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DatabaseEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Item\Add.cshtml" />
+    <Content Include="Views\Administration\AdminNavigation.cshtml" />
+    <Content Include="Views\Administration\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -242,27 +228,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Service\Model\DatabaseEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DatabaseEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Service\Model\DatabaseEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseEntities.edmx</DependentUpon>
-      <LastGenOutput>DatabaseEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Service\Model\DatabaseEntities.edmx.diagram">
-      <DependentUpon>DatabaseEntities.edmx</DependentUpon>
-    </Content>
-    <Content Include="Service\Model\DatabaseEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseEntities.edmx</DependentUpon>
-      <LastGenOutput>DatabaseEntities.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web\Index.cshtml" />

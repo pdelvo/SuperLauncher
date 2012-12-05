@@ -19,7 +19,7 @@ namespace SuperLauncher
         public PackageInstaller(int package)
         {
             InitializeComponent();
-            webKitBrowser.Navigating += new WebBrowserNavigatingEventHandler(webKitBrowser_Navigating);
+            webKitBrowser.Navigating += webKitBrowser_Navigating;
             new Thread(() => UpdatePackageAsync(Repository.GetPackageInstall(package))).Start();
         }
 

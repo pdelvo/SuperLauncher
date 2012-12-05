@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="span3">
+        @{Html.RenderPartial("AdminNavigation");}
+    </div>
+    <div class="span9">
+        @RenderBody()
+    </div>
+</div>

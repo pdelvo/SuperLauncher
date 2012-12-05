@@ -1,5 +1,37 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model web.Models.WebIndexViewModel
+@{
+    ViewBag.Title = "SharpLauncher";
 }
-
-<h2>SuperLauncher</h2>
+<p>Welcome to the SharpLauncher content repository.</p>
+@if (Model.Items.Any())
+{
+    <h2>My Content</h2>
+    <table class="table table-hover">
+        <col style="width:32px"/>
+        <col style="width:32px"/>
+        <col style="width:100px"/>
+        <tr>
+            <th colspan="2"></th>
+            <th>Type</th>
+            <th>Item</th>
+            <th>Version</th>
+        </tr>
+        @foreach (var item in @Model.Items)
+        {
+            <tr class="@(item.Approved ? "" : "warning")">
+                <td><a href="/Item/Edit/@item.Id"><i class="icon-edit">&nbsp;</i></a></td>
+                <td><a href="/Item/Delete/@item.Id"><i class="icon-trash">&nbsp;</i></a></td>
+                <td>@item.Type</td>
+                <td>@Html.ActionLink(item.Name, "Edit", "Item", item.Id, null)
+                @if (!item.Approved)
+                {
+                    <em>(Pending approval)</em>
+                }</td>
+                <td><a href="#">@item.FriendlyVersion</a></td>
+            </tr>
+        }
+    </table>
+}
+<h3>Add New Content</h3>
+<p>Thanks for contributing to the repository!</p>
+@Html.ActionLink("Add Content", "Add", "Item", null, new { @class = "btn btn-primary" })

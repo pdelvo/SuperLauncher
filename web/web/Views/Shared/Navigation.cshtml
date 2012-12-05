@@ -1,27 +1,27 @@
 ﻿<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                </a><a class="brand" href="/">Super Launcher</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li class="@(Request.Url.AbsolutePath == "/" || Request.Url.AbsolutePath == "/Web/Index/" ? "active" : "")">
-                            <a href="/">Home</a>
-                        </li>
-                        @if (Request.IsAuthenticated)
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
+                class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </a><a class="brand" href="/">Super Launcher</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="@(Request.Url.AbsolutePath == "/" || Request.Url.AbsolutePath == "/Web/Index/" ? "active" : "")">
+                        <a href="/">Home</a>
+                    </li>
+                    @if (Membership.GetUser() != null)
+                    {
+                        if (Roles.GetRolesForUser(Membership.GetUser().UserName).Contains("Administrator"))
                         {
-                            if (Roles.GetRolesForUser(Membership.GetUser().UserName).Contains("Administrator"))
-                            {
-                                <li class="@(Request.Url.AbsolutePath.StartsWith("/Administration/") ? "active" : "")">
-                                    @Html.ActionLink("Administration", "Index", "Administration")
-                                </li>
-                            }
-                            <li>@Html.ActionLink("Log Out", "LogOut", "Account")</li>
+                            <li class="@(Request.Url.AbsolutePath.StartsWith("/Administration/") ? "active" : "")">
+                                @Html.ActionLink("Administration", "Index", "Administration")
+                            </li>
                         }
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
+                        <li>@Html.ActionLink("Log Out", "LogOut", "Account")</li>
+                    }
+                </ul>
             </div>
+            <!--/.nav-collapse -->
         </div>
     </div>
+</div>

@@ -39,7 +39,7 @@ namespace web.Models
         public string DetailedUrl { get; set; }
         public long Id { get; set; }
         public long Version { get; set; }
-        public User User { get; set; }
+        public string User { get; set; }
         public string FriendlyVersion { get; set; }
         public List<Dependency> Dependencies { get; set; }
     }

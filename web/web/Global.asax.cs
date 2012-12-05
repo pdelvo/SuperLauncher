@@ -34,7 +34,7 @@ namespace web
 
             routes.MapRoute(
                 "Launcher Routes", // Route name
-                "{action}/{*id}", // URL with parameters
+                "launcher/{action}/{*id}", // URL with parameters
                 new { controller = "Launcher", id = UrlParameter.Optional }
             );
         }

@@ -16,7 +16,15 @@ namespace web.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new WebIndexViewModel();
+            using (var database = new DatabaseEntities())
+            {
+                viewModel.Items = new List<Item>(
+                    from i in database.Items
+                    select i
+                    );
+            }
+            return View(viewModel);
         }
     }
 }
