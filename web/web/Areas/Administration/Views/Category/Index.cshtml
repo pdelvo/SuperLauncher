@@ -1,0 +1,88 @@
+﻿@using web.Models;
+@model web.Models.NestedCategoryDescriptor
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+<h2>Categories</h2>
+@if (!Model.Subcategories.Any())
+{
+    <p>No categories.</p>
+}
+else
+{
+    <ul class="category-list">
+        @foreach (var category in Model.Subcategories)
+        {
+            <li>
+                <div>
+                    <a href="/Administration/Category/Delete?item=@category.Id"><i class="icon-trash"></i></a>
+                    <a href="#rename-modal" data-toggle="modal" data-category="@category.Id" data-category-name="@category.Name"
+                        class="rename-button"><i class="icon-edit"></i></a>
+                    <a href="/Administration/Category/Add?parent=@category.Id"><i class="icon-plus"></i></a>
+                    @category.Name
+                </div>
+                @if (category.Subcategories.Any())
+                {
+                    <ul>
+                        @foreach (var sub in category.Subcategories)
+                        {
+                            @RenderCategory(sub)
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+}
+@Html.ActionLink("Add Root Category", "Add", null, new { @class = "btn btn-primary" })
+
+<div id="rename-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modal-header" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="modal-header">Rename Category</h3>
+    </div>
+@using (@Html.BeginForm("Rename", "Category"))
+{
+    <div class="modal-body">
+        <input type="hidden" name="id" id="rename-hidden-id" />
+        <label for="newName">New name</label>
+        <input type="text" name="newName" id="rename-newname" />
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <input type="submit" value="Rename" class="btn btn-primary" id="submit-rename" />
+    </div>
+}
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.rename-button').click(function () {
+            var categoryId = $(this).attr('data-category');
+            var categoryName = $(this).attr('data-category-name');
+            $("#rename-hidden-id").val(categoryId);
+            $("#rename-newname").val(categoryName);
+        });
+    });
+</script>
+
+@helper RenderCategory(NestedCategoryDescriptor category)
+{
+    <div>
+        <a href="/Administration/Category/Delete?item=@category.Id"><i class="icon-trash"></i></a>
+        <a href="#rename-modal" data-toggle="modal" data-category="@category.Id" data-category-name="@category.Name"
+                        class="rename-button"><i class="icon-edit"></i></a>
+        <a href="/Administration/Category/Add?parent=@category.Id"><i class="icon-plus"></i></a>
+        @category.Name
+    </div>
+    if (category.Subcategories.Any())
+    {
+    <ul>
+        @foreach (var sub in category.Subcategories)
+        {
+            @RenderCategory(sub)
+        }
+    </ul>
+    }
+}

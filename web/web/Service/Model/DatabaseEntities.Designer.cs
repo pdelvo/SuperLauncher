@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -140,6 +141,7 @@ namespace web.Service.Model
         private ObjectSet<Item> _Items;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -175,11 +177,11 @@ namespace web.Service.Model
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -199,17 +201,20 @@ namespace web.Service.Model
         /// <param name="downloadUrl">Initial value of the DownloadUrl property.</param>
         /// <param name="destinationPath">Initial value of the DestinationPath property.</param>
         /// <param name="itemId">Initial value of the ItemId property.</param>
-        public static Blob CreateBlob(global::System.Int32 id, global::System.String downloadUrl, global::System.String destinationPath, global::System.Int32 itemId)
+        /// <param name="user">Initial value of the User property.</param>
+        public static Blob CreateBlob(global::System.Int32 id, global::System.String downloadUrl, global::System.String destinationPath, global::System.Int32 itemId, global::System.String user)
         {
             Blob blob = new Blob();
             blob.Id = id;
             blob.DownloadUrl = downloadUrl;
             blob.DestinationPath = destinationPath;
             blob.ItemId = itemId;
+            blob.User = user;
             return blob;
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -310,8 +315,33 @@ namespace web.Service.Model
         private global::System.Int32 _ItemId;
         partial void OnItemIdChanging(global::System.Int32 value);
         partial void OnItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String User
+        {
+            get
+            {
+                return _User;
+            }
+            set
+            {
+                OnUserChanging(value);
+                ReportPropertyChanging("User");
+                _User = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("User");
+                OnUserChanged();
+            }
+        }
+        private global::System.String _User;
+        partial void OnUserChanging(global::System.String value);
+        partial void OnUserChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -354,6 +384,7 @@ namespace web.Service.Model
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -380,6 +411,7 @@ namespace web.Service.Model
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -482,6 +514,7 @@ namespace web.Service.Model
         partial void OnFeaturedItemChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -492,7 +525,7 @@ namespace web.Service.Model
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Category__Featur__03317E3D", "Item")]
-        public Item Item
+        public Item Featured
         {
             get
             {
@@ -508,7 +541,7 @@ namespace web.Service.Model
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Item> ItemReference
+        public EntityReference<Item> FeaturedReference
         {
             get
             {
@@ -530,7 +563,7 @@ namespace web.Service.Model
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Category__Parent__7D78A4E7", "Category1")]
-        public EntityCollection<Category> Category1
+        public EntityCollection<Category> Children
         {
             get
             {
@@ -552,7 +585,7 @@ namespace web.Service.Model
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Category__Parent__7D78A4E7", "Category")]
-        public Category Category2
+        public Category ParentCategory
         {
             get
             {
@@ -568,7 +601,7 @@ namespace web.Service.Model
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Category> Category2Reference
+        public EntityReference<Category> ParentCategoryReference
         {
             get
             {
@@ -606,6 +639,7 @@ namespace web.Service.Model
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -634,6 +668,7 @@ namespace web.Service.Model
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -712,6 +747,7 @@ namespace web.Service.Model
         partial void OnDependencyItemChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -792,6 +828,7 @@ namespace web.Service.Model
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -828,6 +865,7 @@ namespace web.Service.Model
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1098,6 +1136,7 @@ namespace web.Service.Model
         partial void OnApprovedChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1228,8 +1267,10 @@ namespace web.Service.Model
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

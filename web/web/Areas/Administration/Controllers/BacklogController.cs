@@ -6,10 +6,10 @@ using System.Web.Mvc;
 using web.Models;
 using web.Service.Model;
 
-namespace web.Controllers
+namespace web.Areas.Administration.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    public class AdministrationController : Controller
+    public class BacklogController : Controller
     {
         public ActionResult Index()
         {
@@ -22,11 +22,6 @@ namespace web.Controllers
                     select i);
             }
             return View(viewModel);
-        }
-
-        public ActionResult Categories()
-        {
-            return null;
         }
     }
 }

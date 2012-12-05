@@ -1,4 +1,76 @@
 ﻿@{
-    ViewBag.Title = "AddItem";
+    ViewBag.Title = "Add Content";
 }
-<h2>Add Content</h2>
+<h1>Add Content</h1>
+<p>Adding content to the repository takes a couple of steps.</p>
+<ol>
+    <li>Enter item details</li>
+    <li>Upload content</li>
+    <li>Select dependencies</li>
+    <li>Review package</li>
+</ol>
+<p>After this is finished, your content will be added to the content backlog, where it will be approved by an administrator shortly.</p>
+<p>Once uploaded, you give us the right to remove it, change any details, or promote it.</p>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MvcFoolproofJQueryValidation.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/mvcfoolproof.unobtrusive.min.js")" type="text/javascript"></script>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#maps" data-toggle="tab">Maps</a></li>
+    <li><a href="#servers" data-toggle="tab">Servers</a></li>
+    <li><a href="#texture-packs" data-toggle="tab">Texture Packs</a></li>
+    <li><a href="#mods"data-toggle="tab" >Mods</a></li>
+    <li><a href="#skins" data-toggle="tab">Skins</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="maps">
+        <h3>Maps</h3>
+        <p>Prepare a zip file with your world directly inside.</p>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Details</legend>
+            </fieldset>
+        }
+    </div>
+    <div class="tab-pane" id="servers">
+        <h3>Servers</h3>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Details</legend>
+            </fieldset>
+        }
+    </div>
+    <div class="tab-pane" id="texture-packs">
+        <h3>Texture Packs</h3>
+        <p>Prepare a zip file with your texture pack directly inside. Remember to add a dependency on Optifine if you upload an HD texture pack.</p>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Details</legend>
+            </fieldset>
+        }
+    </div>
+    <div class="tab-pane" id="mods">
+        <h3>Mods</h3>
+        <p>Mods will be rigorously inspected and may take longer to approve.</p>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Details</legend>
+            </fieldset>
+        }
+    </div>
+    <div class="tab-pane" id="skins">
+        <h3>Skins</h3>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Details</legend>
+            </fieldset>
+        }
+    </div>
+</div>

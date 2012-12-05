@@ -3,14 +3,22 @@
 }
 
 .field-validation-error {
-    background-color: #f00;
-    color: #fff;
+    background-color: #F2DEDE;
+    color: #B94A48;
     padding: 2px;
     float: right;
     border-radius: 3px;
-    border: 1px #e55 solid;
+    border: 1px #EED3D7 solid;
     height: 23px;
     line-height: 23px;
     position: absolute;
     left: 250px;
+}
+
+.category-list, .category-list ul {
+    list-style: none;
+}
+
+.category-list li div {
+    border-bottom: 1px solid #555;
 }

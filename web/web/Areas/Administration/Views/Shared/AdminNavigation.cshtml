@@ -11,13 +11,13 @@
 <div class="well" style="max-width: 340px; padding: 8px 0;">
     <ul class="nav nav-list">
         <li class="nav-header">Administration</li>
-        <li class="@(Request.Url.AbsolutePath.Contains("Index") ? "active" : "")">
-            <a href="/Administration/Index">Backlog @if (backlogCount != 0)
+        <li class="@(Request.Url.AbsolutePath.Contains("Backlog") ? "active" : "")">
+            <a href="/Administration/Backlog">Backlog @if (backlogCount != 0)
             {
                 <span class="badge badge-important pull-right">@backlogCount</span>
             }</a>
         </li>
-        <li class="@(Request.Url.AbsolutePath.Contains("Categories") ? "active" : "")"><a href="#">Categories</a></li>
+        <li class="@(Request.Url.AbsolutePath.Contains("Category") ? "active" : "")"><a href="/Administration/Category">Categories</a></li>
         <li class="@(Request.Url.AbsolutePath.Contains("Users") ? "active" : "")"><a href="#">Users</a></li>
         <li class="@(Request.Url.AbsolutePath.Contains("Updates") ? "active" : "")"><a href="#">Minecraft Updates</a></li>
         <li class="@(Request.Url.AbsolutePath.Contains("Updates") ? "active" : "")"><a href="#">Flagged Content</a></li>

@@ -32,7 +32,7 @@ namespace web.Controllers
             var user = Membership.GetUser(viewModel.Username, true);
             Session["user"] = user;
             FormsAuthentication.SetAuthCookie(viewModel.Username, viewModel.RememberMe);
-            return RedirectToAction("Index", "Web");
+            return Redirect(Request.QueryString["ReturnUrl"]);
         }
 
         [Authorize]
@@ -64,6 +64,8 @@ namespace web.Controllers
             if (status != MembershipCreateStatus.Success)
                 return View(viewModel);
             user.LastActivityDate = DateTime.Now;
+            if (!Roles.GetAllRoles().Contains("Administrator"))
+                Roles.CreateRole("Administrator");
             Roles.AddUserToRole(viewModel.Username, "Administrator");
 
             FormsAuthentication.SetAuthCookie(viewModel.Username, viewModel.RememberMe);

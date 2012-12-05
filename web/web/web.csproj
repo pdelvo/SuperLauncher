@@ -110,12 +110,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\BacklogController.cs" />
+    <Compile Include="Areas\Administration\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Administration\Models\AddCategoryViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\LauncherController.cs" />
     <Compile Include="Controllers\WebController.cs" />
+    <Compile Include="Models\AddItemViewModel.cs" />
     <Compile Include="Models\BacklogViewModel.cs" />
+    <Compile Include="Models\NestedCategoryDescriptor.cs" />
     <Compile Include="Models\WebIndexViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -132,6 +137,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Service\Model\DatabaseHelper.cs" />
     <Compile Include="Shared\EmailBlacklistAttribute.cs" />
     <Compile Include="Shared\EmailValidationAttribute.cs" />
     <Compile Include="Shared\Extensions.cs" />
@@ -156,6 +162,7 @@
     <Content Include="Content\images\water.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\launcher.css" />
+    <Content Include="Areas\Administration\Views\Web.config" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -199,7 +206,7 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
     <Content Include="Views\Account\CreateAccount.cshtml" />
-    <Content Include="Views\Administration\Layout.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Recapcha.cshtml" />
     <EntityDeploy Include="Service\Model\DatabaseEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -207,8 +214,10 @@
     </EntityDeploy>
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\Add.cshtml" />
-    <Content Include="Views\Administration\AdminNavigation.cshtml" />
-    <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\AdminNavigation.cshtml" />
+    <Content Include="Areas\Administration\Views\Backlog\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Category\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

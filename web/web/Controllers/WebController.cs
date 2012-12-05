@@ -19,10 +19,11 @@ namespace web.Controllers
             var viewModel = new WebIndexViewModel();
             using (var database = new DatabaseEntities())
             {
+                var user = Membership.GetUser();
                 viewModel.Items = new List<Item>(
                     from i in database.Items
-                    select i
-                    );
+                    where i.User == user.UserName
+                    select i);
             }
             return View(viewModel);
         }

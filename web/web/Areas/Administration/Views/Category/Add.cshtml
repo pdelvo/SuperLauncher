@@ -1,0 +1,29 @@
+﻿@model web.Areas.Administration.Models.AddCategoryViewModel
+@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MvcFoolproofJQueryValidation.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/mvcfoolproof.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Add category</legend>
+        @if (!string.IsNullOrEmpty(Model.ParentName))
+        {
+            <p class="text-info">This category is a sub-category of @Model.ParentName</p>
+        }
+        <div>
+            @Html.LabelFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        @Html.HiddenFor(m => m.Parent)
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn" })
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </fieldset>
+}

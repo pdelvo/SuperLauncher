@@ -14,7 +14,7 @@
                         if (Roles.GetRolesForUser(Membership.GetUser().UserName).Contains("Administrator"))
                         {
                             <li class="@(Request.Url.AbsolutePath.StartsWith("/Administration/") ? "active" : "")">
-                                @Html.ActionLink("Administration", "Index", "Administration")
+                                <a href="/Administration/Backlog">Administration</a>
                             </li>
                         }
                         <li>@Html.ActionLink("Log Out", "LogOut", "Account")</li>

@@ -16,12 +16,10 @@ namespace web.Controllers
             ItemViewModel viewModel;
             using (var database = new DatabaseEntities())
             {
-                var item = from i in database.Items
-                           where i.Id == id
-                           select i;
-                if (item.Any())
-                    return new HttpNotFoundResult();
-                viewModel = new ItemViewModel(item.FirstOrDefault());
+                var item = database.ItemById(id);
+                if (item != null)
+                    return HttpNotFound();
+                viewModel = new ItemViewModel(item);
             }
             return View(viewModel);
         }
