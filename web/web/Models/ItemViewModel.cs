@@ -34,7 +34,6 @@ namespace web.Models
                 Blobs.Add(new BlobViewModel(blob));
             User = item.User;
             Approved = item.Approved;
-            PendingUpdate = item.ItemUpdates.Any();
         }
 
         [ScriptIgnore]

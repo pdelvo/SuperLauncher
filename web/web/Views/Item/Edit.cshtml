@@ -7,5 +7,168 @@
     <fieldset>
         <legend>Edit @Model.Name</legend>
         <p>Your updates will be placed into the backlog for approval. Your existing content will remain available until the update is approved.</p>
+        <div>
+            @Html.LabelFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.FriendlyVersion)
+            @Html.ValidationMessageFor(m => m.FriendlyVersion)
+            @Html.TextBoxFor(m => m.FriendlyVersion)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.DescriptionMarkdown)
+            @Html.ValidationMessageFor(m => m.DescriptionMarkdown)
+            @Html.TextAreaFor(m => m.DescriptionMarkdown, new { @class = "input-block-level", rows = 8 })
+        </div>
+        <img src="@Model.ImageUrl" alt="@Model.Name" id="image-drop" />
+        <div class="hidden alert alert-error" id="image-error"></div>
+        <p class="muted">Drag and drop an image onto the one above to update.</p>
+        @if (Model.Type == "Server")
+        {
+            <div>
+                @Html.LabelFor(m => m.Address)
+                @Html.ValidationMessageFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name)
+            </div>
+        }
+        else
+        {
+            <h3>Dependencies</h3>
+            if (Model.Dependencies.Any())
+            {
+                <table class="table table-hover">
+                    @foreach (var dependency in Model.Dependencies)
+                    {
+                        <tr>
+                            <td><a href="#"><i class="icon-trash"></i></a></td>
+                            <td>@dependency.Provider.Name</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p class="muted">This item has no dependencies</p>
+            }
+            <a href="#" class="btn">Add dependency</a>
+            
+            <h3>Files</h3>
+            <table class="table table-hover">
+                @foreach (var file in Model.Blobs)
+                {
+                    <tr data-blob-id="@file.Id" class="file-drop">
+                        <td><a href="@file.DownloadUrl">@file.Name</a></td>
+                        <td><p class="muted">Drag a new file on to this one to update.</p></td>
+                    </tr>
+                }
+            </table>
+            <div class="hidden alert alert-error" id="file-error"></div>
+        }
+        <input type="submit" value="Submit" class="pull-right btn btn-primary"/>
     </fieldset>
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        var dropbox = document.getElementById('image-drop');
+        dropbox.addEventListener("dragenter", nopHandler, false);
+        dropbox.addEventListener("dragexit", nopHandler, false);
+        dropbox.addEventListener("dragover", nopHandler, false);
+        dropbox.addEventListener("drop", imageDrop, false);
+        var files = document.getElementsByClassName('file-drop');
+        for (var i = 0; i < files.length; i++) {
+            files[i].addEventListener("dragenter", nopHandler, false);
+            files[i].addEventListener("dragexit", nopHandler, false);
+            files[i].addEventListener("dragover", nopHandler, false);
+            files[i].addEventListener("drop", fileDrop, false);
+        }
+    });
+    function nopHandler(event) {
+        event.preventDefault();
+    }
+    function imageDrop(event) {
+        event.preventDefault();
+        var files = event.dataTransfer.files;
+        var count = files.length;
+        if (count != 1) {
+            $("#image-error").html("Too many files!");
+            $("#image-error").removeClass("hidden");
+        }
+        if (count == 1) {
+            $("#image-error").addClass("hidden");
+            var file = files[0];
+            var reader = new FileReader();
+            reader.onload = function (readerEvent) {
+                var data = readerEvent.target.result;
+                if (data.length > 128) {
+                    var base64StartIndex = data.indexOf(',') + 1;
+                    if (base64StartIndex < data.length) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/item/editimage/@Model.Id',
+                            data: data.substring(base64StartIndex),
+                            processData: false,
+                            timeout: 60000,
+                            dataType: 'text',
+                            beforeSend: function onBeforeSend(xhr, settings) {
+                                xhr.setRequestHeader('x-file-name', file.name);
+                                xhr.setRequestHeader('x-file-size', file.size);
+                                xhr.setRequestHeader('x-file-type', file.type);
+                            },
+                            error: function onError(XMLHttpRequest, textStatus, errorThrown) {
+                                $("#image-error").removeClass("hidden");
+                                $("#image-error").html("Unable to complete upload.");
+                            },
+                            success: function onUploadComplete(response) {
+                                response = $.parseJSON(response);
+                                if (response.success) {
+                                    $("#image-drop").attr('src', response.url);
+                                }
+                                else {
+                                    $("#image-error").removeClass("hidden");
+                                    $("#image-error").html(response.error);
+                                }
+                            }
+                        });
+                    } else {
+                        $("#image-error").removeClass("hidden");
+                        $("#image-error").html("Unknown error occured.");
+                    }
+                } else {
+                    $("#image-error").removeClass("hidden");
+                    $("#image-error").html("Unknown error occured.");
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    function fileDrop(event) {
+        event.preventDefault();
+        var files = event.dataTransfer.files;
+        var count = files.length;
+        if (count != 1) {
+            $("#file-error").html("Too many files!");
+            $("#file-error").removeClass("hidden");
+        }
+        if (count == 1) {
+            $("#file-error").addClass("hidden");
+            var file = files[0];
+            var reader = new FileReader();
+            reader.onload = function (readerEvent) {
+                var data = readerEvent.target.result;
+                if (data.length > 128) {
+                    var base64StartIndex = data.indexOf(',') + 1;
+                    if (base64StartIndex < data.length) {
+                        // TODO
+                    } else {
+                        $("file-error").html("Unknown error occured.");
+                    }
+                } else {
+                    $("file-error").html("Unknown error occured.");
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

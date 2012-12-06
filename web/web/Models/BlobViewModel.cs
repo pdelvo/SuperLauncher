@@ -17,10 +17,12 @@ namespace web.Models
             DownloadUrl = blob.DownloadUrl;
             DestinationPath = blob.DestinationPath;
             Name = blob.Name;
+            Id = blob.Id;
         }
 
         public string Name { get; set; }
         public string DownloadUrl { get; set; }
         public string DestinationPath { get; set; }
+        public int Id { get; set; }
     }
 }

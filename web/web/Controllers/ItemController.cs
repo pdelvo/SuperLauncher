@@ -305,8 +305,114 @@ namespace web.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            return View();
+            using (var database = new DatabaseEntities())
+            {
+                var item = database.ItemById(id);
+                if (item == null) return HttpNotFound();
+                if (item.User != Membership.GetUser().UserName && !Membership.GetUser().IsAdministrator())
+                    return new HttpUnauthorizedResult();
+                var viewModel = new ItemViewModel(item);
+                if (item.UpdatedBy.Any())
+                    viewModel = new ItemViewModel(item.UpdatedBy.First());
+                return View(viewModel);
+            }
         }
+
+        #region Editing Files
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditImage(int id)
+        {
+            var reader = new StreamReader(Request.InputStream);
+            var base64 = reader.ReadToEnd();
+            byte[] file = Convert.FromBase64CharArray(base64.ToCharArray(), 0, base64.Length);
+            var name = Request.Headers["x-file-name"];
+            var user = Membership.GetUser();
+
+            using (var database = new DatabaseEntities())
+            {
+                var item = database.ItemById(id);
+                if (item == null)
+                    return Json(new { success = false, error = "Item not found." });
+                if (item.User != user.UserName && !user.IsAdministrator())
+                    return Json(new { success = false, error = "Unauthorized." });
+
+                if (Path.GetExtension(name) != ".jpg" && Path.GetExtension(name) != ".png")
+                    return Json(new {success = false, error = "Incorrect file format."});
+
+                // Validate image size
+                try
+                {
+                    var image = Image.FromStream(new MemoryStream(file));
+                    if (image.Width != 400 || image.Height != 250)
+                        return Json(new {success = false, error = "Incorrect image size. Must be 400x250 pixels."});
+                }
+                catch
+                {
+                    return Json(new {success = false, error = "Invalid image file."});
+                }
+
+                // Check user directories
+                var path = Path.Combine(Server.MapPath("~"), "data", user.UserName);
+                Directory.CreateDirectory(path);
+                foreach (var c in Path.GetInvalidFileNameChars())
+                    name = name.Replace(c, '_');
+                int i = 1;
+                string newName = name;
+                string extension = Path.GetExtension(newName);
+                newName = Path.GetFileNameWithoutExtension(newName);
+                while (IOFile.Exists(Path.Combine(path, newName + extension)))
+                    newName = Path.GetFileNameWithoutExtension(name) + i++;
+                IOFile.WriteAllBytes(Path.Combine(path, newName + extension), file);
+
+                if (item.ProvidesUpdate != null)
+                    item.ImageUrl = "/data/" + user.UserName + "/" + newName + extension;
+                else
+                {
+                    var update = new Item
+                    {
+                        Address = item.Address,
+                        Approved = false,
+                        CategoryId = item.CategoryId,
+                        Description = item.Description,
+                        FriendlyVersion = item.FriendlyVersion,
+                        ImageUrl = "/data/" + user.UserName + "/" + newName + extension,
+                        Name = item.Name,
+                        ProvidesUpdate = item.Id,
+                        Type = item.Type,
+                        User = item.User,
+                        Version = item.Version
+                    };
+                    database.Items.AddObject(update);
+                    database.SaveChanges();
+                    foreach (var dependency in item.Dependencies)
+                    {
+                        database.Dependencies.AddObject(new Dependency
+                        {
+                            DependencyItem = dependency.DependencyItem,
+                            DependentItem = update.Id
+                        });
+                    }
+                    foreach (var blob in item.Blobs)
+                    {
+                        database.Blobs.AddObject(new Blob
+                        {
+                            Name = blob.Name,
+                            DestinationPath = blob.DestinationPath,
+                            DownloadUrl = blob.DownloadUrl,
+                            ItemId = update.Id
+                        });
+                    }
+                }
+
+                database.SaveChanges();
+
+                return Json(new { success = true, url = item.ImageUrl });
+            }
+        }
+
+        #endregion
 
         [Authorize]
         public ActionResult Delete(int id)

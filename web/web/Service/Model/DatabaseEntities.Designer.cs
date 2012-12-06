@@ -24,7 +24,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Service.Model", "FK__Item__CategoryId__00551192", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(web.Service.Model.Category), "Item", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Item), true)]
 [assembly: EdmRelationshipAttribute("Service.Model", "FK__Dependenc__Depen__08EA5793", "Item", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(web.Service.Model.Item), "Dependency", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Dependency), true)]
 [assembly: EdmRelationshipAttribute("Service.Model", "FK__Dependenc__Depen__09DE7BCC", "Item", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(web.Service.Model.Item), "Dependency", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Dependency), true)]
-[assembly: EdmRelationshipAttribute("Service.Model", "FK__ItemUpdate__Item__4BAC3F29", "Item", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(web.Service.Model.Item), "ItemUpdate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.ItemUpdate), true)]
+[assembly: EdmRelationshipAttribute("Service.Model", "FK__Item__ProvidesUp__4CA06362", "Item", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(web.Service.Model.Item), "Item1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(web.Service.Model.Item), true)]
 
 #endregion
 
@@ -139,22 +139,6 @@ namespace web.Service.Model
             }
         }
         private ObjectSet<Item> _Items;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ItemUpdate> ItemUpdates
-        {
-            get
-            {
-                if ((_ItemUpdates == null))
-                {
-                    _ItemUpdates = base.CreateObjectSet<ItemUpdate>("ItemUpdates");
-                }
-                return _ItemUpdates;
-            }
-        }
-        private ObjectSet<ItemUpdate> _ItemUpdates;
 
         #endregion
         #region AddTo Methods
@@ -189,14 +173,6 @@ namespace web.Service.Model
         public void AddToItems(Item item)
         {
             base.AddObject("Items", item);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ItemUpdates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToItemUpdates(ItemUpdate itemUpdate)
-        {
-            base.AddObject("ItemUpdates", itemUpdate);
         }
 
         #endregion
@@ -1147,6 +1123,30 @@ namespace web.Service.Model
         private global::System.Boolean _Approved;
         partial void OnApprovedChanging(global::System.Boolean value);
         partial void OnApprovedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ProvidesUpdate
+        {
+            get
+            {
+                return _ProvidesUpdate;
+            }
+            set
+            {
+                OnProvidesUpdateChanging(value);
+                ReportPropertyChanging("ProvidesUpdate");
+                _ProvidesUpdate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProvidesUpdate");
+                OnProvidesUpdateChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ProvidesUpdate;
+        partial void OnProvidesUpdateChanging(Nullable<global::System.Int32> value);
+        partial void OnProvidesUpdateChanged();
 
         #endregion
     
@@ -1263,7 +1263,7 @@ namespace web.Service.Model
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Dependenc__Depen__09DE7BCC", "Dependency")]
-        public EntityCollection<Dependency> Dependencies1
+        public EntityCollection<Dependency> DependencyOf
         {
             get
             {
@@ -1284,229 +1284,21 @@ namespace web.Service.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__ItemUpdate__Item__4BAC3F29", "ItemUpdate")]
-        public EntityCollection<ItemUpdate> ItemUpdates
+        [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Item__ProvidesUp__4CA06362", "Item1")]
+        public EntityCollection<Item> UpdatedBy
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ItemUpdate>("Service.Model.FK__ItemUpdate__Item__4BAC3F29", "ItemUpdate");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Item>("Service.Model.FK__Item__ProvidesUp__4CA06362", "Item1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ItemUpdate>("Service.Model.FK__ItemUpdate__Item__4BAC3F29", "ItemUpdate", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Item>("Service.Model.FK__Item__ProvidesUp__4CA06362", "Item1", value);
                 }
             }
         }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Service.Model", Name="ItemUpdate")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class ItemUpdate : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new ItemUpdate object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="item">Initial value of the Item property.</param>
-        /// <param name="name">Initial value of the Name property.</param>
-        /// <param name="friendlyVersion">Initial value of the FriendlyVersion property.</param>
-        public static ItemUpdate CreateItemUpdate(global::System.Int32 id, global::System.Int32 item, global::System.String name, global::System.String friendlyVersion)
-        {
-            ItemUpdate itemUpdate = new ItemUpdate();
-            itemUpdate.Id = id;
-            itemUpdate.Item = item;
-            itemUpdate.Name = name;
-            itemUpdate.FriendlyVersion = friendlyVersion;
-            return itemUpdate;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Item
-        {
-            get
-            {
-                return _Item;
-            }
-            set
-            {
-                OnItemChanging(value);
-                ReportPropertyChanging("Item");
-                _Item = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Item");
-                OnItemChanged();
-            }
-        }
-        private global::System.Int32 _Item;
-        partial void OnItemChanging(global::System.Int32 value);
-        partial void OnItemChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                OnNameChanging(value);
-                ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Name");
-                OnNameChanged();
-            }
-        }
-        private global::System.String _Name;
-        partial void OnNameChanging(global::System.String value);
-        partial void OnNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Description
-        {
-            get
-            {
-                return _Description;
-            }
-            set
-            {
-                OnDescriptionChanging(value);
-                ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Description");
-                OnDescriptionChanged();
-            }
-        }
-        private global::System.String _Description;
-        partial void OnDescriptionChanging(global::System.String value);
-        partial void OnDescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String ImageUrl
-        {
-            get
-            {
-                return _ImageUrl;
-            }
-            set
-            {
-                OnImageUrlChanging(value);
-                ReportPropertyChanging("ImageUrl");
-                _ImageUrl = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("ImageUrl");
-                OnImageUrlChanged();
-            }
-        }
-        private global::System.String _ImageUrl;
-        partial void OnImageUrlChanging(global::System.String value);
-        partial void OnImageUrlChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Address
-        {
-            get
-            {
-                return _Address;
-            }
-            set
-            {
-                OnAddressChanging(value);
-                ReportPropertyChanging("Address");
-                _Address = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Address");
-                OnAddressChanged();
-            }
-        }
-        private global::System.String _Address;
-        partial void OnAddressChanging(global::System.String value);
-        partial void OnAddressChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String FriendlyVersion
-        {
-            get
-            {
-                return _FriendlyVersion;
-            }
-            set
-            {
-                OnFriendlyVersionChanging(value);
-                ReportPropertyChanging("FriendlyVersion");
-                _FriendlyVersion = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("FriendlyVersion");
-                OnFriendlyVersionChanged();
-            }
-        }
-        private global::System.String _FriendlyVersion;
-        partial void OnFriendlyVersionChanging(global::System.String value);
-        partial void OnFriendlyVersionChanged();
-
-        #endregion
-    
-        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1514,16 +1306,16 @@ namespace web.Service.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__ItemUpdate__Item__4BAC3F29", "Item")]
-        public Item Item1
+        [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Item__ProvidesUp__4CA06362", "Item")]
+        public Item UpdatesItem
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Item>("Service.Model.FK__ItemUpdate__Item__4BAC3F29", "Item").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Item>("Service.Model.FK__Item__ProvidesUp__4CA06362", "Item").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Item>("Service.Model.FK__ItemUpdate__Item__4BAC3F29", "Item").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Item>("Service.Model.FK__Item__ProvidesUp__4CA06362", "Item").Value = value;
             }
         }
         /// <summary>
@@ -1531,17 +1323,17 @@ namespace web.Service.Model
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Item> Item1Reference
+        public EntityReference<Item> UpdatesItemReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Item>("Service.Model.FK__ItemUpdate__Item__4BAC3F29", "Item");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Item>("Service.Model.FK__Item__ProvidesUp__4CA06362", "Item");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Item>("Service.Model.FK__ItemUpdate__Item__4BAC3F29", "Item", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Item>("Service.Model.FK__Item__ProvidesUp__4CA06362", "Item", value);
                 }
             }
         }

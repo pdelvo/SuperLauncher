@@ -29,7 +29,8 @@ CREATE TABLE Item
 	[Address] varchar(256) NULL,
 	[Version] int DEFAULT 0 NOT NULL,
 	FriendlyVersion varchar(128) NOT NULL,
-    Approved bit DEFAULT 0 NOT NULL
+    Approved bit DEFAULT 0 NOT NULL,
+    ProvidesUpdate int NULL FOREIGN KEY REFERENCES Item(Id)
 );
 
 -- Link Category to FeaturedItem
@@ -51,18 +52,6 @@ CREATE TABLE Dependency
 	Id int PRIMARY KEY IDENTITY(1, 1),
 	DependentItem int NOT NULL FOREIGN KEY REFERENCES Item(Id),
 	DependencyItem int NOT NULL FOREIGN KEY REFERENCES Item(Id)
-);
-
--- Represents updates pending approval
-CREATE TABLE [ItemUpdate]
-(
-	Id int PRIMARY KEY IDENTITY(1, 1),
-	Item int NOT NULL FOREIGN KEY REFERENCES Item(Id),
-	Name varchar(128) NOT NULL,
-	[Description] varchar(1024) NULL,
-	ImageUrl varchar(128) NULL,
-	[Address] varchar(256) NULL,
-	FriendlyVersion varchar(128) NOT NULL
 );
 
 /**********************************************************************/

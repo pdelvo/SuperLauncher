@@ -22,7 +22,8 @@ namespace web.Controllers
                 var user = Membership.GetUser();
                 viewModel.Items = new List<Item>(
                     from i in database.Items
-                    where i.User == user.UserName
+                    where i.User == user.UserName &&
+                        i.UpdatesItem == null
                     select i);
             }
             return View(viewModel);
