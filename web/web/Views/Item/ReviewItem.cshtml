@@ -1,0 +1,58 @@
+﻿@model web.Models.ReviewItemViewModel
+@using MarkdownSharp;
+@{
+    ViewBag.Title = "Review Item";
+    var markdown = new Markdown();
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MvcFoolproofJQueryValidation.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/mvcfoolproof.unobtrusive.min.js")" type="text/javascript"></script>
+
+<h2>Review @Model.Item.Name</h2>
+<p>Please ensure that all information is correct.</p>
+@using (Html.BeginForm())
+{
+    <h3>@Model.Item.Name</h3>
+    <p class="muted">@Model.Item.ItemType</p>
+    <label for="category">Select Category</label>
+    <select name="category">
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@category">@category</option>
+        }
+    </select>
+    @Html.LabelFor(m => m.Version)
+    @Html.ValidationMessageFor(m => m.Version)
+    @Html.TextBoxFor(m => m.Version)
+    <h4>Description</h4>
+    <blockquote>@Html.Raw(markdown.Transform(Model.Item.Description))</blockquote>
+    <h4>Files</h4>
+    <table class="table table-hover">
+        <tr>
+            <th>File Name</th>
+        </tr>
+        @foreach (var file in Model.Item.Blobs)
+        {
+            <tr>
+                <td>@file.Name</td>
+            </tr>
+        }
+    </table>
+    if (Model.Item.Dependencies.Any())
+    {
+    <h4>Dependencies</h4>
+    <table class="table table-hover">
+        <tr>
+            <th>Dependency</th>
+        </tr>
+        @foreach (var dependency in Model.Item.Dependencies)
+        {
+            <tr>
+                <td>@dependency.Name</td>
+            </tr>
+        }
+    </table>
+    }
+    <input type="submit" class="btn btn-primary pull-right" value="Submit" />
+}

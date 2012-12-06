@@ -10,9 +10,9 @@ namespace web.Models
     {
         public BacklogViewModel()
         {
-            Backlog = new List<Item>();
+            Backlog = new List<BacklogItem>();
         }
 
-        public List<Item> Backlog { get; set; }
+        public List<BacklogItem> Backlog { get; set; }
     }
 }

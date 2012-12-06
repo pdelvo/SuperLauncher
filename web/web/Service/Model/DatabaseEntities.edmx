@@ -4,33 +4,33 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Service.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Service.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ServiceModelStoreContainer">
           <EntitySet Name="Blob" EntityType="Service.Model.Store.Blob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category" EntityType="Service.Model.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Dependency" EntityType="Service.Model.Store.Dependency" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Item" EntityType="Service.Model.Store.Item" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Blob__ItemId__0DAF0CB0" Association="Service.Model.Store.FK__Blob__ItemId__0DAF0CB0">
+          <AssociationSet Name="FK__Blob__ItemId__060DEAE8" Association="Service.Model.Store.FK__Blob__ItemId__060DEAE8">
             <End Role="Item" EntitySet="Item" />
             <End Role="Blob" EntitySet="Blob" />
           </AssociationSet>
-          <AssociationSet Name="FK__Category__Featur__08EA5793" Association="Service.Model.Store.FK__Category__Featur__08EA5793">
+          <AssociationSet Name="FK__Category__Featur__03317E3D" Association="Service.Model.Store.FK__Category__Featur__03317E3D">
             <End Role="Item" EntitySet="Item" />
             <End Role="Category" EntitySet="Category" />
           </AssociationSet>
-          <AssociationSet Name="FK__Category__Parent__014935CB" Association="Service.Model.Store.FK__Category__Parent__014935CB">
+          <AssociationSet Name="FK__Category__Parent__7D78A4E7" Association="Service.Model.Store.FK__Category__Parent__7D78A4E7">
             <End Role="Category" EntitySet="Category" />
             <End Role="Category1" EntitySet="Category" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dependenc__Depen__1273C1CD" Association="Service.Model.Store.FK__Dependenc__Depen__1273C1CD">
+          <AssociationSet Name="FK__Dependenc__Depen__08EA5793" Association="Service.Model.Store.FK__Dependenc__Depen__08EA5793">
             <End Role="Item" EntitySet="Item" />
             <End Role="Dependency" EntitySet="Dependency" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dependenc__Depen__1367E606" Association="Service.Model.Store.FK__Dependenc__Depen__1367E606">
+          <AssociationSet Name="FK__Dependenc__Depen__09DE7BCC" Association="Service.Model.Store.FK__Dependenc__Depen__09DE7BCC">
             <End Role="Item" EntitySet="Item" />
             <End Role="Dependency" EntitySet="Dependency" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item__CategoryId__060DEAE8" Association="Service.Model.Store.FK__Item__CategoryId__060DEAE8">
+          <AssociationSet Name="FK__Item__CategoryId__00551192" Association="Service.Model.Store.FK__Item__CategoryId__00551192">
             <End Role="Category" EntitySet="Category" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
@@ -40,17 +40,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DownloadUrl" Type="nchar" Nullable="false" MaxLength="512" />
-          <Property Name="DestinationPath" Type="nchar" Nullable="false" MaxLength="512" />
+          <Property Name="DownloadUrl" Type="varchar" Nullable="false" MaxLength="512" />
+          <Property Name="DestinationPath" Type="varchar" Nullable="false" MaxLength="512" />
           <Property Name="ItemId" Type="int" Nullable="false" />
-          <Property Name="User" Type="nchar" Nullable="false" MaxLength="128" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nchar" Nullable="false" MaxLength="128" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="128" />
           <Property Name="Parent" Type="int" />
           <Property Name="FeaturedItem" Type="int" />
         </EntityType>
@@ -68,17 +67,17 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CategoryId" Type="int" />
-          <Property Name="User" Type="nchar" Nullable="false" MaxLength="128" />
-          <Property Name="Name" Type="nchar" Nullable="false" MaxLength="128" />
-          <Property Name="Description" Type="nchar" MaxLength="128" />
-          <Property Name="ImageUrl" Type="nchar" MaxLength="128" />
-          <Property Name="Type" Type="nchar" Nullable="false" MaxLength="32" />
-          <Property Name="Address" Type="nchar" MaxLength="256" />
+          <Property Name="User" Type="varchar" Nullable="false" MaxLength="128" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="128" />
+          <Property Name="Description" Type="varchar" MaxLength="128" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="128" />
+          <Property Name="Type" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="Address" Type="varchar" MaxLength="256" />
           <Property Name="Version" Type="int" Nullable="false" />
-          <Property Name="FriendlyVersion" Type="nchar" Nullable="false" MaxLength="128" />
+          <Property Name="FriendlyVersion" Type="varchar" Nullable="false" MaxLength="128" />
           <Property Name="Approved" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Blob__ItemId__0DAF0CB0">
+        <Association Name="FK__Blob__ItemId__060DEAE8">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="1" />
           <End Role="Blob" Type="Service.Model.Store.Blob" Multiplicity="*" />
           <ReferentialConstraint>
@@ -90,7 +89,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Category__Featur__08EA5793">
+        <Association Name="FK__Category__Featur__03317E3D">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="0..1" />
           <End Role="Category" Type="Service.Model.Store.Category" Multiplicity="*" />
           <ReferentialConstraint>
@@ -102,7 +101,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Category__Parent__014935CB">
+        <Association Name="FK__Category__Parent__7D78A4E7">
           <End Role="Category" Type="Service.Model.Store.Category" Multiplicity="0..1" />
           <End Role="Category1" Type="Service.Model.Store.Category" Multiplicity="*" />
           <ReferentialConstraint>
@@ -114,7 +113,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dependenc__Depen__1273C1CD">
+        <Association Name="FK__Dependenc__Depen__08EA5793">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="1" />
           <End Role="Dependency" Type="Service.Model.Store.Dependency" Multiplicity="*" />
           <ReferentialConstraint>
@@ -126,7 +125,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dependenc__Depen__1367E606">
+        <Association Name="FK__Dependenc__Depen__09DE7BCC">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="1" />
           <End Role="Dependency" Type="Service.Model.Store.Dependency" Multiplicity="*" />
           <ReferentialConstraint>
@@ -138,7 +137,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item__CategoryId__060DEAE8">
+        <Association Name="FK__Item__CategoryId__00551192">
           <End Role="Category" Type="Service.Model.Store.Category" Multiplicity="0..1" />
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,7 +192,6 @@
           <Property Name="DestinationPath" Type="String" Nullable="false" MaxLength="512" Unicode="true" FixedLength="true" />
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Item" Relationship="Service.Model.FK__Blob__ItemId__060DEAE8" FromRole="Blob" ToRole="Item" />
-          <Property Type="String" Name="User" Nullable="false" MaxLength="128" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -318,7 +316,6 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ServiceModelStoreContainer" CdmEntityContainer="DatabaseEntities">
           <EntitySetMapping Name="Blobs"><EntityTypeMapping TypeName="Service.Model.Blob"><MappingFragment StoreEntitySet="Blob">
-            <ScalarProperty Name="User" ColumnName="User" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="DownloadUrl" ColumnName="DownloadUrl" />
             <ScalarProperty Name="DestinationPath" ColumnName="DestinationPath" />
@@ -369,14 +366,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="DatabaseEntities" ZoomLevel="92">
-        <EntityTypeShape EntityType="Service.Model.Blob" Width="1.5" PointX="3" PointY="1.25" Height="1.9802864583333353" IsExpanded="true" />
+        <EntityTypeShape EntityType="Service.Model.Blob" Width="1.5" PointX="3" PointY="1.25" Height="1.9802864583333339" IsExpanded="true" />
         <EntityTypeShape EntityType="Service.Model.Category" Width="1.5" PointX="3" PointY="4" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="Service.Model.Dependency" Width="1.5" PointX="3" PointY="7.25" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="Service.Model.Item" Width="1.5" PointX="0.75" PointY="3.125" Height="4.0956022135416674" IsExpanded="true" />
         <AssociationConnector Association="Service.Model.FK__Blob__ItemId__060DEAE8" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="3.125" />
-          <ConnectorPoint PointX="1.5" PointY="2.1874995" />
-          <ConnectorPoint PointX="3" PointY="2.1874995" />
+          <ConnectorPoint PointX="1.5" PointY="2.1874994999999995" />
+          <ConnectorPoint PointX="3" PointY="2.1874994999999995" />
         </AssociationConnector>
         <AssociationConnector Association="Service.Model.FK__Category__Featur__03317E3D" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="5.2785953776041659" />

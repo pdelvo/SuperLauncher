@@ -3,4 +3,26 @@
 }
 <h2>Dependencies</h2>
 <p>Some content depends on other content. For instance, a certain map may depend on having a specific texture pack installed.</p>
-<p>Here, you can select these dependencies.</p>
+<p>Here, you can select these dependencies. Search for the dependency you want and click "Add".</p>
+
+<fieldset>
+    <legend>Search</legend>
+    <div class="input-append input-prepend">
+        <span class="add-on">Find Content</span>
+        <input type="text" placeholder="Query" name="q" id="search-text" />
+        <button class="btn" type="button" id="search-button">Search</button>
+    </div>
+</fieldset>
+<table id="search-results" class="table table-hover">
+    
+</table>
+<hr />
+@Html.ActionLink("Next", "ReviewItem", null, new { @class = "pull-right btn btn-primary" })
+
+<script>
+    $(document).ready(function () {
+        $("#search-button").click(function () {
+            // TODO
+        });
+    });
+</script>

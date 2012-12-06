@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,6 +25,28 @@ namespace web.Controllers
                 viewModel = new ItemViewModel(item);
             }
             return View(viewModel);
+        }
+
+        public ActionResult JsonSearch(string query)
+        {
+            List<object> jsonItems = new List<object>();
+            using (var database = new DatabaseEntities())
+            {
+                var items = (from i in database.Items
+                        where i.Name.ToUpper().Contains(query.ToUpper()) ||
+                                i.Description.ToUpper().Contains(query.ToUpper())
+                        select i).Take(10).ToArray();
+                foreach (var item in items)
+                {
+                    jsonItems.Add(new
+                    {
+                        id = item.Id,
+                        name = item.Name,
+                        user = item.User
+                    });
+                }
+            }
+            return Json(jsonItems.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
         #region Adding Content
@@ -102,13 +125,110 @@ namespace web.Controllers
             IOFile.WriteAllBytes(Path.Combine(path, newName + extension), file);
 
             // Add blob
-            var blob = new Blob
+            var blob = new WorkingItemBlob
             {
-                DownloadUrl = "/data/" + user.UserName + "/" + newName
+                DownloadUrl = "/data/" + user.UserName + "/" + newName,
+                Name = Request.Headers["x-file-name"]
             };
             item.Blobs.Add(blob);
-            
+
             return Json(new { success = true });
+        }
+
+        [Authorize]
+        public ActionResult ReviewItem()
+        {
+            var item = Session["workingItem"] as ItemInProgress;
+            if (item == null)
+                return RedirectToAction("Add");
+            var viewModel = new ReviewItemViewModel();
+            viewModel.Item = item;
+            viewModel.Categories = new List<string>();
+            using (var database = new DatabaseEntities())
+            {
+                switch (item.ItemType)
+                {
+                    case ItemType.Map:
+                        viewModel.Categories = new List<string>(
+                            from c in database.CategoryByName("Maps").Children
+                            select c.Name);
+                        break;
+                }
+            }
+            viewModel.Categories.Insert(0, "None");
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ReviewItem(ReviewItemViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+            var item = Session["workingItem"] as ItemInProgress;
+            if (item == null || Request.Form["category"] == null)
+                return RedirectToAction("Add");
+
+            Item dbItem;
+            using (var database = new DatabaseEntities())
+            {
+                Category category = database.CategoryByName(Request.Form["category"]);
+                if (category != null)
+                {
+                    switch (item.ItemType)
+                    {
+                        case ItemType.Map:
+                            if (!database.CategoryByName("Maps").Children.Contains(category))
+                                return RedirectToAction("Add");
+                            break;
+                    }
+                }
+                dbItem = new Item();
+                dbItem.Name = item.Name;
+                dbItem.Description = item.Description;
+                dbItem.User = Membership.GetUser().UserName;
+                if (category != null)
+                    dbItem.CategoryId = category.Id;
+                dbItem.FriendlyVersion = viewModel.Version;
+                // TODO: Images
+                dbItem.Version = 0;
+                dbItem.Approved = false;
+                dbItem.Type = item.ItemType.ToString();
+                database.Items.AddObject(dbItem);
+                database.SaveChanges();
+                // Add blobs
+                foreach (var blob in item.Blobs)
+                {
+                    var dbBlob = new Blob();
+                    dbBlob.DownloadUrl = blob.DownloadUrl;
+                    dbBlob.DestinationPath = GetLocalPathForBlob(blob, item);
+                    dbBlob.ItemId = dbItem.Id;
+                    database.Blobs.AddObject(dbBlob);
+                }
+
+                // Add dependencies
+                foreach (var dependency in item.Dependencies)
+                {
+                    var dbDependency = new Dependency();
+                    dbDependency.DependencyItem = dependency.Id;
+                    dbDependency.DependentItem = dbItem.Id;
+                    database.Dependencies.AddObject(dbDependency);
+                }
+                database.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Web");
+        }
+
+        private string GetLocalPathForBlob(WorkingItemBlob blob, ItemInProgress item)
+        {
+            switch (item.ItemType)
+            {
+                case ItemType.Map:
+                    return Path.Combine("saves", Path.GetFileName(blob.DownloadUrl));
+                default:
+                    return null;
+            }
         }
 
         #endregion

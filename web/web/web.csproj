@@ -119,9 +119,11 @@
     <Compile Include="Controllers\LauncherController.cs" />
     <Compile Include="Controllers\WebController.cs" />
     <Compile Include="Models\AddItemViewModel.cs" />
+    <Compile Include="Models\BacklogItem.cs" />
     <Compile Include="Models\BacklogViewModel.cs" />
     <Compile Include="Models\ItemInProgress.cs" />
     <Compile Include="Models\NestedCategoryDescriptor.cs" />
+    <Compile Include="Models\ReviewItemViewModel.cs" />
     <Compile Include="Models\WebIndexViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -132,6 +134,8 @@
     <Compile Include="Models\DownloadCollection.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
+    <Compile Include="Models\WorkingItemBlob.cs" />
+    <Compile Include="Models\WorkingItemDependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Model\DatabaseEntities.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -223,6 +227,7 @@
     <Content Include="Views\Web\Contact.cshtml" />
     <Content Include="Views\Item\AddMap.cshtml" />
     <Content Include="Views\Item\Dependencies.cshtml" />
+    <Content Include="Views\Item\ReviewItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

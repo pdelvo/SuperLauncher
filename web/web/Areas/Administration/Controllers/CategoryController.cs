@@ -69,7 +69,7 @@ namespace web.Areas.Administration.Controllers
             };
             using (var database = new DatabaseEntities())
             {
-                database.AddToCategories(category);
+                database.Categories.AddObject(category);
                 database.SaveChanges();
             }
             return RedirectToAction("Index");
