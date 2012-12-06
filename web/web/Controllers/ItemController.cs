@@ -256,5 +256,17 @@ namespace web.Controllers
             }
             return Json(new { success = false });
         }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Approve(int id)
+        {
+            using (var database = new DatabaseEntities())
+            {
+                var item = database.ItemById(id);
+                item.Approved = true;
+                database.SaveChanges();
+            }
+            return Redirect("/Administration/Backlog");
+        }
     }
 }
