@@ -11,14 +11,14 @@ namespace web.Models
         public ItemInProgress()
         {
             Blobs = new List<BlobViewModel>();
-            Dependencies = new List<WorkingItemDependency>();
+            Dependencies = new List<DependencyViewModel>();
         }
 
         public string Name { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
         public List<BlobViewModel> Blobs { get; set; }
-        public List<WorkingItemDependency> Dependencies { get; set; }
+        public List<DependencyViewModel> Dependencies { get; set; }
         public ItemType ItemType { get; set; }
         public string ImageUrl { get; set; }
     }

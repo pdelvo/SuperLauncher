@@ -24,7 +24,12 @@ namespace web.Models
             Item = item;
             Version = item.Version;
             FriendlyVersion = item.FriendlyVersion;
-            Dependencies = new List<Dependency>(item.Dependencies.ToArray());
+            Dependencies = new List<DependencyViewModel>();
+            foreach (var dependency in Item.Dependencies)
+                Dependencies.Add(new DependencyViewModel(dependency));
+            Blobs = new List<BlobViewModel>();
+            foreach (var blob in Item.Blobs)
+                Blobs.Add(new BlobViewModel(blob));
             User = item.User;
         }
 
@@ -41,6 +46,7 @@ namespace web.Models
         public long Version { get; set; }
         public string User { get; set; }
         public string FriendlyVersion { get; set; }
-        public List<Dependency> Dependencies { get; set; }
+        public List<DependencyViewModel> Dependencies { get; set; }
+        public List<BlobViewModel> Blobs { get; set; }
     }
 }

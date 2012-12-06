@@ -50,7 +50,7 @@ namespace web.Controllers
                 });
             }
             foreach (var dependency in item.Dependencies)
-                AddDependencies(collection, dependency.Item);
+                AddDependencies(collection, dependency.Provider);
         }
 
         public ActionResult Category(string id)

@@ -53,7 +53,7 @@
         @foreach (var dependency in Model.Item.Dependencies)
         {
             <tr>
-                <td>@dependency.Name</td>
+                <td>@dependency.Provider.Name</td>
             </tr>
         }
     </table>

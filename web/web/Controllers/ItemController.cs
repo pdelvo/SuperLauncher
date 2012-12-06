@@ -314,16 +314,38 @@ namespace web.Controllers
             using (var database = new DatabaseEntities())
             {
                 var item = database.ItemById(id);
+                if (item == null) return HttpNotFound();
+                var viewModel = new ItemViewModel(item);
+                return View(viewModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, bool confirm)
+        {
+            using (var database = new DatabaseEntities())
+            {
+                var item = database.ItemById(id);
                 if (item == null)
                     return HttpNotFound();
                 var user = Membership.GetUser();
                 if (user.UserName == item.User || user.IsAdministrator())
                 {
+                    // Delete blobs
+                    var blobs = item.Blobs.ToArray();
+                    foreach (var blob in blobs)
+                    {
+                        database.DeleteObject(blob);
+                        if (IOFile.Exists(Server.MapPath("~") + blob.DownloadUrl))
+                            IOFile.Delete(Server.MapPath("~") + blob.DownloadUrl);
+                    }
+                    if (IOFile.Exists(Server.MapPath("~") + item.ImageUrl))
+                        IOFile.Delete(Server.MapPath("~") + item.ImageUrl);
                     database.DeleteObject(item);
-                    return Json(new { success = true });
+                    database.SaveChanges();
                 }
-                return Json(new { success = false });
             }
+            return RedirectToAction("Index", "Web");
         }
 
         [Authorize(Roles = "Administrator")]

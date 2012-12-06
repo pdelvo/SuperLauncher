@@ -1,0 +1,13 @@
+﻿@model web.Models.ItemViewModel
+@{
+    ViewBag.Title = "Delete " + Model.Name;
+}
+<h2>Delete @Model.Name</h2>
+@using (Html.BeginForm())
+{
+    <p>Are you sure you want to delete @Model.Name?</p>
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="confirm" value="true" />
+    <input type="submit" value="Yes" class="btn btn-danger" />
+    @Html.ActionLink("No", "Index", "Web", null, new { @class = "btn" })
+}

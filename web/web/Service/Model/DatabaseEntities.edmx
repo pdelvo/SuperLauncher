@@ -215,8 +215,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DependentItem" Type="Int32" Nullable="false" />
           <Property Name="DependencyItem" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Item" Relationship="Service.Model.FK__Dependenc__Depen__08EA5793" FromRole="Dependency" ToRole="Item" />
-          <NavigationProperty Name="Item1" Relationship="Service.Model.FK__Dependenc__Depen__09DE7BCC" FromRole="Dependency" ToRole="Item" />
+          <NavigationProperty Name="Dependent" Relationship="Service.Model.FK__Dependenc__Depen__08EA5793" FromRole="Dependency" ToRole="Item" />
+          <NavigationProperty Name="Provider" Relationship="Service.Model.FK__Dependenc__Depen__09DE7BCC" FromRole="Dependency" ToRole="Item" />
         </EntityType>
         <EntityType Name="Item">
           <Key>

@@ -8,10 +8,10 @@
     <div class="btn-group pull-right" style="margin-top: 20px;">
         @if (Membership.GetUser().IsAdministrator())
         {
-            @Html.ActionLink("Approve", "Approve", Model.Id, new { @class = "btn" })
+            @Html.ActionLink("Approve", "Approve", new { Model.Id }, new { @class = "btn" })
         }
-        @Html.ActionLink("Edit", "Edit", Model.Id, new { @class = "btn" })
-        @Html.ActionLink("Delete", "Delete", Model.Id, new { @class = "btn" })
+        @Html.ActionLink("Edit", "Edit", new { Model.Id }, new { @class = "btn" })
+        @Html.ActionLink("Delete", "Delete", new { Model.Id }, new { @class = "btn" })
     </div>
 }
 <h2>@Model.Name</h2>
@@ -20,3 +20,12 @@
     @Html.Raw(Model.DescriptionHtml)
 </blockquote>
 <img src="@Model.ImageUrl" alt="@Model.Name" />
+<h3>Files</h3>
+<table class="table">
+    @foreach (var blob in Model.Blobs)
+    {
+        <tr>
+            <td><a href="@blob.DownloadUrl">@blob.Name</a></td>            
+        </tr>
+    }
+</table>

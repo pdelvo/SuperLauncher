@@ -758,7 +758,7 @@ namespace web.Service.Model
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Dependenc__Depen__08EA5793", "Item")]
-        public Item Item
+        public Item Dependent
         {
             get
             {
@@ -774,7 +774,7 @@ namespace web.Service.Model
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Item> ItemReference
+        public EntityReference<Item> DependentReference
         {
             get
             {
@@ -796,7 +796,7 @@ namespace web.Service.Model
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Service.Model", "FK__Dependenc__Depen__09DE7BCC", "Item")]
-        public Item Item1
+        public Item Provider
         {
             get
             {
@@ -812,7 +812,7 @@ namespace web.Service.Model
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Item> Item1Reference
+        public EntityReference<Item> ProviderReference
         {
             get
             {

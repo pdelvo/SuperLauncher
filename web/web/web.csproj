@@ -139,7 +139,7 @@
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
     <Compile Include="Models\BlobViewModel.cs" />
-    <Compile Include="Models\WorkingItemDependency.cs" />
+    <Compile Include="Models\DependencyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Model\DatabaseEntities.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -232,6 +232,7 @@
     <Content Include="Views\Item\AddMap.cshtml" />
     <Content Include="Views\Item\Dependencies.cshtml" />
     <Content Include="Views\Item\ReviewItem.cshtml" />
+    <Content Include="Views\Item\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
