@@ -8,7 +8,14 @@
     <div class="btn-group pull-right" style="margin-top: 20px;">
         @if (Membership.GetUser().IsAdministrator())
         {
-            @Html.ActionLink("Approve", "Approve", new { Model.Id }, new { @class = "btn" })
+            if (!Model.Approved)
+            {
+                @Html.ActionLink("Approve", "Approve", new {Model.Id}, new {@class = "btn"})
+            }
+            else
+            {
+                @Html.ActionLink("Unapprove", "Unapprove", new { Model.Id }, new { @class = "btn" })
+            }
         }
         @Html.ActionLink("Edit", "Edit", new { Model.Id }, new { @class = "btn" })
         @Html.ActionLink("Delete", "Delete", new { Model.Id }, new { @class = "btn" })

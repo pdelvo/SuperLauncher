@@ -233,6 +233,7 @@
     <Content Include="Views\Item\Dependencies.cshtml" />
     <Content Include="Views\Item\ReviewItem.cshtml" />
     <Content Include="Views\Item\Delete.cshtml" />
+    <Content Include="Views\Item\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

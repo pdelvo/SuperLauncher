@@ -1,6 +1,7 @@
 -- Create a SuperLauncher database run this query against your SQL server.
 USE SuperLauncher;
 
+-- Content categories
 CREATE TABLE Category
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
@@ -9,12 +10,13 @@ CREATE TABLE Category
 );
 
 -- Default categories
-INSERT INTO Categories (Name) VALUES ('Maps');
-INSERT INTO Categories (Name) VALUES ('Servers');
-INSERT INTO Categories (Name) VALUES ('Texture Packs');
-INSERT INTO Categories (Name) VALUES ('Mods');
-INSERT INTO Categories (Name) VALUES ('Skins');
+INSERT INTO Category (Name) VALUES ('Maps');
+INSERT INTO Category (Name) VALUES ('Servers');
+INSERT INTO Category (Name) VALUES ('Texture Packs');
+INSERT INTO Category (Name) VALUES ('Mods');
+INSERT INTO Category (Name) VALUES ('Skins');
 
+-- A content item, like a map or mod
 CREATE TABLE Item
 (
 	Id int PRIMARY KEY IDENTITY(1,1),
@@ -30,8 +32,10 @@ CREATE TABLE Item
     Approved bit DEFAULT 0 NOT NULL
 );
 
+-- Link Category to FeaturedItem
 ALTER TABLE Category ADD FeaturedItem int NULL FOREIGN KEY REFERENCES Item(Id);
 
+-- A blob of data; a file
 CREATE TABLE Blob
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
@@ -41,11 +45,24 @@ CREATE TABLE Blob
 	ItemId int NOT NULL FOREIGN KEY REFERENCES Item(Id)
 );
 
+-- Represents the connection between an item and another that depends on it
 CREATE TABLE Dependency
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
 	DependentItem int NOT NULL FOREIGN KEY REFERENCES Item(Id),
 	DependencyItem int NOT NULL FOREIGN KEY REFERENCES Item(Id)
+);
+
+-- Represents updates pending approval
+CREATE TABLE [ItemUpdate]
+(
+	Id int PRIMARY KEY IDENTITY(1, 1),
+	Item int NOT NULL FOREIGN KEY REFERENCES Item(Id),
+	Name varchar(128) NOT NULL,
+	[Description] varchar(1024) NULL,
+	ImageUrl varchar(128) NULL,
+	[Address] varchar(256) NULL,
+	FriendlyVersion varchar(128) NOT NULL
 );
 
 /**********************************************************************/

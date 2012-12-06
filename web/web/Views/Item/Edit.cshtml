@@ -1,0 +1,11 @@
+﻿@model web.Models.ItemViewModel
+@{
+    ViewBag.Title = "Edit " + @Model.Name;
+}
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Edit @Model.Name</legend>
+        <p>Your updates will be placed into the backlog for approval. Your existing content will remain available until the update is approved.</p>
+    </fieldset>
+}

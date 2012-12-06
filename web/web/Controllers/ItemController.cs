@@ -359,5 +359,17 @@ namespace web.Controllers
             }
             return Redirect("/Administration/Backlog");
         }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Unapprove(int id)
+        {
+            using (var database = new DatabaseEntities())
+            {
+                var item = database.ItemById(id);
+                item.Approved = false;
+                database.SaveChanges();
+            }
+            return Redirect("/Administration/Backlog");
+        }
     }
 }
