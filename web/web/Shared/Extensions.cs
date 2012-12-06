@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using System.Web.Security;
 
 namespace web.Shared
 {
@@ -23,6 +24,11 @@ namespace web.Shared
             labelTag.InnerHtml = checkbox.ToString() + text;
 
             return new MvcHtmlString(labelTag.ToString());
+        }
+
+        public static bool IsAdministrator(this MembershipUser user)
+        {
+            return Roles.GetRolesForUser(user.UserName).Contains("Administrator");
         }
     }
 }

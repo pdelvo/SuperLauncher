@@ -69,3 +69,22 @@ p.error-hidden {
     position: absolute;
     right: -1px;
 }
+
+.upload-item {
+    display: block;
+    width: 920px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 14pt;
+}
+
+.upload-item i {
+    margin-top: 4px;
+    margin-right: 5px;
+}
+
+.upload-complete {
+    background: #DFF0D8;
+}

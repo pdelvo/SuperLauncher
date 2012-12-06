@@ -4,33 +4,33 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Service.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Service.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ServiceModelStoreContainer">
           <EntitySet Name="Blob" EntityType="Service.Model.Store.Blob" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category" EntityType="Service.Model.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Dependency" EntityType="Service.Model.Store.Dependency" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Item" EntityType="Service.Model.Store.Item" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Blob__ItemId__060DEAE8" Association="Service.Model.Store.FK__Blob__ItemId__060DEAE8">
+          <AssociationSet Name="FK__Blob__ItemId__0DAF0CB0" Association="Service.Model.Store.FK__Blob__ItemId__0DAF0CB0">
             <End Role="Item" EntitySet="Item" />
             <End Role="Blob" EntitySet="Blob" />
           </AssociationSet>
-          <AssociationSet Name="FK__Category__Featur__03317E3D" Association="Service.Model.Store.FK__Category__Featur__03317E3D">
+          <AssociationSet Name="FK__Category__Featur__08EA5793" Association="Service.Model.Store.FK__Category__Featur__08EA5793">
             <End Role="Item" EntitySet="Item" />
             <End Role="Category" EntitySet="Category" />
           </AssociationSet>
-          <AssociationSet Name="FK__Category__Parent__7D78A4E7" Association="Service.Model.Store.FK__Category__Parent__7D78A4E7">
+          <AssociationSet Name="FK__Category__Parent__014935CB" Association="Service.Model.Store.FK__Category__Parent__014935CB">
             <End Role="Category" EntitySet="Category" />
             <End Role="Category1" EntitySet="Category" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dependenc__Depen__08EA5793" Association="Service.Model.Store.FK__Dependenc__Depen__08EA5793">
+          <AssociationSet Name="FK__Dependenc__Depen__1273C1CD" Association="Service.Model.Store.FK__Dependenc__Depen__1273C1CD">
             <End Role="Item" EntitySet="Item" />
             <End Role="Dependency" EntitySet="Dependency" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dependenc__Depen__09DE7BCC" Association="Service.Model.Store.FK__Dependenc__Depen__09DE7BCC">
+          <AssociationSet Name="FK__Dependenc__Depen__1367E606" Association="Service.Model.Store.FK__Dependenc__Depen__1367E606">
             <End Role="Item" EntitySet="Item" />
             <End Role="Dependency" EntitySet="Dependency" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item__CategoryId__00551192" Association="Service.Model.Store.FK__Item__CategoryId__00551192">
+          <AssociationSet Name="FK__Item__CategoryId__060DEAE8" Association="Service.Model.Store.FK__Item__CategoryId__060DEAE8">
             <End Role="Category" EntitySet="Category" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
@@ -40,6 +40,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="128" />
           <Property Name="DownloadUrl" Type="varchar" Nullable="false" MaxLength="512" />
           <Property Name="DestinationPath" Type="varchar" Nullable="false" MaxLength="512" />
           <Property Name="ItemId" Type="int" Nullable="false" />
@@ -69,7 +70,7 @@
           <Property Name="CategoryId" Type="int" />
           <Property Name="User" Type="varchar" Nullable="false" MaxLength="128" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="128" />
-          <Property Name="Description" Type="varchar" MaxLength="128" />
+          <Property Name="Description" Type="varchar" MaxLength="1024" />
           <Property Name="ImageUrl" Type="varchar" MaxLength="128" />
           <Property Name="Type" Type="varchar" Nullable="false" MaxLength="32" />
           <Property Name="Address" Type="varchar" MaxLength="256" />
@@ -77,7 +78,7 @@
           <Property Name="FriendlyVersion" Type="varchar" Nullable="false" MaxLength="128" />
           <Property Name="Approved" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Blob__ItemId__060DEAE8">
+        <Association Name="FK__Blob__ItemId__0DAF0CB0">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="1" />
           <End Role="Blob" Type="Service.Model.Store.Blob" Multiplicity="*" />
           <ReferentialConstraint>
@@ -89,7 +90,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Category__Featur__03317E3D">
+        <Association Name="FK__Category__Featur__08EA5793">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="0..1" />
           <End Role="Category" Type="Service.Model.Store.Category" Multiplicity="*" />
           <ReferentialConstraint>
@@ -101,7 +102,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Category__Parent__7D78A4E7">
+        <Association Name="FK__Category__Parent__014935CB">
           <End Role="Category" Type="Service.Model.Store.Category" Multiplicity="0..1" />
           <End Role="Category1" Type="Service.Model.Store.Category" Multiplicity="*" />
           <ReferentialConstraint>
@@ -113,7 +114,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dependenc__Depen__08EA5793">
+        <Association Name="FK__Dependenc__Depen__1273C1CD">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="1" />
           <End Role="Dependency" Type="Service.Model.Store.Dependency" Multiplicity="*" />
           <ReferentialConstraint>
@@ -125,7 +126,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dependenc__Depen__09DE7BCC">
+        <Association Name="FK__Dependenc__Depen__1367E606">
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="1" />
           <End Role="Dependency" Type="Service.Model.Store.Dependency" Multiplicity="*" />
           <ReferentialConstraint>
@@ -137,7 +138,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item__CategoryId__00551192">
+        <Association Name="FK__Item__CategoryId__060DEAE8">
           <End Role="Category" Type="Service.Model.Store.Category" Multiplicity="0..1" />
           <End Role="Item" Type="Service.Model.Store.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -188,17 +189,18 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DownloadUrl" Type="String" Nullable="false" MaxLength="512" Unicode="true" FixedLength="true" />
-          <Property Name="DestinationPath" Type="String" Nullable="false" MaxLength="512" Unicode="true" FixedLength="true" />
+          <Property Name="DownloadUrl" Type="String" Nullable="false" MaxLength="512" Unicode="false" FixedLength="false" />
+          <Property Name="DestinationPath" Type="String" Nullable="false" MaxLength="512" Unicode="false" FixedLength="false" />
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Item" Relationship="Service.Model.FK__Blob__ItemId__060DEAE8" FromRole="Blob" ToRole="Item" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
           <Property Name="Parent" Type="Int32" />
           <Property Name="FeaturedItem" Type="Int32" />
           <NavigationProperty Name="Featured" Relationship="Service.Model.FK__Category__Featur__03317E3D" FromRole="Category" ToRole="Item" />
@@ -222,14 +224,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryId" Type="Int32" />
-          <Property Name="User" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="true" />
-          <Property Name="Description" Type="String" MaxLength="128" Unicode="true" FixedLength="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="128" Unicode="true" FixedLength="true" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="true" />
-          <Property Name="Address" Type="String" MaxLength="256" Unicode="true" FixedLength="true" />
+          <Property Name="User" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="1024" Unicode="false" FixedLength="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
-          <Property Name="FriendlyVersion" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="true" />
+          <Property Name="FriendlyVersion" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
           <Property Name="Approved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Blobs" Relationship="Service.Model.FK__Blob__ItemId__060DEAE8" FromRole="Item" ToRole="Blob" />
           <NavigationProperty Name="Categories" Relationship="Service.Model.FK__Category__Featur__03317E3D" FromRole="Item" ToRole="Category" />
@@ -316,6 +318,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ServiceModelStoreContainer" CdmEntityContainer="DatabaseEntities">
           <EntitySetMapping Name="Blobs"><EntityTypeMapping TypeName="Service.Model.Blob"><MappingFragment StoreEntitySet="Blob">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="DownloadUrl" ColumnName="DownloadUrl" />
             <ScalarProperty Name="DestinationPath" ColumnName="DestinationPath" />

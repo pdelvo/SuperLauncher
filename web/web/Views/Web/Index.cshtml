@@ -23,7 +23,7 @@
                 <td><a href="/Item/Edit/@item.Id"><i class="icon-edit">&nbsp;</i></a></td>
                 <td><a href="/Item/Delete/@item.Id"><i class="icon-trash">&nbsp;</i></a></td>
                 <td>@item.Type</td>
-                <td>@Html.ActionLink(item.Name, "Edit", "Item", item.Id, null)
+                <td>@Html.ActionLink(item.Name, "View", "Item", new { item.Id }, null)
                 @if (!item.Approved)
                 {
                     <em>(Pending approval)</em>

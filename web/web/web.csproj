@@ -44,6 +44,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=2.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="MarkdownSharp">
       <HintPath>..\..\lib\MarkdownSharp.dll</HintPath>
     </Reference>
@@ -134,7 +138,7 @@
     <Compile Include="Models\DownloadCollection.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
-    <Compile Include="Models\WorkingItemBlob.cs" />
+    <Compile Include="Models\BlobViewModel.cs" />
     <Compile Include="Models\WorkingItemDependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Model\DatabaseEntities.Designer.cs">
@@ -218,7 +222,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DatabaseEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Item\View.cshtml" />
     <Content Include="Views\Item\Add.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\AdminNavigation.cshtml" />
     <Content Include="Areas\Administration\Views\Backlog\Index.cshtml" />

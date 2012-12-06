@@ -6,21 +6,24 @@ using System.Web;
 using System.Web.Mvc;
 using web.Models;
 using web.Service.Model;
+using web.Shared;
 using System.Web.Security;
 using System.IO;
 using IOFile = System.IO.File;
+using System.Drawing;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace web.Controllers
 {
     public class ItemController : Controller
     {
-        public ActionResult Index(int id)
+        public ActionResult View(int id)
         {
             ItemViewModel viewModel;
             using (var database = new DatabaseEntities())
             {
                 var item = database.ItemById(id);
-                if (item != null)
+                if (item == null)
                     return HttpNotFound();
                 viewModel = new ItemViewModel(item);
             }
@@ -102,14 +105,43 @@ namespace web.Controllers
             var item = Session["workingItem"] as ItemInProgress;
             if (item == null || item.ItemType == ItemType.Server)
                 return Json(new { success = false });
-            if (item.Blobs.Count != 0)
-                return Json(new { success = false });
 
             var reader = new StreamReader(Request.InputStream);
             var base64 = reader.ReadToEnd();
             byte[] file = Convert.FromBase64CharArray(base64.ToCharArray(), 0, base64.Length);
             var name = Request.Headers["x-file-name"];
             var user = Membership.GetUser();
+
+            bool isImage;
+            if (Path.GetExtension(name) == ".zip" || Path.GetExtension(name) == ".jar") isImage = false;
+            else if (Path.GetExtension(name) == ".jpg" || Path.GetExtension(name) == ".png") isImage = true;
+            else return Json(new { success = false, error = "Incorrect file format." });
+
+            // Validate image size
+            if (isImage)
+            {
+                try
+                {
+                    var image = Image.FromStream(new MemoryStream(file));
+                    if (image.Width != 400 || image.Height != 250)
+                        return Json(new { success = false, error = "Incorrect image size. Must be 400x250 pixels." });
+                }
+                catch
+                {
+                    return Json(new { success = false, error = "Invalid image file." });
+                }
+                if (item.ImageUrl != null)
+                    return Json(new { success = false, error = "Image already selected!" });
+            }
+            // Validate archive
+            else
+            {
+                var error = VerifyArchive(file, item);
+                if (error != null)
+                    return Json(new { success = false, error = error });
+                if (item.Blobs.Count != 0)
+                    return Json(new { success = false, error = "Zip file already selected!" });
+            }
 
             // Check user directories
             var path = Path.Combine(Server.MapPath("~"), "data", user.UserName);
@@ -123,16 +155,52 @@ namespace web.Controllers
             while (IOFile.Exists(Path.Combine(path, newName + extension)))
                 newName = Path.GetFileNameWithoutExtension(name) + i++;
             IOFile.WriteAllBytes(Path.Combine(path, newName + extension), file);
-
-            // Add blob
-            var blob = new WorkingItemBlob
+            if (!isImage)
             {
-                DownloadUrl = "/data/" + user.UserName + "/" + newName,
-                Name = Request.Headers["x-file-name"]
-            };
-            item.Blobs.Add(blob);
+                // Add blob
+                var blob = new BlobViewModel
+                {
+                    DownloadUrl = "/data/" + user.UserName + "/" + newName + extension,
+                    Name = Request.Headers["x-file-name"]
+                };
+                item.Blobs.Add(blob);
+            }
+            else
+                item.ImageUrl = "/data/" + user.UserName + "/" + newName + extension;
 
             return Json(new { success = true });
+        }
+
+        private string VerifyArchive(byte[] file, ItemInProgress item)
+        {
+            try
+            {
+                using (ZipFile zipFile = new ZipFile(new MemoryStream(file)))
+                {
+                    switch (item.ItemType)
+                    {
+                        case ItemType.Map:
+                            if (zipFile.GetEntry("level.dat") == null) return "Invalid world.";
+                            // Should work without anything else, might be useful for just distributing seeds and such
+                            return null;
+                        case ItemType.Mod:
+                            int classCount = 0;
+                            foreach (ZipEntry entry in zipFile)
+                            {
+                                if (entry.IsFile && entry.Name.EndsWith(".class"))
+                                    classCount++;
+                            }
+                            if (classCount == 0) return "Invalid JAR file.";
+                            return null;
+                        default:
+                            return null;
+                    }
+                }
+            }
+            catch
+            {
+                return "Invalid archive.";
+            }
         }
 
         [Authorize]
@@ -172,7 +240,7 @@ namespace web.Controllers
             Item dbItem;
             using (var database = new DatabaseEntities())
             {
-                Category category = database.CategoryByName(Request.Form["category"]);
+                var category = database.CategoryByName(Request.Form["category"]);
                 if (category != null)
                 {
                     switch (item.ItemType)
@@ -203,6 +271,7 @@ namespace web.Controllers
                     dbBlob.DownloadUrl = blob.DownloadUrl;
                     dbBlob.DestinationPath = GetLocalPathForBlob(blob, item);
                     dbBlob.ItemId = dbItem.Id;
+                    dbBlob.Name = blob.Name;
                     database.Blobs.AddObject(dbBlob);
                 }
 
@@ -220,7 +289,7 @@ namespace web.Controllers
             return RedirectToAction("Index", "Web");
         }
 
-        private string GetLocalPathForBlob(WorkingItemBlob blob, ItemInProgress item)
+        private string GetLocalPathForBlob(BlobViewModel blob, ItemInProgress item)
         {
             switch (item.ItemType)
             {
@@ -242,19 +311,19 @@ namespace web.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            Item item;
             using (var database = new DatabaseEntities())
-                item = database.ItemById(id);
-            if (item == null)
-                return HttpNotFound();
-            var user = Membership.GetUser();
-            if (user.UserName == item.User || Roles.GetRolesForUser(user.UserName).Contains("Administrator"))
             {
-                using (var database = new DatabaseEntities())
+                var item = database.ItemById(id);
+                if (item == null)
+                    return HttpNotFound();
+                var user = Membership.GetUser();
+                if (user.UserName == item.User || user.IsAdministrator())
+                {
                     database.DeleteObject(item);
-                return Json(new { success = true });
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false });
             }
-            return Json(new { success = false });
         }
 
         [Authorize(Roles = "Administrator")]

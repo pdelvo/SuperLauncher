@@ -13,18 +13,22 @@
 <p>Please ensure that all information is correct.</p>
 @using (Html.BeginForm())
 {
+    <img src="@Model.Item.ImageUrl" alt="@Model.Item.Name" class="pull-right" />
     <h3>@Model.Item.Name</h3>
-    <p class="muted">@Model.Item.ItemType</p>
-    <label for="category">Select Category</label>
-    <select name="category">
-        @foreach (var category in Model.Categories)
-        {
-            <option value="@category">@category</option>
-        }
-    </select>
-    @Html.LabelFor(m => m.Version)
+    <div class="input-prepend">
+        <span class="add-on" style="width:80px;">Category</span>
+        <select name="category">
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category">@category</option>
+            }
+        </select>
+    </div>
     @Html.ValidationMessageFor(m => m.Version)
-    @Html.TextBoxFor(m => m.Version)
+    <div class="input-prepend">
+        <span class="add-on" style="width:80px;">Version</span>
+        @Html.TextBoxFor(m => m.Version)
+    </div>
     <h4>Description</h4>
     <blockquote>@Html.Raw(markdown.Transform(Model.Item.Description))</blockquote>
     <h4>Files</h4>

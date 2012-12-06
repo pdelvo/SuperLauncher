@@ -33,7 +33,7 @@ else
                 <td><a href="/Item/Approve/@item.Id"><i class="icon-upload">&nbsp;</i></a></td>
                 <td>@item.Type</td>
                 <td><a href="#">@item.User</a></td>
-                <td>@Html.ActionLink(item.Name, "Edit", "Item", item.Id, null)</td>
+                <td><a href="/Item/View/@item.Id">@item.Name</a></td>
                 @if (item.Category == null)
                 {
                     <td><em>No category</em></td>

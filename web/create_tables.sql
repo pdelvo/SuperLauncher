@@ -6,7 +6,14 @@ CREATE TABLE Category
 	Id int PRIMARY KEY IDENTITY(1, 1),
 	Name varchar(128) NOT NULL,
 	Parent int NULL FOREIGN KEY REFERENCES Category(Id)
-)
+);
+
+-- Default categories
+INSERT INTO Categories (Name) VALUES ('Maps');
+INSERT INTO Categories (Name) VALUES ('Servers');
+INSERT INTO Categories (Name) VALUES ('Texture Packs');
+INSERT INTO Categories (Name) VALUES ('Mods');
+INSERT INTO Categories (Name) VALUES ('Skins');
 
 CREATE TABLE Item
 (
@@ -14,32 +21,32 @@ CREATE TABLE Item
 	CategoryId int NULL FOREIGN KEY REFERENCES Category(Id),
 	[User] varchar(128) NOT NULL,
 	Name varchar(128) NOT NULL,
-	[Description] varchar(128) NULL,
+	[Description] varchar(1024) NULL,
 	ImageUrl varchar(128) NULL,
 	[Type] varchar(32) NOT NULL,
 	[Address] varchar(256) NULL,
 	[Version] int DEFAULT 0 NOT NULL,
 	FriendlyVersion varchar(128) NOT NULL,
     Approved bit DEFAULT 0 NOT NULL
-)
+);
 
 ALTER TABLE Category ADD FeaturedItem int NULL FOREIGN KEY REFERENCES Item(Id);
 
 CREATE TABLE Blob
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
+    Name varchar(128) NOT NULL,
 	DownloadUrl varchar(512) NOT NULL,
 	DestinationPath varchar(512) NOT NULL,
 	ItemId int NOT NULL FOREIGN KEY REFERENCES Item(Id)
-)
+);
 
 CREATE TABLE Dependency
 (
 	Id int PRIMARY KEY IDENTITY(1, 1),
 	DependentItem int NOT NULL FOREIGN KEY REFERENCES Item(Id),
 	DependencyItem int NOT NULL FOREIGN KEY REFERENCES Item(Id)
-)
-GO
+);
 
 /**********************************************************************/
 /* InstallCommon.SQL                                                  */

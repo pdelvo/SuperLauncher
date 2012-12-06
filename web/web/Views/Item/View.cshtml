@@ -1,0 +1,22 @@
+﻿@model web.Models.ItemViewModel
+@using web.Shared
+@{
+    ViewBag.Title = Model.Name;
+}
+@if (Model.User == Membership.GetUser().UserName || Membership.GetUser().IsAdministrator())
+{
+    <div class="btn-group pull-right" style="margin-top: 20px;">
+        @if (Membership.GetUser().IsAdministrator())
+        {
+            @Html.ActionLink("Approve", "Approve", Model.Id, new { @class = "btn" })
+        }
+        @Html.ActionLink("Edit", "Edit", Model.Id, new { @class = "btn" })
+        @Html.ActionLink("Delete", "Delete", Model.Id, new { @class = "btn" })
+    </div>
+}
+<h2>@Model.Name</h2>
+<p>Version @Model.FriendlyVersion</p>
+<blockquote>
+    @Html.Raw(Model.DescriptionHtml)
+</blockquote>
+<img src="@Model.ImageUrl" alt="@Model.Name" />

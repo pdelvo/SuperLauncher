@@ -5,6 +5,7 @@
 
 <h2>@Model.Name</h2>
 <p>Please upload your world file here. Package it as a zip file, with the contents of the world directly inside.</p>
+<p>Also include an image (jpg or png), 400x250 pixels in size.</p>
 
 <div class="download-well" id="download-area">
     <p><i class="icon-file"></i><span id="upload-status">Drag and drop files here.</span></p>
@@ -13,8 +14,12 @@
         <div class="bar" style="width: 100%;"></div>
     </div>
 </div>
+<div class="upload-item"><i id="zip-icon" class="icon-remove"></i>Zip file</div>
+<div class="upload-item"><i id="img-icon" class="icon-remove"></i>Image file</div>
 
 <script type="text/javascript">
+    var image = false, archive = false;
+
     $(document).ready(function () {
         var dropbox = document.getElementById('download-area');
         dropbox.addEventListener("dragenter", dragEnter, false);
@@ -36,73 +41,104 @@
         event.preventDefault();
         var files = event.dataTransfer.files;
         var count = files.length;
-        if (count > 1) {
+        if (count > 2) {
             $("#download-area").addClass("error");
             $("#error-text").html("Too many files!");
         } else {
             $("#download-area").removeClass("error");
         }
-        if (count == 1) {
-            if (!files[0].name.endsWith(".zip")) {
+        if (count <= 2 && count >= 1) {
+            for (var i = 0; i < count; i++)
+                handleFile(files[i]);
+        }
+    }
+    function handleFile(file) {
+        if (!file.name.endsWith(".zip") && !file.name.endsWith(".png")
+                    && !file.name.endsWith(".jpg")) {
+            $("#download-area").addClass("error");
+            $("#error-text").html(".zip and image files only, please!");
+        } else {
+            if (file.name.endsWith(".zip") && archive) {
                 $("#download-area").addClass("error");
-                $("#error-text").html(".zip files only, please!");
-            } else {
-                var file = files[0];
-                $("#upload-status").html("Processing " + file.name + "...");
-                $(".download-well .hidden").removeClass("hidden");
-                $("#download-area").removeClass("over");
-                $("#download-area").removeClass("error");
-                var reader = new FileReader();
-                reader.onload = function (readerEvent) {
-                    var data = readerEvent.target.result;
-                    if (data.length > 128) {
-                        var base64StartIndex = data.indexOf(',') + 1;
-                        if (base64StartIndex < data.length) {
-                            $.ajax({
-                                type: 'POST',
-                                url: '/item/uploadfile',
-                                data: data.substring(base64StartIndex),
-                                processData: false,
-                                timeout: 60000,
-                                dataType: 'text',
-                                beforeSend: function onBeforeSend(xhr, settings) {
-                                    xhr.setRequestHeader('x-file-name', file.name);
-                                    xhr.setRequestHeader('x-file-size', file.size);
-                                    xhr.setRequestHeader('x-file-type', file.type);
-                                    $("#upload-status").html("Uploading " + file.name + "...");
-                                },
-                                error: function onError(XMLHttpRequest, textStatus, errorThrown) {
+                $("#error-text").html("You've already selected a zip file.");
+                return;
+            }
+            if ((file.name.endsWith(".jpg") || file.name.endsWith(".png")) && image) {
+                $("#download-area").addClass("error");
+                $("#error-text").html("You've already selected an image file.");
+                return;
+            }
+            $("#upload-status").html("Processing " + file.name + "...");
+            $(".download-well .progress").removeClass("hidden");
+            $("#download-area").removeClass("over");
+            $("#download-area").removeClass("error");
+            var reader = new FileReader();
+            reader.onload = function (readerEvent) {
+                var data = readerEvent.target.result;
+                if (data.length > 128) {
+                    var base64StartIndex = data.indexOf(',') + 1;
+                    if (base64StartIndex < data.length) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/item/uploadfile',
+                            data: data.substring(base64StartIndex),
+                            processData: false,
+                            timeout: 60000,
+                            dataType: 'text',
+                            beforeSend: function onBeforeSend(xhr, settings) {
+                                xhr.setRequestHeader('x-file-name', file.name);
+                                xhr.setRequestHeader('x-file-size', file.size);
+                                xhr.setRequestHeader('x-file-type', file.type);
+                                $("#upload-status").html("Uploading " + file.name + "...");
+                            },
+                            error: function onError(XMLHttpRequest, textStatus, errorThrown) {
+                                $("#download-area").addClass("error");
+                                $("#error-text").html("Unable to complete upload.");
+                                $("#upload-status").html("Drag and drop files here.");
+                                $(".download-well .progress").addClass("hidden");
+                            },
+                            success: function onUploadComplete(response) {
+                                $("#upload-status").html("Drag and drop files here.");
+                                $(".download-well .progress").addClass("hidden");
+                                response = $.parseJSON(response);
+                                if (!response || typeof response == "undefined") {
                                     $("#download-area").addClass("error");
-                                    $("#error-text").html("Unable to complete upload.");
-                                },
-                                success: function onUploadComplete(response) {
-                                    response = $.parseJSON(response);
-                                    if (!response || typeof response == "undefined") {
-                                        $("#download-area").addClass("error");
-                                        $("#error-text").html("The server was unable to process the upload.");
-                                        return;
-                                    }
-                                    if (response.success) {
-                                        // Redirect
-                                        window.location.href = "/item/dependencies";
-                                    } else {
-                                        $("#download-area").addClass("error");
-                                        $("#error-text").html("An unknown error has occured.");
-                                    }
+                                    $("#error-text").html("The server was unable to process the upload.");
+                                    $("#upload-status").html("Drag and drop files here.");
+                                    return;
                                 }
-                            });
-                        } else {
-                            $("#download-area").addClass("error");
-                            $("#error-text").html("An unknown error has occured.");
-                        }
-                    }
-                    else {
+                                if (response.success) {
+                                    if (file.name.endsWith(".zip")) {
+                                        archive = true;
+                                        $("#zip-icon").removeClass("icon-remove").addClass("icon-ok");
+                                        $("#zip-icon").parent().addClass("upload-complete");
+                                    } else {
+                                        image = true;
+                                        $("#img-icon").removeClass("icon-remove").addClass("icon-ok");
+                                        $("#img-icon").parent().addClass("upload-complete");
+                                    }
+                                    if (image && archive) {
+                                        setTimeout(function () {
+                                            window.location.href = "/item/dependencies";
+                                        }, 2000);
+                                    }
+                                } else {
+                                    $("#download-area").addClass("error");
+                                    $("#error-text").html(response.error);
+                                }
+                            }
+                        });
+                    } else {
                         $("#download-area").addClass("error");
                         $("#error-text").html("An unknown error has occured.");
                     }
-                };
-                reader.readAsDataURL(files[0]);
-            }
+                }
+                else {
+                    $("#download-area").addClass("error");
+                    $("#error-text").html("An unknown error has occured.");
+                }
+            };
+            reader.readAsDataURL(file);
         }
     }
     String.prototype.endsWith = function(suffix) {
