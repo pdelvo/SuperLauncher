@@ -258,7 +258,7 @@ namespace web.Controllers
                 if (category != null)
                     dbItem.CategoryId = category.Id;
                 dbItem.FriendlyVersion = viewModel.Version;
-                // TODO: Images
+                dbItem.ImageUrl = item.ImageUrl;
                 dbItem.Version = 0;
                 dbItem.Approved = false;
                 dbItem.Type = item.ItemType.ToString();
