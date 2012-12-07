@@ -35,18 +35,23 @@
             this.statusIcon = new System.Windows.Forms.PictureBox();
             this.serviceStatusLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.loginFailedLabel = new System.Windows.Forms.Label();
-            this.homeWebBrowser = new System.Windows.Forms.WebBrowser();
+            this.updatePanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.updateProgressBar = new System.Windows.Forms.ProgressBar();
+            this.logInPanel = new System.Windows.Forms.Panel();
             this.jarSelectionList = new System.Windows.Forms.ComboBox();
+            this.loginFailedLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.statusIcon)).BeginInit();
             this.panel1.SuspendLayout();
+            this.updatePanel.SuspendLayout();
+            this.logInPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // logInButton
             // 
             this.logInButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.logInButton.ForeColor = System.Drawing.Color.Black;
-            this.logInButton.Location = new System.Drawing.Point(753, 8);
+            this.logInButton.Location = new System.Drawing.Point(461, 3);
             this.logInButton.Name = "logInButton";
             this.logInButton.Size = new System.Drawing.Size(75, 23);
             this.logInButton.TabIndex = 2;
@@ -57,7 +62,7 @@
             // passwordTextBox
             // 
             this.passwordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.passwordTextBox.Location = new System.Drawing.Point(597, 10);
+            this.passwordTextBox.Location = new System.Drawing.Point(305, 5);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(150, 20);
             this.passwordTextBox.TabIndex = 1;
@@ -67,7 +72,7 @@
             // usernameTextBox
             // 
             this.usernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.usernameTextBox.Location = new System.Drawing.Point(441, 10);
+            this.usernameTextBox.Location = new System.Drawing.Point(149, 5);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(150, 20);
             this.usernameTextBox.TabIndex = 0;
@@ -102,12 +107,9 @@
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.BackgroundImage = global::SuperLauncher.Properties.Resources.ice;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.jarSelectionList);
-            this.panel1.Controls.Add(this.loginFailedLabel);
-            this.panel1.Controls.Add(this.usernameTextBox);
-            this.panel1.Controls.Add(this.passwordTextBox);
+            this.panel1.Controls.Add(this.updatePanel);
+            this.panel1.Controls.Add(this.logInPanel);
             this.panel1.Controls.Add(this.statusIcon);
-            this.panel1.Controls.Add(this.logInButton);
             this.panel1.Controls.Add(this.serviceStatusLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 468);
@@ -115,45 +117,77 @@
             this.panel1.Size = new System.Drawing.Size(856, 36);
             this.panel1.TabIndex = 8;
             // 
+            // updatePanel
+            // 
+            this.updatePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.updatePanel.BackColor = System.Drawing.Color.Transparent;
+            this.updatePanel.Controls.Add(this.label1);
+            this.updatePanel.Controls.Add(this.updateProgressBar);
+            this.updatePanel.Location = new System.Drawing.Point(297, 5);
+            this.updatePanel.Name = "updatePanel";
+            this.updatePanel.Size = new System.Drawing.Size(554, 28);
+            this.updatePanel.TabIndex = 10;
+            this.updatePanel.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(58, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(141, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Installing Update...";
+            // 
+            // updateProgressBar
+            // 
+            this.updateProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateProgressBar.Location = new System.Drawing.Point(205, 2);
+            this.updateProgressBar.Name = "updateProgressBar";
+            this.updateProgressBar.Size = new System.Drawing.Size(341, 23);
+            this.updateProgressBar.TabIndex = 0;
+            // 
+            // logInPanel
+            // 
+            this.logInPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.logInPanel.BackColor = System.Drawing.Color.Transparent;
+            this.logInPanel.Controls.Add(this.jarSelectionList);
+            this.logInPanel.Controls.Add(this.logInButton);
+            this.logInPanel.Controls.Add(this.loginFailedLabel);
+            this.logInPanel.Controls.Add(this.passwordTextBox);
+            this.logInPanel.Controls.Add(this.usernameTextBox);
+            this.logInPanel.Location = new System.Drawing.Point(297, 5);
+            this.logInPanel.Name = "logInPanel";
+            this.logInPanel.Size = new System.Drawing.Size(554, 28);
+            this.logInPanel.TabIndex = 10;
+            // 
+            // jarSelectionList
+            // 
+            this.jarSelectionList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.jarSelectionList.DropDownHeight = 100;
+            this.jarSelectionList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.jarSelectionList.DropDownWidth = 150;
+            this.jarSelectionList.FormattingEnabled = true;
+            this.jarSelectionList.IntegralHeight = false;
+            this.jarSelectionList.Location = new System.Drawing.Point(535, 4);
+            this.jarSelectionList.Name = "jarSelectionList";
+            this.jarSelectionList.Size = new System.Drawing.Size(16, 21);
+            this.jarSelectionList.TabIndex = 10;
+            // 
             // loginFailedLabel
             // 
             this.loginFailedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.loginFailedLabel.BackColor = System.Drawing.Color.Transparent;
             this.loginFailedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginFailedLabel.ForeColor = System.Drawing.Color.Red;
-            this.loginFailedLabel.Location = new System.Drawing.Point(318, 9);
+            this.loginFailedLabel.Location = new System.Drawing.Point(3, 4);
             this.loginFailedLabel.Name = "loginFailedLabel";
-            this.loginFailedLabel.Size = new System.Drawing.Size(123, 20);
+            this.loginFailedLabel.Size = new System.Drawing.Size(146, 20);
             this.loginFailedLabel.TabIndex = 9;
             this.loginFailedLabel.Text = "Login Failed";
             this.loginFailedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.loginFailedLabel.Visible = false;
-            // 
-            // homeWebBrowser
-            // 
-            this.homeWebBrowser.AllowNavigation = false;
-            this.homeWebBrowser.AllowWebBrowserDrop = false;
-            this.homeWebBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.homeWebBrowser.Location = new System.Drawing.Point(0, 52);
-            this.homeWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.homeWebBrowser.Name = "homeWebBrowser";
-            this.homeWebBrowser.ScriptErrorsSuppressed = true;
-            this.homeWebBrowser.Size = new System.Drawing.Size(856, 417);
-            this.homeWebBrowser.TabIndex = 9;
-            this.homeWebBrowser.Url = new System.Uri("http://mcupdate.tumblr.com", System.UriKind.Absolute);
-            this.homeWebBrowser.WebBrowserShortcutsEnabled = false;
-            // 
-            // jarSelectionList
-            // 
-            this.jarSelectionList.DropDownHeight = 100;
-            this.jarSelectionList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.jarSelectionList.DropDownWidth = 150;
-            this.jarSelectionList.FormattingEnabled = true;
-            this.jarSelectionList.IntegralHeight = false;
-            this.jarSelectionList.Location = new System.Drawing.Point(827, 9);
-            this.jarSelectionList.Name = "jarSelectionList";
-            this.jarSelectionList.Size = new System.Drawing.Size(16, 21);
-            this.jarSelectionList.TabIndex = 10;
             // 
             // Launcher
             // 
@@ -162,7 +196,6 @@
             this.BackgroundImage = global::SuperLauncher.Properties.Resources.darkstone;
             this.ClientSize = new System.Drawing.Size(856, 504);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.homeWebBrowser);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -171,6 +204,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.statusIcon)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.updatePanel.ResumeLayout(false);
+            this.updatePanel.PerformLayout();
+            this.logInPanel.ResumeLayout(false);
+            this.logInPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -184,8 +221,11 @@
         private System.Windows.Forms.PictureBox statusIcon;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label loginFailedLabel;
-        private System.Windows.Forms.WebBrowser homeWebBrowser;
         private System.Windows.Forms.ComboBox jarSelectionList;
+        private System.Windows.Forms.Panel logInPanel;
+        private System.Windows.Forms.Panel updatePanel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ProgressBar updateProgressBar;
     }
 }
 

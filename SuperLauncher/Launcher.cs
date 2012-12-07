@@ -28,6 +28,8 @@ namespace SuperLauncher
         {
             CheckStructure();
             InitializeComponent();
+            ManualInitialize();
+            webBrowser.Navigate("http://mcupdate.tumblr.com");
             UpdateVersion = false;
             // Populate username/password
             var login = Minecraft.GetLastLogin();
@@ -40,6 +42,32 @@ namespace SuperLauncher
             client.OpenReadCompleted += client_OpenReadCompleted;
             client.OpenReadAsync(new Uri("http://status.mojang.com/check"));
             GetJars();
+        }
+
+#if WINDOWS
+        private WebKit.WebKitBrowser webBrowser;
+#else
+        private WebBrowser webBrowser;
+#endif
+        private void ManualInitialize()
+        {
+            // Web browser isn't cross-platform, so we initialize it differently in each platform
+#if WINDOWS
+            webBrowser = new WebKit.WebKitBrowser();
+            webBrowser.AllowDownloads = false;
+            webBrowser.AllowNewWindows = false;
+#else
+            webBrowser = new WebBrowser();
+            webBrowser.ScriptErrorsSuppressed = true;
+#endif
+            webBrowser.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            webBrowser.BackColor = Color.White;
+            webBrowser.IsWebBrowserContextMenuEnabled = false;
+            webBrowser.Location = new Point(0, 0);
+            webBrowser.Name = "webBrowser";
+            webBrowser.Size = new Size(856, 470);
+            webBrowser.TabIndex = 9;
+            Controls.Add(webBrowser);
         }
 
         void repoWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -97,7 +125,7 @@ namespace SuperLauncher
                         index = Array.IndexOf(jars, jar);
                     jarSelectionList.Items.Add(new MinecraftJar(jar));
                 }
-                jarSelectionList.SelectedItem = jars[index];
+                jarSelectionList.SelectedIndex = index;
             }
         }
 
