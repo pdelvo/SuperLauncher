@@ -32,7 +32,6 @@
             this.packageNameLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.webKitBrowser = new WebKit.WebKitBrowser();
             this.installButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -73,18 +72,6 @@
             this.label2.Size = new System.Drawing.Size(153, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Only install packages you trust.";
-            // 
-            // webKitBrowser
-            // 
-            this.webKitBrowser.AllowNewWindows = false;
-            this.webKitBrowser.BackColor = System.Drawing.Color.White;
-            this.webKitBrowser.IsScriptingEnabled = false;
-            this.webKitBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.webKitBrowser.Location = new System.Drawing.Point(12, 82);
-            this.webKitBrowser.Name = "webKitBrowser";
-            this.webKitBrowser.Size = new System.Drawing.Size(617, 81);
-            this.webKitBrowser.TabIndex = 3;
-            this.webKitBrowser.Url = null;
             // 
             // installButton
             // 
@@ -162,7 +149,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.installButton);
-            this.Controls.Add(this.webKitBrowser);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.packageNameLabel);
@@ -183,7 +169,6 @@
         private System.Windows.Forms.Label packageNameLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
-        private WebKit.WebKitBrowser webKitBrowser;
         private System.Windows.Forms.Button installButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label label3;

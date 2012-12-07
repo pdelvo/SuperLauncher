@@ -28,10 +28,6 @@ namespace SuperLauncher
         {
             CheckStructure();
             InitializeComponent();
-            // Set up browsers
-            newsWebBrowser.Navigate("http://mcupdate.tumblr.com");
-            mapsWebBrowser.Navigate("http://www.slreposervice.com/launcher/category/maps");
-            mapsWebBrowser.Navigating += repoWebBrowser_Navigating;
             UpdateVersion = false;
             // Populate username/password
             var login = Minecraft.GetLastLogin();
@@ -39,7 +35,6 @@ namespace SuperLauncher
             {
                 usernameTextBox.Text = login.Username;
                 passwordTextBox.Text = login.Password;
-                rememberPasswordCheckBox.Checked = true;
             }
             WebClient client = new WebClient();
             client.OpenReadCompleted += client_OpenReadCompleted;
@@ -88,24 +83,28 @@ namespace SuperLauncher
             else
             {
                 var jars = Directory.GetFiles(Path.Combine(Minecraft.DotMinecraft, "bin"), "minecraft*.jar")
-                    .OrderByDescending(f => File.GetCreationTime(f));
+                    .OrderByDescending(f => File.GetCreationTime(f)).ToArray();
                 if (jars.Count() == 0)
                 {
                     DoInitialUpdate();
                     return;
                 }
-                jarSelectorDropDown.Items.Clear();
-                foreach (var item in jars)
-                    jarSelectorDropDown.Items.Add(new MinecraftJar(item));
-                jarSelectorDropDown.SelectedIndex = 0;
+                jarSelectionList.Items.Clear();
+                int index = 0;
+                foreach (var jar in jars)
+                {
+                    if (Path.GetFileName(jar) == "minecraft.jar")
+                        index = Array.IndexOf(jars, jar);
+                    jarSelectionList.Items.Add(new MinecraftJar(jar));
+                }
+                jarSelectionList.SelectedItem = jars[index];
             }
         }
 
         private void DoInitialUpdate()
         {
             logInButton.Visible = false;
-            downloadingProgressBar.Visible = true;
-            downloadingLabel.Visible = true;
+            // TODO: Visual indication of this activity
             new Thread(DownloadMinecraft).Start();
         }
 
@@ -125,8 +124,6 @@ namespace SuperLauncher
         {
             var downloads = Minecraft.GetDownloadLinks();
             WebClient client = new WebClient();
-            SetProgressBoundsAsync(0, downloads.Count);
-            UpdateProgressAsync(0);
             foreach (var fileDownload in downloads)
             {
                 var directory = Path.GetDirectoryName(Path.Combine(Minecraft.DotMinecraft, fileDownload.Destination));
@@ -134,50 +131,16 @@ namespace SuperLauncher
                     Directory.CreateDirectory(directory);
                 client.DownloadFile(fileDownload.DownloadUri.ToString(),
                                     Path.Combine(Minecraft.DotMinecraft, fileDownload.Destination));
-                UpdateProgressAsync(downloadingProgressBar.Value + 1);
             }
             Minecraft.ExpandNatives();
             UpdateVersion = true;
-            FinishUpdateAsync();
-        }
-
-        private void SetProgressBoundsAsync(int min, int max)
-        {
-            if (this.InvokeRequired)
-                this.Invoke(new Action(() => SetProgressBoundsAsync(min, max)));
-            else
-            {
-                downloadingProgressBar.Minimum = min;
-                downloadingProgressBar.Maximum = max;
-            }
-        }
-
-        private void UpdateProgressAsync(int value)
-        {
-            if (this.InvokeRequired)
-                this.Invoke(new Action(() => UpdateProgressAsync(value)));
-            else
-                downloadingProgressBar.Value = value;
-        }
-
-        private void FinishUpdateAsync()
-        {
-            if (this.InvokeRequired)
-                this.Invoke(new Action(() => FinishUpdateAsync()));
-            else
-            {
-                downloadingProgressBar.Visible = false;
-                downloadingLabel.Visible = false;
-                logInButton.Visible = true;
-                GetJars();
-            }
         }
 
         void client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                SetServiceStatusAsync("Unable to fetch status.", Color.Red);
+                SetServiceStatusAsync("Unable to fetch status.", Color.DarkRed);
                 return;
             }
             var reader = new StreamReader(e.Result);
@@ -198,17 +161,17 @@ namespace SuperLauncher
                 }
             }
             if (website && login && session && account && auth && skins)
-                SetServiceStatusAsync("All services online.", Color.Green);
+                SetServiceStatusAsync("All services online.", Color.DarkGreen);
             else
             {
                 string status = "Some services offline: ";
-                if (website) status += "Website, ";
-                if (login) status += "Login, ";
-                if (session) status += "Session, ";
-                if (account) status += "Account, ";
-                if (auth) status += "Auth, ";
-                if (skins) status += "Skins, ";
-                SetServiceStatusAsync(status.Remove(status.Length - 2), Color.Red);
+                if (!website) status += "Website, ";
+                if (!login) status += "Login, ";
+                if (!session) status += "Session, ";
+                if (!account) status += "Account, ";
+                if (!auth) status += "Auth, ";
+                if (!skins) status += "Skins, ";
+                SetServiceStatusAsync(status.Remove(status.Length - 2), Color.DarkRed);
             }
         }
 
@@ -245,14 +208,11 @@ namespace SuperLauncher
                     logInButton.Text = "Log In";
                     return;
                 }
-                if (rememberPasswordCheckBox.Checked)
+                Minecraft.SetLastLogin(new LastLogin()
                 {
-                    Minecraft.SetLastLogin(new LastLogin()
-                    {
-                        Username = usernameTextBox.Text,
-                        Password = passwordTextBox.Text
-                    });
-                }
+                    Username = usernameTextBox.Text,
+                    Password = passwordTextBox.Text
+                });
                 if (Directory.GetDirectories(Path.Combine(Minecraft.DotMinecraft, "saves")).Length == 0)
                 {
                     var result = MessageBox.Show("You look like a new user. Would you like to play a tutorial?",
@@ -271,7 +231,7 @@ namespace SuperLauncher
                         stream.Write(Encoding.UTF8.GetBytes(Session.Version), 0, Encoding.UTF8.GetByteCount(Session.Version));
                     }
                 }
-                var jar = jarSelectorDropDown.SelectedItem as MinecraftJar;
+                var jar = jarSelectionList.SelectedItem as MinecraftJar;
                 Minecraft.RemoveSignatures(jar.FileName);
                 Minecraft.LaunchMinecraft(Session, Path.GetFileName(jar.FileName));
                 Close();
@@ -286,7 +246,7 @@ namespace SuperLauncher
             {
                 serviceStatusLabel.ForeColor = color;
                 serviceStatusLabel.Text = status;
-                if (color == Color.Green)
+                if (color == Color.DarkGreen)
                     statusIcon.Image = global::SuperLauncher.Properties.Resources.green;
             }
         }

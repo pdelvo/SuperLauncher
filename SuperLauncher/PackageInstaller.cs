@@ -19,7 +19,6 @@ namespace SuperLauncher
         public PackageInstaller(int package)
         {
             InitializeComponent();
-            webKitBrowser.Navigating += webKitBrowser_Navigating;
             new Thread(() => UpdatePackageAsync(Repository.GetPackageInstall(package))).Start();
         }
 
@@ -39,7 +38,7 @@ namespace SuperLauncher
                 PackageInstall = package;
                 installButton.Enabled = true;
                 progressBar.Style = ProgressBarStyle.Continuous;
-                webKitBrowser.DocumentText = FormatHtml(package.PrimaryItem.DescriptionHtml);
+                //webKitBrowser.DocumentText = FormatHtml(package.PrimaryItem.DescriptionHtml);
                 imagePictureBox.ImageLocation = "http://www.slreposervice.com" + package.PrimaryItem.ImageUrl;
                 packageNameLabel.Text = "Install " + package.PrimaryItem.Name;
                 packageVersionLabel.Text = "Version " + package.PrimaryItem.FriendlyVersion;
