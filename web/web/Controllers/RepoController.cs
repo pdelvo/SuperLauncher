@@ -11,7 +11,7 @@ using System.Configuration;
 
 namespace web.Controllers
 {
-    public class WebController : Controller
+    public class RepoController : Controller
     {
         [Authorize]
         public ActionResult Index()
