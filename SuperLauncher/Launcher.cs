@@ -30,6 +30,7 @@ namespace SuperLauncher
             InitializeComponent();
             ManualInitialize();
             webBrowser.Navigate("http://www.slreposervice.com");
+            webBrowser.Navigating += webBrowser_Navigating;
             UpdateVersion = false;
             // Populate username/password
             var login = Minecraft.GetLastLogin();
@@ -42,6 +43,15 @@ namespace SuperLauncher
             client.OpenReadCompleted += client_OpenReadCompleted;
             client.OpenReadAsync(new Uri("http://status.mojang.com/check"));
             GetJars();
+        }
+
+        void webBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            if (e.Url.Host != "www.slreposervice.com")
+            {
+                Process.Start(e.Url.ToString());
+                e.Cancel = true;
+            }
         }
 
 #if WINDOWS
@@ -68,20 +78,6 @@ namespace SuperLauncher
             webBrowser.Size = new Size(885, 477);
             webBrowser.TabIndex = 9;
             Controls.Add(webBrowser);
-        }
-
-        void repoWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-        {
-            if (e.Url.Scheme == "http" && e.Url.Host != "www.slreposervice.com")
-            {
-                Process.Start(e.Url.ToString());
-                e.Cancel = true;
-            }
-            else if (e.Url.Scheme == "install")
-            {
-                var installer = new PackageInstaller(int.Parse(e.Url.Host));
-                installer.ShowDialog();
-            }
         }
 
         private class MinecraftJar
@@ -131,8 +127,8 @@ namespace SuperLauncher
 
         private void DoInitialUpdate()
         {
-            logInButton.Visible = false;
-            // TODO: Visual indication of this activity
+            logInPanel.Visible = false;
+            updatePanel.Visible = true;
             new Thread(DownloadMinecraft).Start();
         }
 

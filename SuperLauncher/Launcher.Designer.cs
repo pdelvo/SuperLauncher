@@ -105,7 +105,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel1.BackgroundImage = global::SuperLauncher.Properties.Resources.ice;
+            this.panel1.BackgroundImage = global::SuperLauncher.Properties.Resources.birchwood;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.updatePanel);
             this.panel1.Controls.Add(this.logInPanel);
@@ -123,7 +123,7 @@
             this.updatePanel.BackColor = System.Drawing.Color.Transparent;
             this.updatePanel.Controls.Add(this.label1);
             this.updatePanel.Controls.Add(this.updateProgressBar);
-            this.updatePanel.Location = new System.Drawing.Point(325, 5);
+            this.updatePanel.Location = new System.Drawing.Point(325, 1);
             this.updatePanel.Name = "updatePanel";
             this.updatePanel.Size = new System.Drawing.Size(554, 28);
             this.updatePanel.TabIndex = 10;
@@ -133,7 +133,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(58, 5);
+            this.label1.Location = new System.Drawing.Point(58, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(141, 20);
             this.label1.TabIndex = 1;
@@ -157,7 +157,7 @@
             this.logInPanel.Controls.Add(this.loginFailedLabel);
             this.logInPanel.Controls.Add(this.passwordTextBox);
             this.logInPanel.Controls.Add(this.usernameTextBox);
-            this.logInPanel.Location = new System.Drawing.Point(325, 5);
+            this.logInPanel.Location = new System.Drawing.Point(325, 1);
             this.logInPanel.Name = "logInPanel";
             this.logInPanel.Size = new System.Drawing.Size(554, 28);
             this.logInPanel.TabIndex = 10;
