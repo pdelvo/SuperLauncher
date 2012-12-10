@@ -27,14 +27,14 @@
             @{Html.RenderPartial("Search");}
             @if (Model.ParentCategory != null)
             {
-                <a href="/category/@Model.ParentCategory.Name">Back to @Model.ParentCategory.Name</a>
+                <a href="/category/@Model.ParentCategory.Id">Back to @Model.ParentCategory.Name</a>
             }
             @if (Model.Subcategories.Any())
             {
                 <h3>Categories</h3>
                 foreach (var category in Model.Subcategories)
                 {
-                    <a class="subcategory" href="@Model.RootPath@category.Name">@category.Name</a>
+                    <a class="subcategory" href="/category/@category.Id">@category.Name</a>
                 }
             }
         </div>
@@ -43,7 +43,7 @@
 <div class="row">
     @if (Model.Items.Any())
     {
-        <div class="item-list">
+        <div class="item-list span12">
         @foreach (var item in @Model.Items)
         {
             <div class="item">

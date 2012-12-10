@@ -72,14 +72,12 @@ namespace web.Controllers
                 AddDependencies(collection, dependency.Provider);
         }
 
-        public ActionResult Category(string id)
+        public ActionResult Category(int id)
         {
-            var categories = id.Split('/');
-            id = categories.Last();
             var viewModel = new CategoryViewModel();
             using (var database = new DatabaseEntities())
             {
-                var category = database.CategoryByName(id);
+                var category = database.CategoryById(id);
                 if (category == null)
                     return HttpNotFound();
                 viewModel = new CategoryViewModel(category);
