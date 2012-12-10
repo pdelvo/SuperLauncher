@@ -1,4 +1,29 @@
 ﻿body {
     background: url('images/darkstone.png');
     color: #fff;
+    overflow-y: scroll;
+}
+
+#tab-nav {
+    list-style: none;
+    margin: 0;
+    margin: 20px 0;
+    font-size: 24pt;
+}
+
+#tab-nav > li {
+    display: inline;
+}
+
+#tab-nav > li a {
+    color: #aaa;
+    text-decoration: none;
+}
+
+#tab-nav > li a:hover {
+    color: #ccc;
+}
+
+#tab-nav > li a.selected {
+    color: #fff;
 }

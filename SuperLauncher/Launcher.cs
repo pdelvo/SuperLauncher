@@ -164,7 +164,7 @@ namespace SuperLauncher
         {
             if (e.Error != null)
             {
-                SetServiceStatusAsync("Unable to fetch status.", Color.DarkRed);
+                SetServiceStatusAsync("Unable to fetch status.", false);
                 return;
             }
             var reader = new StreamReader(e.Result);
@@ -185,7 +185,7 @@ namespace SuperLauncher
                 }
             }
             if (website && login && session && account && auth && skins)
-                SetServiceStatusAsync("All services online.", Color.DarkGreen);
+                SetServiceStatusAsync("All services online.", true);
             else
             {
                 string status = "Some services offline: ";
@@ -195,7 +195,7 @@ namespace SuperLauncher
                 if (!account) status += "Account, ";
                 if (!auth) status += "Auth, ";
                 if (!skins) status += "Skins, ";
-                SetServiceStatusAsync(status.Remove(status.Length - 2), Color.DarkRed);
+                SetServiceStatusAsync(status.Remove(status.Length - 2), false);
             }
         }
 
@@ -262,15 +262,14 @@ namespace SuperLauncher
             }
         }
 
-        private void SetServiceStatusAsync(string status, Color color)
+        private void SetServiceStatusAsync(string status, bool good)
         {
             if (this.InvokeRequired)
-                this.Invoke(new Action(() => SetServiceStatusAsync(status, color)));
+                this.Invoke(new Action(() => SetServiceStatusAsync(status, good)));
             else
             {
-                serviceStatusLabel.ForeColor = color;
                 serviceStatusLabel.Text = status;
-                if (color == Color.DarkGreen)
+                if (good)
                     statusIcon.Image = global::SuperLauncher.Properties.Resources.green;
             }
         }

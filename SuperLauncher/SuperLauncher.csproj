@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="commandBlock.ico" />
+    <None Include="Resources\clay.png" />
     <None Include="Resources\birchwood.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

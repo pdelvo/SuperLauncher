@@ -6,13 +6,39 @@
 
 <div class="row">
     @*Navigation*@
+    <ul id="tab-nav">
+        <li><img src="/Content/images/commandBlock.png" /></li>
+        <li><a href="#mc-update" class="selected">Updates</a></li>
+        <li><a href="#content">Content</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><a href="#settings">Settings</a></li>
+    </ul>
 </div>
-<div class="row" id="mcupdate">
+<div class="row tab" id="mc-update">
     @foreach (var update in @Model.MinecraftUpdates)
     {
-        <div class="mc-update">
-            <h3><a href="@update.Link">@update.Name</a></h3>
+        <div class="update-post">
+            <h4><a href="@update.Link">@update.Name</a></h4>
             @Html.Raw(update.Html)
         </div>
     }
 </div>
+<div class="row tab hidden" id="content">
+    <p>Content</p>
+</div>
+<div class="row tab hidden" id="community">
+    <p>Community</p>
+</div>
+<div class="row tab hidden" id="settings">
+    <p>Settings</p>
+</div>
+
+<script type="text/javascript">
+    $("#tab-nav li a").click(function (e) {
+        $("#tab-nav li a").removeClass("selected");
+        $(this).addClass("selected");
+        e.preventDefault();
+        $(".tab").addClass("hidden");
+        $($(this).attr("href")).removeClass("hidden");
+    });
+</script>
