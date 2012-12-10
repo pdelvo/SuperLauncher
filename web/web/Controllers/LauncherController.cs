@@ -22,6 +22,10 @@ namespace web.Controllers
             using (var database = new DatabaseEntities())
             {
                 viewModel.SelectedCategory = new CategoryViewModel(database.CategoryByName("Maps"));
+                var topLevelCategories = database.Categories.Where(c => c.Parent == null);
+                viewModel.TopLevelCategories = new List<CategoryViewModel>();
+                foreach (var category in topLevelCategories)
+                    viewModel.TopLevelCategories.Add(new CategoryViewModel(category));
             }
             return View(viewModel);
         }
@@ -78,12 +82,7 @@ namespace web.Controllers
                 var category = database.CategoryByName(id);
                 if (category == null)
                     return HttpNotFound();
-                viewModel.Name = category.Name;
-                if (category.Featured != null)
-                    viewModel.FeaturedItem = new ItemViewModel(category.Featured);
-
-                viewModel.Subcategories = new List<Category>(category.Children);
-                viewModel.ParentCategory = category.ParentCategory;
+                viewModel = new CategoryViewModel(category);
             }
             return View(viewModel);
         }

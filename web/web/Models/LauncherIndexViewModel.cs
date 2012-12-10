@@ -9,5 +9,6 @@ namespace web.Models
     {
         public List<MCUpdate.Update> MinecraftUpdates { get; set; }
         public CategoryViewModel SelectedCategory { get; set; }
+        public List<CategoryViewModel> TopLevelCategories { get; set; }
     }
 }

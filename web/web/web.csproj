@@ -173,7 +173,7 @@
     <Content Include="Content\images\log.png" />
     <Content Include="Content\images\stone.png" />
     <Content Include="Content\images\water.png" />
-    <Content Include="Content\launcher.bootstrap.min.css" />
+    <Content Include="Content\launcher.bootstrap.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\launcher.css" />
     <Content Include="Areas\Administration\Views\Web.config" />

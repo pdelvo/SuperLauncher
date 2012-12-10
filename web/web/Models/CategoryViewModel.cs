@@ -15,18 +15,19 @@ namespace web.Models
             if (category.Featured != null)
                 FeaturedItem = new ItemViewModel(category.Featured);
             Items = new List<ItemViewModel>(category.Items.Select(i => new ItemViewModel(i)));
+            Subcategories = new List<CategoryViewModel>(category.Children.Select(c => new CategoryViewModel(c)));
             Id = category.Id;
         }
 
         public CategoryViewModel()
         {
-            Subcategories = new List<Category>();
+            Subcategories = new List<CategoryViewModel>();
             Items = new List<ItemViewModel>();
         }
 
         public string Name { get; set; }
         public ItemViewModel FeaturedItem { get; set; }
-        public List<Category> Subcategories { get; set; }
+        public List<CategoryViewModel> Subcategories { get; set; }
         public Category ParentCategory { get; set; }
         public string RootPath { get; set; }
         public List<ItemViewModel> Items { get; set; }

@@ -2,22 +2,28 @@
 @{
     var page = 0;
 }
-<div class="row">
-    <div class="span10">
+<div class="row" style="height: 350px;">
+    <div class="span9">
         @if (Model.FeaturedItem != null)
         {
             <h2 class="feature">@Model.FeaturedItem.Name</h2>
-            <img src="@Model.FeaturedItem.ImageUrl" alt="@Model.FeaturedItem.Name" />
-            <div>@Html.Raw(Model.FeaturedItem.DescriptionHtml)</div>
-            <a class="download" href="@Model.FeaturedItem.DetailedUrl">Download</a>
+            <div class="row">
+                <div class="span6">
+                    <img src="@Model.FeaturedItem.ImageUrl" alt="@Model.FeaturedItem.Name" />
+                </div>
+                <div class="span3">
+                    <div>@Html.Raw(Model.FeaturedItem.DescriptionHtml)</div>
+                    <a class="btn btn-primary btn-block" href="@Model.FeaturedItem.DetailedUrl">Download</a>
+                </div>
+            </div>
         }
         else
         {
             <h2>@Model.Name</h2>
         }
     </div>
-    <div class="span2">
-        <div>
+    <div class="span3">
+        <div class="category-list">
             @{Html.RenderPartial("Search");}
             @if (Model.ParentCategory != null)
             {
@@ -25,28 +31,28 @@
             }
             @if (Model.Subcategories.Any())
             {
-                <h2>Categories</h2>
-                <ul>
-                    @foreach (var category in Model.Subcategories)
-                    {
-                        <li><a href="@Model.RootPath@category.Name">@category.Name</a></li>
-                    }
-                </ul>
+                <h3>Categories</h3>
+                foreach (var category in Model.Subcategories)
+                {
+                    <a class="subcategory" href="@Model.RootPath@category.Name">@category.Name</a>
+                }
             }
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="span12">
-        @if (Model.Items.Any())
+    @if (Model.Items.Any())
+    {
+        <div class="item-list">
+        @foreach (var item in @Model.Items)
         {
-            <ul class="item-list">
-            @foreach (var item in @Model.Items)
-            {
-                @*TODO: Expand on this (maybe add short description to db)*@
-                <li><a href="/item/@item.Id">@item.Name</a></li>
-            }
-            </ul>
+            <div class="item">
+                <h3><a href="/item/@item.Id">@item.Name</a></h3>
+                @Html.Raw(item.DescriptionHtml)
+                <a class="btn btn-primary pull-right" href="@item.DetailedUrl">Download</a>
+                <div class="clearfix"></div>
+            </div>
         }
-    </div>
+        </div>
+    }
 </div>

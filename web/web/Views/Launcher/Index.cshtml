@@ -6,7 +6,7 @@
 
 <div class="row">
     @*Navigation*@
-    <ul id="tab-nav">
+    <ul class="tab-nav" data-tab-group="#main-tabs">
         <li><img src="/Content/images/commandBlock.png" /></li>
         <li><a href="#mc-update" class="selected">Updates</a></li>
         <li><a href="#content">Content</a></li>
@@ -14,31 +14,40 @@
         <li><a href="#settings">Settings</a></li>
     </ul>
 </div>
-<div class="row tab" id="mc-update">
-    @foreach (var update in @Model.MinecraftUpdates)
-    {
-        <div class="update-post">
-            <h4><a href="@update.Link">@update.Name</a></h4>
-            @Html.Raw(update.Html)
-        </div>
-    }
-</div>
-<div class="row tab hidden" id="content">
-    @{Html.RenderPartial("Category", Model.SelectedCategory);}
-</div>
-<div class="row tab hidden" id="community">
-    <p>Community</p>
-</div>
-<div class="row tab hidden" id="settings">
-    <p>Settings</p>
+<div class="tab-group" id="main-tabs">
+    <div class="row tab" id="mc-update">
+        @foreach (var update in @Model.MinecraftUpdates)
+        {
+            <div class="update-post">
+                <h4><a href="@update.Link">@update.Name</a></h4>
+                @Html.Raw(update.Html)
+            </div>
+        }
+    </div>
+    <div class="row tab hidden" id="content">
+        <ul class="tab-nav small">
+            @foreach (var category in Model.TopLevelCategories)
+            {
+                <li><a class="@(category.Id == Model.SelectedCategory.Id ? "selected" : "")" href="#category-@category.Name">@category.Name</a></li>
+            }
+        </ul>
+        @{Html.RenderPartial("Category", Model.SelectedCategory);}
+    </div>
+    <div class="row tab hidden" id="community">
+        <p>Community</p>
+    </div>
+    <div class="row tab hidden" id="settings">
+        <p>Settings</p>
+    </div>
 </div>
 
 <script type="text/javascript">
-    $("#tab-nav li a").click(function (e) {
-        $("#tab-nav li a").removeClass("selected");
+    $(".tab-nav li a").click(function (e) {
+        var tabList = $(this).parent().parent();
+        tabList.find("a").removeClass("selected");
         $(this).addClass("selected");
         e.preventDefault();
-        $(".tab").addClass("hidden");
+        $(tabList.attr("data-tab-group")).children(".tab").addClass("hidden");
         $($(this).attr("href")).removeClass("hidden");
     });
 </script>
