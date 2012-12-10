@@ -104,8 +104,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel1.BackgroundImage = global::SuperLauncher.Properties.Resources.birchwood;
+            this.panel1.BackColor = System.Drawing.Color.LightGray;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.updatePanel);
             this.panel1.Controls.Add(this.logInPanel);
