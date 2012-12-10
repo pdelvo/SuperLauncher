@@ -286,7 +286,7 @@ namespace web.Controllers
                 database.SaveChanges();
             }
 
-            return RedirectToAction("Index", "Web");
+            return RedirectToAction("Index", "Repo");
         }
 
         private string GetLocalPathForBlob(BlobViewModel blob, ItemInProgress item)
@@ -476,6 +476,19 @@ namespace web.Controllers
                 database.SaveChanges();
             }
             return Redirect("/Administration/Backlog");
+        }
+
+        public ActionResult Search(string query)
+        {
+            List<ItemViewModel> items = new List<ItemViewModel>();
+            using (var database = new DatabaseEntities())
+            {
+                var results = database.Items.Where(i => i.Name.ToUpper().Contains(query.ToUpper()) ||
+                    i.Description.ToUpper().Contains(query.ToUpper()));
+                foreach (var result in results)
+                    items.Add(new ItemViewModel(result));
+            }
+            return Json(items, JsonRequestBehavior.AllowGet);
         }
     }
 }

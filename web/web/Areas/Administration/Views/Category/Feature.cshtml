@@ -1,0 +1,9 @@
+﻿@model web.Models.CategoryViewModel
+@{
+    ViewBag.Title = "Feature";
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Set Featured Item</h2>
+
+@{ Html.RenderPartial("ItemSearch", "/Administration/Category/SetFeature?id=" + @Model.Id + "&item="); }

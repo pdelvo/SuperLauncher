@@ -100,5 +100,25 @@ namespace web.Areas.Administration.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Feature(int Id)
+        {
+            using (var database = new DatabaseEntities())
+            {
+                var category = database.CategoryById(Id);
+                return View(new CategoryViewModel(category));
+            }
+        }
+
+        public ActionResult SetFeature(int Id, int Item)
+        {
+            using (var database = new DatabaseEntities())
+            {
+                var category = database.CategoryById(Id);
+                category.FeaturedItem = Item;
+                database.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

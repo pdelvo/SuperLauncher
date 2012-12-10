@@ -177,6 +177,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\launcher.css" />
     <Content Include="Areas\Administration\Views\Web.config" />
+    <Content Include="Areas\Administration\Views\Category\Feature.cshtml" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -239,6 +240,8 @@
     <Content Include="Views\Item\Delete.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
     <Content Include="Views\Launcher\Index.cshtml" />
+    <Content Include="Views\Shared\Category.cshtml" />
+    <Content Include="Views\Shared\ItemSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -246,12 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Launcher\Item.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Launcher\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Search.cshtml" />

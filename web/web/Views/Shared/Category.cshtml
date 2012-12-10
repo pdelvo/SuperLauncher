@@ -1,10 +1,9 @@
 ﻿@model web.Models.CategoryViewModel
 @{
     var page = 0;
-    Layout = "~/Views/Shared/LauncherLayout.cshtml";
 }
-<div>
-    <div class="main-feature">
+<div class="row">
+    <div class="span10">
         @if (Model.FeaturedItem != null)
         {
             <h2 class="feature">@Model.FeaturedItem.Name</h2>
@@ -16,18 +15,8 @@
         {
             <h2>@Model.Name</h2>
         }
-        @if (Model.Items.Any())
-        {
-            <ul class="item-list">
-            @foreach (var item in @Model.Items)
-            {
-                @*TODO: Expand on this (maybe add short description to db)*@
-                <li><a href="/item/@item.Id">@item.Name</a></li>
-            }
-            </ul>
-        }
     </div>
-    <div class="category-list">
+    <div class="span2">
         <div>
             @{Html.RenderPartial("Search");}
             @if (Model.ParentCategory != null)
@@ -45,5 +34,19 @@
                 </ul>
             }
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        @if (Model.Items.Any())
+        {
+            <ul class="item-list">
+            @foreach (var item in @Model.Items)
+            {
+                @*TODO: Expand on this (maybe add short description to db)*@
+                <li><a href="/item/@item.Id">@item.Name</a></li>
+            }
+            </ul>
+        }
     </div>
 </div>

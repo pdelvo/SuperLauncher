@@ -26,6 +26,7 @@ namespace web.Controllers
                         i.UpdatesItem == null
                     select i);
             }
+            
             return View(viewModel);
         }
 

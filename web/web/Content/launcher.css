@@ -27,3 +27,8 @@
 #tab-nav > li a.selected {
     color: #fff;
 }
+
+iframe {
+    border: none;
+    width: 100%;
+}

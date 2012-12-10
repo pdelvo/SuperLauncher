@@ -20,6 +20,7 @@ else
                     <a href="#rename-modal" data-toggle="modal" data-category="@category.Id" data-category-name="@category.Name"
                         class="rename-button"><i class="icon-edit"></i></a>
                     <a href="/Administration/Category/Add?parent=@category.Id"><i class="icon-plus"></i></a>
+                    <a href="/Administration/Category/Feature/@category.Id"><i class="icon-star"></i></a>
                     @category.Name
                 </div>
                 @if (category.Subcategories.Any())
@@ -74,6 +75,7 @@ else
         <a href="#rename-modal" data-toggle="modal" data-category="@category.Id" data-category-name="@category.Name"
                         class="rename-button"><i class="icon-edit"></i></a>
         <a href="/Administration/Category/Add?parent=@category.Id"><i class="icon-plus"></i></a>
+        <a href="/Administration/Category/Feature/@category.Id"><i class="icon-star"></i></a>
         @category.Name
     </div>
     if (category.Subcategories.Any())

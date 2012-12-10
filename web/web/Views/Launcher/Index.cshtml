@@ -24,7 +24,7 @@
     }
 </div>
 <div class="row tab hidden" id="content">
-    <p>Content</p>
+    @{Html.RenderPartial("Category", Model.SelectedCategory);}
 </div>
 <div class="row tab hidden" id="community">
     <p>Community</p>

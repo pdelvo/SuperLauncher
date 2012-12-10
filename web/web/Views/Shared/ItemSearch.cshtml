@@ -1,0 +1,26 @@
+﻿@model string
+<fieldset>
+    <legend>Search</legend>
+    <div class="input-append input-prepend">
+        <span class="add-on">Find Content</span>
+        <input type="text" placeholder="Query" name="q" id="search-text" />
+        <button class="btn" type="button" id="search-button">Search</button>
+    </div>
+</fieldset>
+<table id="search-results" class="table table-hover">
+    
+</table>
+<script type="text/javascript">
+    $("#search-button").click(function () {
+        $.get('/Item/Search?query=' + $("#search-text").val(), function (response) {
+            var elements = "";
+            for (var i = 0; i < response.length; i++) {
+                var element = "<tr>";
+                element += "<td><a href='@(Model)" + response[i].Id + "'>" + response[i].Name + "</a></td>";
+                element += "</td>";
+                elements += element;
+            }
+            $("#search-results").html(elements);
+        });
+    });
+</script>

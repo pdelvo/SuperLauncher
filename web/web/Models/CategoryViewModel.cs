@@ -9,10 +9,19 @@ namespace web.Models
 {
     public class CategoryViewModel
     {
+        public CategoryViewModel(Category category) : this()
+        {
+            Name = category.Name;
+            if (category.Featured != null)
+                FeaturedItem = new ItemViewModel(category.Featured);
+            Items = new List<ItemViewModel>(category.Items.Select(i => new ItemViewModel(i)));
+            Id = category.Id;
+        }
+
         public CategoryViewModel()
         {
             Subcategories = new List<Category>();
-            Items = new List<Item>();
+            Items = new List<ItemViewModel>();
         }
 
         public string Name { get; set; }
@@ -20,6 +29,7 @@ namespace web.Models
         public List<Category> Subcategories { get; set; }
         public Category ParentCategory { get; set; }
         public string RootPath { get; set; }
-        public List<Item> Items { get; set; }
+        public List<ItemViewModel> Items { get; set; }
+        public int Id { get; set; }
     }
 }

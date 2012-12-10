@@ -16,9 +16,13 @@ namespace web.Controllers
         public ActionResult Index()
         {
             var viewModel = new LauncherIndexViewModel();
-            if ((DateTime.Now - MCUpdate.LastFetch).Minutes > 10)
+            if ((DateTime.Now - MCUpdate.LastFetch).TotalMinutes > 10)
                 MCUpdate.Fetch();
             viewModel.MinecraftUpdates = MCUpdate.Updates;
+            using (var database = new DatabaseEntities())
+            {
+                viewModel.SelectedCategory = new CategoryViewModel(database.CategoryByName("Maps"));
+            }
             return View(viewModel);
         }
 
@@ -77,8 +81,6 @@ namespace web.Controllers
                 viewModel.Name = category.Name;
                 if (category.Featured != null)
                     viewModel.FeaturedItem = new ItemViewModel(category.Featured);
-
-                viewModel.Items = new List<Item>(category.Items.Skip(0).Take(10)); // TODO: Pagination
 
                 viewModel.Subcategories = new List<Category>(category.Children);
                 viewModel.ParentCategory = category.ParentCategory;
