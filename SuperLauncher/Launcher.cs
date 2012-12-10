@@ -29,7 +29,7 @@ namespace SuperLauncher
             CheckStructure();
             InitializeComponent();
             ManualInitialize();
-            webBrowser.Navigate("http://mcupdate.tumblr.com");
+            webBrowser.Navigate("http://www.slreposervice.com");
             UpdateVersion = false;
             // Populate username/password
             var login = Minecraft.GetLastLogin();
@@ -65,7 +65,7 @@ namespace SuperLauncher
             webBrowser.IsWebBrowserContextMenuEnabled = false;
             webBrowser.Location = new Point(0, 0);
             webBrowser.Name = "webBrowser";
-            webBrowser.Size = new Size(856, 470);
+            webBrowser.Size = new Size(885, 477);
             webBrowser.TabIndex = 9;
             Controls.Add(webBrowser);
         }

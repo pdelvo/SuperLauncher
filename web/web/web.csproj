@@ -44,6 +44,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=2.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -121,11 +124,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\LauncherController.cs" />
-    <Compile Include="Controllers\WebController.cs" />
+    <Compile Include="Controllers\RepoController.cs" />
+    <Compile Include="MCUpdate.cs" />
     <Compile Include="Models\AddItemViewModel.cs" />
     <Compile Include="Models\BacklogItem.cs" />
     <Compile Include="Models\BacklogViewModel.cs" />
     <Compile Include="Models\ItemInProgress.cs" />
+    <Compile Include="Models\LauncherIndexViewModel.cs" />
     <Compile Include="Models\NestedCategoryDescriptor.cs" />
     <Compile Include="Models\ReviewItemViewModel.cs" />
     <Compile Include="Models\WebIndexViewModel.cs" />
@@ -163,6 +168,7 @@
     <Content Include="Content\global.css" />
     <Content Include="Content\images\commandBlock.png" />
     <Content Include="Content\images\background.png" />
+    <Content Include="Content\images\darkstone.png" />
     <Content Include="Content\images\featured.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
@@ -228,12 +234,13 @@
     <Content Include="Areas\Administration\Views\Backlog\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Category\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Category\Add.cshtml" />
-    <Content Include="Views\Web\Contact.cshtml" />
+    <Content Include="Views\Repo\Contact.cshtml" />
     <Content Include="Views\Item\AddMap.cshtml" />
     <Content Include="Views\Item\Dependencies.cshtml" />
     <Content Include="Views\Item\ReviewItem.cshtml" />
     <Content Include="Views\Item\Delete.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
+    <Content Include="Views\Launcher\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -255,7 +262,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Web\Index.cshtml" />
+    <Content Include="Views\Repo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.cshtml" />

@@ -112,9 +112,9 @@
             this.panel1.Controls.Add(this.statusIcon);
             this.panel1.Controls.Add(this.serviceStatusLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 468);
+            this.panel1.Location = new System.Drawing.Point(0, 476);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(856, 36);
+            this.panel1.Size = new System.Drawing.Size(884, 36);
             this.panel1.TabIndex = 8;
             // 
             // updatePanel
@@ -123,7 +123,7 @@
             this.updatePanel.BackColor = System.Drawing.Color.Transparent;
             this.updatePanel.Controls.Add(this.label1);
             this.updatePanel.Controls.Add(this.updateProgressBar);
-            this.updatePanel.Location = new System.Drawing.Point(297, 5);
+            this.updatePanel.Location = new System.Drawing.Point(325, 5);
             this.updatePanel.Name = "updatePanel";
             this.updatePanel.Size = new System.Drawing.Size(554, 28);
             this.updatePanel.TabIndex = 10;
@@ -157,7 +157,7 @@
             this.logInPanel.Controls.Add(this.loginFailedLabel);
             this.logInPanel.Controls.Add(this.passwordTextBox);
             this.logInPanel.Controls.Add(this.usernameTextBox);
-            this.logInPanel.Location = new System.Drawing.Point(297, 5);
+            this.logInPanel.Location = new System.Drawing.Point(325, 5);
             this.logInPanel.Name = "logInPanel";
             this.logInPanel.Size = new System.Drawing.Size(554, 28);
             this.logInPanel.TabIndex = 10;
@@ -194,7 +194,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SuperLauncher.Properties.Resources.darkstone;
-            this.ClientSize = new System.Drawing.Size(856, 504);
+            this.ClientSize = new System.Drawing.Size(884, 512);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Black;

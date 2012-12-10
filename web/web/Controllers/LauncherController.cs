@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
+using HtmlAgilityPack;
 using MarkdownSharp;
 using web.Models;
 using web.Service.Model;
@@ -11,6 +14,15 @@ namespace web.Controllers
 {
     public class LauncherController : Controller
     {
+        public ActionResult Index()
+        {
+            var viewModel = new LauncherIndexViewModel();
+            if ((DateTime.Now - MCUpdate.LastFetch).Minutes > 10)
+                MCUpdate.Fetch();
+            viewModel.MinecraftUpdates = MCUpdate.Updates;
+            return View(viewModel);
+        }
+
         public ActionResult Item(int id)
         {
             ItemViewModel viewModel;

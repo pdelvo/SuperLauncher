@@ -1,0 +1,18 @@
+﻿@model web.Models.LauncherIndexViewModel
+@{
+    ViewBag.Title = "SuperLauncher";
+    Layout = "~/Views/Shared/LauncherLayout.cshtml";
+}
+
+<div class="row">
+    @*Navigation*@
+</div>
+<div class="row" id="mcupdate">
+    @foreach (var update in @Model.MinecraftUpdates)
+    {
+        <div class="mc-update">
+            <h3><a href="@update.Link">@update.Name</a></h3>
+            @Html.Raw(update.Html)
+        </div>
+    }
+</div>

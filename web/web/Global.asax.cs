@@ -30,13 +30,7 @@ namespace web
             routes.MapRoute(
                 "Web Routes",
                 "{controller}/{action}/{*id}",
-                new { controller = "Web", action="Index", id = UrlParameter.Optional });
-
-            routes.MapRoute(
-                "Launcher Routes", // Route name
-                "launcher/{action}/{*id}", // URL with parameters
-                new { controller = "Launcher", id = UrlParameter.Optional }
-            );
+                new { controller = "Launcher", action="Index", id = UrlParameter.Optional });
         }
 
         protected void Application_Start()
