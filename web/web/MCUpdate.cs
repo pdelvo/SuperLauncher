@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Xml.Linq;
 using HtmlAgilityPack;
 
 namespace web
@@ -22,19 +23,16 @@ namespace web
         {
             LastFetch = DateTime.Now;
             var client = new WebClient();
-            var document = new HtmlDocument();
-            document.LoadHtml(client.DownloadString("http://mcupdate.tumblr.com"));
-            var body = document.DocumentNode.Descendants("body").First();
-            var posts = body.Descendants("div").Where(n => n.Attributes["class"] != null &&
-                n.Attributes["class"].Value == "post text");
-            foreach (var post in posts)
+            var rss = client.DownloadString("http://mcupdate.tumblr.com/rss");
+            var document = XDocument.Parse(rss);
+            var dc = XNamespace.Get("http://purl.org/dc/elements/1.1/");
+            Updates = new List<Update>();
+            foreach (var item in document.Root.Element("channel").Elements("item"))
             {
                 var update = new Update();
-                update.Name = post.Descendants("h3").First().Descendants("a").First().InnerText;
-                update.Link = post.Descendants("h3").First().Descendants("a").First().Attributes["href"].Value;
-                update.Html = "";
-                foreach (var p in post.Descendants("p"))
-                    update.Html += "<p>" + HttpUtility.HtmlDecode(p.InnerHtml) + "</p>" + Environment.NewLine;
+                update.Name = item.Element("title").Value;
+                update.Link = item.Element("link").Value;
+                update.Html = HttpUtility.HtmlDecode(item.Element("description").Value);
                 Updates.Add(update);
             }
         }
