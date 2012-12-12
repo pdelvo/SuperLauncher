@@ -28,7 +28,7 @@ namespace web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapHttpRoute("Default API Route",
+            routes.MapHttpRoute("API Routes",
               "api/1.0/{controller}/{id}",
               new
               {

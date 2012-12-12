@@ -25,45 +25,13 @@ namespace web.Api
                     .Select(m => new CategoryModel
                                      {
                                          Name = m.Name,
-                                         Parent = m.Parent == null ? null : Url.Route("Default API Route", new { controller = "Category", id = m.Parent }),
-                                         Featured =  m.FeaturedItem == null ? null : Url.Route("Default API Route", new { controller = "CategoryItem", id = m.FeaturedItem }),
-                                         Items = Url.Route("Default API Route", new { controller = "CategoryItem", categoryId = m.Id }),
-                                         Children = Url.Route("Default API Route", new{ controller = "Category", id = m.Id})
+                                         Parent = m.Parent == null ? null : Url.Route("API Routes", new { controller = "Category", id = m.Parent }),
+                                         Featured =  m.FeaturedItem == null ? null : Url.Route("API Routes", new { controller = "CategoryItem", id = m.FeaturedItem }),
+                                         Items = Url.Route("API Routes", new { controller = "CategoryItem", categoryId = m.Id }),
+                                         Children = Url.Route("API Routes", new{ controller = "Category", id = m.Id})
                                      }).ToList ();
                 return new CategoryModelCollection(result);
             }
-        }
-    }
-    [DataContract(Name = "category")]
-    public class CategoryModel
-    {
-        [DataMember]
-        public string Name { get; set; }
-
-        [DataMember]
-        public string Parent { get; set; }
-
-        [DataMember]
-        public string Featured { get; set; }
-
-        [DataMember]
-        public string Children { get; set; }
-
-        [DataMember]
-        public string Items { get; set; }
-    }
-
-    [CollectionDataContract(Name = "categories", Namespace = "")]
-    public class CategoryModelCollection : Collection<CategoryModel>
-    {
-        public CategoryModelCollection()
-        {
-
-        }
-        public CategoryModelCollection(IList<CategoryModel> updates)
-            : base(updates)
-        {
-
         }
     }
 }
