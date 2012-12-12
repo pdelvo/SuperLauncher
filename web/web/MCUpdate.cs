@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Web;
 using System.Xml.Linq;
 
@@ -36,10 +38,16 @@ namespace web
             }
         }
 
+        [DataContract(Name="update", Namespace = "")]
         public class Update
         {
+            [DataMember(Name = "name")]
             public string Name { get; set; }
+
+            [DataMember(Name = "html")]
             public string Html { get; set; }
+
+            [DataMember(Name = "link")]
             public string Link { get; set; }
         }
     }
