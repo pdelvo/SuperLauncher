@@ -133,8 +133,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CategoryController.cs" />
-    <Compile Include="Models\DetailItem.cs" />
-    <Compile Include="Api\DetailItemController.cs" />
+    <Compile Include="Models\DetailedItem.cs" />
+    <Compile Include="Api\DetailedItemController.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\UpdatesCollection.cs" />
     <Compile Include="Api\UpdatesController.cs" />

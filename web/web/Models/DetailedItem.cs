@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace web.Models
 {
     [DataContract(Name = "item")]
-    public class DetailItem
+    public class DetailedItem
     {
         [DataMember]
         public int Id { get; set; }
@@ -45,13 +45,13 @@ namespace web.Models
     }
 
     [CollectionDataContract(Name = "items", Namespace = "")]
-    public class DetailItemCollection : Collection<DetailItem>
+    public class DetailedItemCollection : Collection<DetailedItem>
     {
-        public DetailItemCollection()
+        public DetailedItemCollection()
         {
 
         }
-        public DetailItemCollection(IList<DetailItem> updates)
+        public DetailedItemCollection(IList<DetailedItem> updates)
             : base(updates)
         {
 

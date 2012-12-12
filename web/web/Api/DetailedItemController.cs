@@ -9,26 +9,26 @@ using web.Service.Model;
 
 namespace web.Api
 {
-    public class DetailItemController : ApiController
+    public class DetailedItemController : ApiController
     {
         //
-        // GET: /Api/{version}/CategoryItem?categoryId={id}
+        // GET: /Api/{version}/DetailedItem?categoryId={id}
         [ActionName("Get")]
-        public DetailItemCollection GetList(int categoryId)
+        public DetailedItemCollection GetList(int categoryId)
         {
             using (var database = new DatabaseEntities())
             {
                 var category = database.CategoryById(categoryId);
                 if (category == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
-                return new DetailItemCollection(category.Items.ToArray().Select(GetModel).ToList());
+                return new DetailedItemCollection(category.Items.ToArray().Select(GetModel).ToList());
             }
             
         }
 
         //
-        // GET: /Api/{version}/CategoryItem/{id}
-        public DetailItem Get(int id)
+        // GET: /Api/{version}/DetailedItem/{id}
+        public DetailedItem Get(int id)
         {
             using (var database = new DatabaseEntities())
             {
@@ -39,9 +39,9 @@ namespace web.Api
             }
         }
 
-        private DetailItem GetModel(Item item)
+        private DetailedItem GetModel(Item item)
         {
-            return new DetailItem
+            return new DetailedItem
                        {
                            Id = item.Id,
                            Category = Url.Route("API Routes", new { controller = "Category", id = item.CategoryId }),
